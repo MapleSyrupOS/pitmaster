@@ -1,0 +1,9 @@
+# The adr-plus release that skills/makeadr/adr-plus/ is a copy of (ADR+ spec S7, pitmaster ADR-005).
+# scripts/check-pins.py reads this file (manifest mode); scripts/check-all.py runs that check.
+#
+# Moving to a new release is one deliberate commit that replaces the copy, its MANIFEST.sha256 and this pin.
+source: MapleSyrupOS/adr-plus
+version: 0.1.0
+ref-kind: tag
+ref: v0.1.0
+manifest-sha256: ce3e723ec6eeae0cf29674a02ae077b0383662d89a85e8ea9af1839ffbda5691

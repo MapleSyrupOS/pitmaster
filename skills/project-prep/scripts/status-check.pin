@@ -1,0 +1,7 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.1.0
+ref-kind: tag
+ref: v0.1.0
+file: faa3ef7cdbb6e6155cba5a9112a5580b4805022bf7230a57179cc15edfbf3780  status-check.py  status-check/status-check.py

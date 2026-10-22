@@ -1,0 +1,7 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.1.0
+ref-kind: tag
+ref: v0.1.0
+file: a9de59e45d4abc3a4f8ca18f537a250f41426076121f5b0c05a51dea50cca941  adr-index.py  adr-index/adr-index.py

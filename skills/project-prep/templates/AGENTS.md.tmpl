@@ -1,0 +1,29 @@
+# AGENTS.md — {{project}}
+
+Read this first, every session. Every agent reads this file; `CLAUDE.md` points here.
+
+## What this project is
+{{what}}
+
+## Doctrine
+{{doctrine}}
+<!-- If no doctrine was given: "None yet. The owner sets one; agents do not invent it." -->
+
+## Where things live
+- `STATUS.md` — where we are right now. Short. Update it at the end of each session.
+- `docs/STATUS-log.md` — a dated, append-only record of what each session did.
+- `docs/STATUS-debt.md` — known debt and owed work.
+- `docs/STATUS-archive.md` — finished entries moved out of `STATUS.md`, word for word.
+- `docs/proposals/` — explorations before a decision, each with a status, listed in its `INDEX.md`.
+- `docs/decisions/` — decision records (ADRs). Its `README.md` names the format once one is chosen.
+- `docs/glossary.md` — every term the owner asks about, defined.
+- `pitmaster.md` — settings for the pitmaster skills.
+<!-- List only the pieces that exist. -->
+
+## Ground rules
+- The repository is the only shared memory between sessions, agents and accounts.
+- Taste, naming and direction are {{owner}}'s to rule. Agents propose; {{owner}} ratifies.
+- Decisions: never edit a ruled decision's text. Add a dated amendment, or supersede it with a new one. Follow the
+  active decision; superseded ones are history only.
+- Work on a branch. Never push straight to the main branch without {{owner}}'s approval.
+- Keep `docs/` tidy: no loose dated files at its top level.
