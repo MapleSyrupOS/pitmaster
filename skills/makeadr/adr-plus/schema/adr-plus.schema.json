@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ADR+ header",
+  "description": "The YAML block at the top of an ADR. It checks structure only: which fields exist, which are required, and the words a few of them may hold. Whether a proof names something real, or an ADR number exists, is checked by the project's own checkers (SPEC.md 5.1). Every value is a string; a value YAML would turn into a date, a number or a yes/no is written in double quotes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "owner", "kind", "built", "supersedes", "amends"],
+  "properties": {
+    "status": {
+      "description": "What was ruled, in one of seven lowercase words: proposed (drafted, waiting for a ruling), provisional (an agent had to land it first), accepted (ruled yes), partially accepted (ruled yes for part of it), superseded (replaced by a newer ADR), withdrawn (no longer in force, and nothing replaced it), rejected (proposed, ruled no). Older verdicts map onto these: ratified, adopted, ruled and landed become accepted; deprecated, retired and closed become withdrawn; nixed becomes rejected; draft and awaiting become proposed.",
+      "type": "string",
+      "enum": [
+        "proposed", "provisional", "accepted", "partially accepted",
+        "superseded", "withdrawn", "rejected"
+      ]
+    },
+    "status-note": {
+      "description": "The rest of the old Status wording, word for word: who ruled, when, and anything else the line said. A glyph or bold mark that stood before the verdict is kept at the start of this note. The separator ' — ' after the verdict is not written; any other separator is kept in front of the text (a note that begins with a space is the text exactly as it followed the verdict). When the old verdict was mapped to one of the seven words, the note holds the whole old wording from that verdict on, exactly as written, for example 'RATIFIED — by Alex 2026-09-10' beside status accepted. When an unmapped verdict is followed by ' — ' and then by one of those older words, the note starts with the dash and a space, for example '— RATIFIED BY ALEX 2026-09-10' beside status accepted.",
+      "type": "string",
+      "minLength": 1
+    },
+    "ratified-by": {
+      "description": "Who ratified the decision, as the Status wording spelled the name. Absent while the status is 'proposed'.",
+      "type": "string",
+      "minLength": 1
+    },
+    "ratified-on": {
+      "description": "The day it was ratified, written YYYY-MM-DD inside double quotes so YAML keeps it a string. Absent while the status is 'proposed'.",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "owner": {
+      "description": "Who owns the decision. Always present; the project settings name the value.",
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "description": "architecture (how the system is built), design (what a person sees or does) or process (how the project works).",
+      "type": "string",
+      "enum": ["architecture", "design", "process"]
+    },
+    "built": {
+      "description": "Whether the decision exists in the tree: landed, partial, not started, or n/a (the decision became a rule or a document).",
+      "type": "string",
+      "enum": ["landed", "partial", "not started", "n/a"]
+    },
+    "proof": {
+      "description": "What shows the built part is true: a test, a check or a file that must exist (SPEC.md 1.4). For 'not started' and 'n/a' it holds the reason or the pointer to where it is queued. Required unless the decision is not started.",
+      "type": "string",
+      "minLength": 1
+    },
+    "owed": {
+      "description": "What is still missing. Required when built is 'partial'.",
+      "type": "string",
+      "minLength": 1
+    },
+    "supersedes": {
+      "description": "The word 'nothing', or what this ADR replaces: normally an ADR number with its section, sometimes a section of another document.",
+      "type": "string",
+      "minLength": 1
+    },
+    "amends": {
+      "description": "The word 'nothing', or what this ADR changes without replacing: normally an ADR number with its section, sometimes a section of another document.",
+      "type": "string",
+      "minLength": 1
+    },
+    "consulted": {
+      "description": "Who was asked before the ruling.",
+      "type": "string",
+      "minLength": 1
+    },
+    "confirmed-by": {
+      "description": "Who confirmed the built part, when someone other than the builder did.",
+      "type": "string",
+      "minLength": 1
+    },
+    "revisit-when": {
+      "description": "The event or date that should reopen the decision.",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "description": "A decision that is landed, partial or n/a names its proof.",
+      "if": {
+        "properties": {"built": {"enum": ["landed", "partial", "n/a"]}},
+        "required": ["built"]
+      },
+      "then": {"required": ["proof"]}
+    },
+    {
+      "description": "A partial decision says what is still owed.",
+      "if": {
+        "properties": {"built": {"const": "partial"}},
+        "required": ["built"]
+      },
+      "then": {"required": ["owed"]}
+    },
+    {
+      "description": "A proposed decision has not been ratified, so it carries no ratifier and no ratification date.",
+      "if": {
+        "properties": {"status": {"const": "proposed"}},
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {"ratified-by": false, "ratified-on": false}
+      }
+    }
+  ]
+}

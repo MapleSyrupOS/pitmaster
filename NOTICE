@@ -1,0 +1,10 @@
+pitmaster
+Copyright 2026 Writerblockade
+
+This product includes software developed by Writerblockade (https://github.com/MapleSyrupOS/pitmaster).
+
+CODE_OF_CONDUCT.md is adapted from the Contributor Covenant, version 2.1
+(https://www.contributor-covenant.org/version/2/1/code_of_conduct.html), licensed under CC BY 4.0.
+
+The makeadr skill's MADR and Nygard templates follow the layouts of MADR (https://adr.github.io/madr/) and of
+Michael Nygard's 2011 article "Documenting Architecture Decisions"; their wording is pitmaster's own.

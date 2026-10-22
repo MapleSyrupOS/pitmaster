@@ -1,0 +1,21 @@
+{
+  "name": "pitmaster",
+  "description": "The pitmaster skills plugin by Writerblockade.",
+  "owner": {
+    "name": "Writerblockade",
+    "url": "https://github.com/writerblockade"
+  },
+  "plugins": [
+    {
+      "name": "pitmaster",
+      "source": "./",
+      "description": "Grill the plan before it starts (bbq), record decisions as ADRs (makeadr), find the bottleneck (swarm-bottleneck), pick the budget (budget-select) and the models (tier-select), log what it cost (spend-ledger), let the agent pick the work (dealers-choice) under standing authority (carte-blanche), and prep a new project (project-prep).",
+      "category": "productivity",
+      "tags": [
+        "skills",
+        "planning",
+        "adr"
+      ]
+    }
+  ]
+}
