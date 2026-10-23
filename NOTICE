@@ -8,3 +8,8 @@ CODE_OF_CONDUCT.md is adapted from the Contributor Covenant, version 2.1
 
 The makeadr skill's MADR and Nygard templates follow the layouts of MADR (https://adr.github.io/madr/) and of
 Michael Nygard's 2011 article "Documenting Architecture Decisions"; their wording is pitmaster's own.
+
+skills/makeadr/adr-plus/ is a copy of adr-plus 0.1.0 (https://github.com/MapleSyrupOS/adr-plus), and
+skills/makeadr/scripts/adr-index.py, skills/makeadr/scripts/adr-check.py and
+skills/project-prep/scripts/status-check.py are copies of pitmaster-shed 0.1.0 tools
+(https://github.com/MapleSyrupOS/pitmaster-shed). Both are by the same author and licensed under Apache-2.0.

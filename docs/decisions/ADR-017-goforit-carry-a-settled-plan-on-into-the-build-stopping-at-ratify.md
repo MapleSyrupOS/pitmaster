@@ -1,8 +1,16 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-22
+owner: the owner
+kind: process
+built: landed
+proof: "`skills/goforit/SKILL.md`"
+supersedes: nothing
+amends: nothing
+---
 # ADR-017 — goforit: carry a settled plan on into the build, stopping at "ratify"
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-22
-**Built:** LANDED — `skills/goforit/SKILL.md`
-**Public copy:** approved by the owner 2026-10-22; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 

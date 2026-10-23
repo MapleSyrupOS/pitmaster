@@ -1,8 +1,16 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-20
+owner: the owner
+kind: process
+built: landed
+proof: "`skills/spend-ledger/SKILL.md`, `skills/spend-ledger/scripts/spend-ledger.py`, `skills/spend-ledger/scripts/prices.tsv`"
+supersedes: nothing
+amends: nothing
+---
 # ADR-009 — spend-ledger: what a session spent, beside what it landed
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-20
-**Built:** LANDED — `skills/spend-ledger/SKILL.md`, `skills/spend-ledger/scripts/spend-ledger.py`, `skills/spend-ledger/scripts/prices.tsv`
-**Public copy:** approved by the owner 2026-10-21; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 

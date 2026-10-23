@@ -1,8 +1,16 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-20
+owner: the owner
+kind: process
+built: landed
+proof: "`skills/dealers-choice/SKILL.md`"
+supersedes: nothing
+amends: nothing
+---
 # ADR-008 — dealers-choice: the agent picks the work, after four questions
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-20
-**Built:** LANDED — `skills/dealers-choice/SKILL.md`
-**Public copy:** approved by the owner 2026-10-21; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 

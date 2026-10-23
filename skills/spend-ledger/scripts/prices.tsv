@@ -1,7 +1,7 @@
 # List prices for the list-$ proxy: substring of the model id, input $/M, output $/M, cache-write multiple,
 # cache-read multiple. First matching row wins. A model with no row shows "-" and is shared by output tokens.
 # The proxy puts models on one scale. It is not a bill and not the plan's meter.
-# Last checked: 2026-10-20, Claude rows carried from the reference project's tier-usage script (2026-10-13).
+# Last checked: 2026-10-20, Claude rows carried from an earlier tier-usage script (2026-10-13).
 # Add a row for any other vendor's models with the date and where the prices came from.
 opus	5	25	1.25	0.1
 sonnet	3	15	1.25	0.1

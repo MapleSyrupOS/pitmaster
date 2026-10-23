@@ -39,13 +39,14 @@ local_models: none  # "none", or where your local-model notes live (local models
 
 ## Before anything: the roster
 
-1. **Pick the roster** from `rosters/` beside this file (`claude.md`, `openai.md`, `google.md`); with `roster:
-   auto`, the platform's vendor. A roster may name another vendor's models for a tier (some tools offer several
+1. **Pick the roster** from the project's `docs/tier-rosters/` if it has one for the vendor, else from `rosters/`
+   beside this file (`claude.md`, `openai.md`, `google.md`); with `roster: auto`, the platform's vendor. A roster may name another vendor's models for a tier (some tools offer several
    vendors, each with its own quota), and the user may ask for a mix.
 2. **Check its *Last checked* date.** **Over about three months old, say so** in one line before using it, and
    offer to re-check it against the vendor's model list.
 3. **No roster for this platform?** Ask the user which models they can use, cheapest first, and how effort is set
-   there. Write `rosters/<vendor>.md` from `rosters/TEMPLATE.md` with today's date, and use it.
+   there. Write `docs/tier-rosters/<vendor>.md` in the project from `rosters/TEMPLATE.md` (beside this file) with
+   today's date, and use it; a roster written beside the skill would be lost at the next update.
 
 ## A. The lead
 

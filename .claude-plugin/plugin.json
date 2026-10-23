@@ -1,6 +1,6 @@
 {
   "name": "pitmaster",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Skills for running work with Claude: grill the plan before it starts (bbq), record decisions as ADRs (makeadr), find what is holding a run back (swarm-bottleneck), pick its budget (budget-select) and models (tier-select), record what it spent beside what it landed (spend-ledger), let the agent pick the work (dealers-choice) and give it standing authority for a session (carte-blanche), set a project up for agents (project-prep), talk a subject through, then write one record of what was said (talk-through), audit blind whether a repo or an app is ready for its end users (tastetest), and carry a settled plan on into the build, stopping at \"ratify\" (goforit).",
   "author": {
     "name": "Writerblockade",

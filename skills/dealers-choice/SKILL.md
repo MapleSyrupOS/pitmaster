@@ -90,7 +90,7 @@ sources: auto       # extra places to look for work, comma-separated, added to t
 ## Platform notes
 
 - **Claude Code:** ask steps 1 and 2 with `AskUserQuestion`. Workers start with the Agent tool, or go to local
-  models through the `local-lanes` skill where it is installed. When the user is away, send frames and the short
+  models through whatever local-model tooling is installed. When the user is away, send frames and the short
   report with `SendUserFile` or `PushNotification`. In a Cloud run, `create_session` starts a successor.
 - **Cowork / claude.ai:** no git or status file is usually at hand; read what the user has shared, pick from it,
   and end with the report in chat.

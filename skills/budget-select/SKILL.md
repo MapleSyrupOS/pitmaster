@@ -27,7 +27,8 @@ name: the user                 # whose plan it is. "name: Alex" makes this skill
 point: 1% of the weekly limit  # the unit; any fixed share of any metered limit works
 hard_stop: 75 / 80 / 85 / 93   # stop starting work at: >48 h to reset / 24-48 h / 12-24 h / <12 h
 handoff_context: 500k          # hand off at about this much of the lead's own context
-calibration: calibration.md    # the log beside this file; one row per session
+calibration: docs/budget-calibration.md   # the project's own log, one row per session; made from calibration.md
+                                           # beside this file on first use, so an update never overwrites it
 ```
 
 ## Meters
@@ -118,7 +119,7 @@ type). Its prompt then carries:
 - **"You are not alone."** Other leads and the user's chats move the same meter.
 - **The ledger as the only spend line** (step 3's share line). With no K yet, plan from the share and stop at the
   first of the prompt's hard stop or the context line.
-- **Context as a stop line.** The lead's own context fills first on a large share (the reference project saw
+- **Context as a stop line.** The lead's own context fills first on a large share (one large run saw
   about 10 of 35 points). At `handoff_context`: wait for in-flight workers, write the calibration row and hand off
   to a successor (bbq's Cloud type says how).
 

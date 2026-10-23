@@ -1,8 +1,17 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-22
+owner: the owner
+kind: process
+built: partial
+proof: "`skills/tastetest/SKILL.md`"
+owed: the first real runs
+supersedes: nothing
+amends: nothing
+---
 # ADR-016 — tastetest: a blind audit of whether a thing is ready for its end users
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-22
-**Built:** PARTIAL — `skills/tastetest/SKILL.md`; owed: the first real runs
-**Public copy:** approved by the owner 2026-10-22; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 
