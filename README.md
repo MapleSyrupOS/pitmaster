@@ -26,7 +26,7 @@ other tool that reads the [Agent Skills](https://agentskills.io) format. Apache-
 | ask a question, report a problem, give feedback | [Help and feedback](#help-and-feedback) |
 | change a setting | [Configure](#configure) |
 | see what changed in a release | [CHANGELOG.md](CHANGELOG.md) |
-| read the decisions behind the skills | [docs/decisions/](docs/decisions/) |
+| read the decisions behind the skills | [docs/decisions/](docs/decisions/) (the published ones; a missing number was not published) |
 | add a skill of your own | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | learn the GitHub words | [New to GitHub?](#new-to-github) |
 
@@ -38,9 +38,11 @@ task at a time, you may only need `bbq`.
 
 **What you need.** Claude Code or Codex (any paid plan works; the usage skills assume a plan with a weekly usage
 limit), or Cowork or claude.ai for the skill zips. For the skills that open pull requests, `git` and GitHub's
-`gh` signed in. Nothing else to install.
+`gh`, signed in once with `gh auth login`. Python 3.8 or newer runs the optional scripts some skills carry; without
+it, those skills say so and carry on by hand.
 
-**Install** (Claude Code; every other way is under [Install](#install)):
+**Install** (Claude Code; every other way is under [Install](#install)). Type these two lines in Claude Code's chat
+box, one at a time:
 
 ```
 /plugin marketplace add MapleSyrupOS/pitmaster
@@ -157,11 +159,9 @@ carries `status-check`, so every install works offline with nothing extra to fet
 first; each copy is then updated byte for byte, and `scripts/check-pins.py` fails, naming the file, if a copy
 ever drifts from its pin.
 
-**Rules** are the third layer, still a draft: short opt-in lines a project switches on by group.
-
 ## Install
 
-**Claude Code**
+**Claude Code**: type these in Claude Code's chat box, one at a time:
 
 ```
 /plugin marketplace add MapleSyrupOS/pitmaster
@@ -174,7 +174,7 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:tastetest` and `/pitmaster:goforit`. Claude
 also loads them on its own when your request matches.
 
-**Codex**
+**Codex**: run these in a terminal:
 
 ```
 codex plugin marketplace add MapleSyrupOS/pitmaster
@@ -193,9 +193,9 @@ skill's *Platform notes* section says what it does differently there.
 
 ## Update
 
-An installed plugin does not change by itself. Refresh the marketplace, then update the plugin:
+An installed plugin does not change by itself. Refresh the marketplace, then update the plugin.
 
-**Claude Code**
+**Claude Code**: run these in a terminal (or use the `/plugin` menu in Claude Code's chat box):
 
 ```
 claude plugin marketplace update pitmaster
@@ -204,7 +204,7 @@ claude plugin update pitmaster@pitmaster
 
 Restart Claude Code to load the new version. `claude plugin list` shows which one you have.
 
-**Codex**
+**Codex**: run these in a terminal:
 
 ```
 codex plugin marketplace upgrade pitmaster
@@ -237,10 +237,11 @@ same `key: value` lines in a `pitmaster.md` file at your project root. For examp
 ```
 name: Alex
 count: 12
-record_dir: docs/plans
 ```
 
-`name` makes the skills address you by name in place of "the user".
+`name` makes the skills address you by name in place of "the user"; `count: 12` gives every bbq 12 questions by
+default. `pitmaster.md` is one file for all the skills, so a key two skills share changes both: `record_dir`, for
+instance, is read by bbq, makeadr and talk-through alike.
 
 ## Help and feedback
 

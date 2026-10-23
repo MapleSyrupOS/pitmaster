@@ -34,7 +34,7 @@ project_profiles: none      # the project's own profiles, read beside the shippe
    is not installed, say so in one line and go on with one auditor (Q7, Q22).
 2. **Pick the profile by reading the project** (Q5): `repo` when the repository itself is going out, `app-store`
    when it builds an App Store app. Both can apply, and so can a profile in `project_profiles` (A2). Say which in
-   one line ("Profile: app-store, from app/CRTCompanion.xcodeproj"). If none fits, ask. Each profile is a dated
+   one line ("Profile: app-store, from app/Example.xcodeproj"). If none fits, ask. Each profile is a dated
    file in `profiles/`; the core checks in `repo.md` apply to all (Q3).
 3. **Check the checklist against its source** (`app-store` only; Q6). Read Apple's current App Review Guidelines
    and note each rule new, changed or gone since the profile's date; these open the report as *checklist drift*.

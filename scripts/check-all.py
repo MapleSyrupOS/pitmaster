@@ -42,12 +42,13 @@ CHECKS = [
     ("adr-plus self-test", [str(ADR_PLUS / "tools" / "adr-yaml.py"), "--self-test"]),
     ("ADR headers", [str(ADR_PLUS / "tools" / "adr-yaml.py"), "--check"]),
     ("ADR index", [str(ADR / "adr-index.py"), "--check"]),
-    # ADR-001 and ADR-002 predate the trigger rule (ADR-003), so the trigger check starts at ADR-003. ADR-009 and
-    # ADR-010 name their chosen option "(chosen)" with no reason, and ADR-018 weighs three options with no Drivers
-    # list; that text is ruled, so they are skipped until the owner amends or rules them.
+    # The trigger check starts at ADR-003, the rule that set it. ADR-009 and ADR-010 name their chosen option
+    # "(chosen)" with no reason, and ADR-018 weighs three options with no Drivers list; their text was ratified
+    # before the check existed, so they are skipped by name.
     ("ADR check", [str(ADR / "adr-check.py"), "--triggers-from", "3", "--triggers-skip", "9,10,18"]),
     # pitmaster's own STATUS.md: the sections pitmaster.md names, every bullet citing a file that exists.
     ("STATUS", [str(ROOT / "skills" / "project-prep" / "scripts" / "status-check.py"), "--root", str(ROOT)]),
+    ("spend-ledger self-test", [str(ROOT / "skills" / "spend-ledger" / "scripts" / "spend-ledger.py"), "--self-test"]),
 ]
 
 

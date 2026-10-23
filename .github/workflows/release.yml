@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   zips:
-    # Releases are made in the public repository only (ADR-011 step 4); a tag in the private one builds nothing.
+    # Releases are made in MapleSyrupOS/pitmaster only; a tag anywhere else builds nothing.
     if: github.repository == 'MapleSyrupOS/pitmaster'
     runs-on: ubuntu-latest
     steps:

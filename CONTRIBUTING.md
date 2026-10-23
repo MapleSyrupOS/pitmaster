@@ -6,14 +6,17 @@ Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 ## Add a skill: make it with bbq
 
 1. Install pitmaster (see the README) and run **`/pitmaster:bbq`** (or "bbq" in any tool), choosing the **Skill**
-   type. It asks about the skill you want, then writes the skill folder and its trigger prompts.
-2. Put the folder in `skills/<name>/` and the question record in `docs/bbq/`.
-3. Open a pull request with **the skill and its record together**. The record lets reviewers trace each rule to
-   the question that set it.
+   type. It asks about the skill you want, then writes the skill folder in `drafts/<name>/` with its trigger
+   prompts.
+2. **Propose its decision record.** Every skill is decided by an ADR: run `makeadr` to write
+   `docs/decisions/ADR-NNN-<slug>.md` (status `proposed`), and give the skill a `Decided by pitmaster ADR-NNN.`
+   line under its title. The spec check (`scripts/build-variants.py --check`) fails a skill without one.
+3. Open a pull request with **the draft, its ADR and its question record together**. A maintainer ratifies the
+   ADR; then the skill moves from `drafts/` into `skills/<name>/`.
 
 ## The shape every skill follows
 
-- **Frontmatter:** `name`, `description` and `metadata: family:` (plan, run, usage, check or records). The name is lowercase letters, digits and hyphens, matches the
+- **Frontmatter:** `name`, `description` and `metadata: family:` (plan, run, usage, check, records or craft). The name is lowercase letters, digits and hyphens, matches the
   folder, and is at most 64 characters. The description says what the skill does and when to use it, with the
   phrases that should trigger it, in at most 1,024 characters.
 - **Steps in plain words.** Say what to do ("ask up to four questions per round"), not which tool to call. Name
