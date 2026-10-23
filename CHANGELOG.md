@@ -6,6 +6,22 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.3] — 2026-10-22
+
+### Fixed
+- `scripts/check-leaks.py` checks every file when run outside a git checkout (a downloaded ZIP), instead of
+  reporting 0 files as clean, and exits 2 when it found nothing to check.
+- Every built skill folder and release zip carries `LICENSE` and `NOTICE`, as Apache-2.0 asks of redistributed
+  copies.
+- `tastetest`'s example names a neutral project.
+
+### Changed
+- README: says where each command is typed (Claude Code's chat box or a terminal), how to sign `gh` in, that
+  Python 3.8+ runs the optional scripts, and that `pitmaster.md` keys are shared across skills.
+- CONTRIBUTING: a new skill is proposed with its ADR (`makeadr`), drafted in `drafts/`, and moves into `skills/`
+  once a maintainer ratifies it; the sixth family, `craft`.
+- check-all runs `spend-ledger`'s self-test; a `.gitignore` is published.
+
 ## [0.4.2] — 2026-10-22
 
 The first public release.

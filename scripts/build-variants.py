@@ -13,6 +13,8 @@ Usage:
   python3 scripts/build-variants.py             write dist/<platform>/<skill>/
   python3 scripts/build-variants.py --zip       also write dist/zips/<skill>-<platform>.skill (a zip whose top
                                                  level is the skill folder, for Cowork / claude.ai upload)
+Every built skill folder, and so every zip, carries the repository's LICENSE and NOTICE (Apache-2.0 asks that a
+redistributed copy include them).
   python3 scripts/build-variants.py --self-test
 
 The spec check: the folder name is lowercase letters, digits and hyphens (at most 64) and equals the frontmatter
@@ -167,6 +169,15 @@ def skill_folders() -> List[pathlib.Path]:
     return sorted(p.parent for p in (ROOT / "skills").glob("*/SKILL.md"))
 
 
+LICENCE_FILES = ("LICENSE", "NOTICE")
+
+
+def add_licence(dest: pathlib.Path, root: pathlib.Path) -> None:
+    for name in LICENCE_FILES:
+        if (root / name).is_file():
+            shutil.copy2(root / name, dest / name)
+
+
 def build(dist: pathlib.Path, make_zips: bool) -> None:
     if dist.exists():
         shutil.rmtree(dist)
@@ -176,6 +187,7 @@ def build(dist: pathlib.Path, make_zips: bool) -> None:
             shutil.copytree(folder, dest, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"))
             (dest / "SKILL.md").write_text(variant((folder / "SKILL.md").read_text(encoding="utf-8"), platform),
                                            encoding="utf-8")
+            add_licence(dest, ROOT)
             if make_zips:
                 zdir = dist / "zips"
                 zdir.mkdir(parents=True, exist_ok=True)
@@ -241,6 +253,13 @@ def self_test() -> int:
         (s / "SKILL.md").write_text(templ)
         assert check_skill(s, template=True, decisions=dec) == [], check_skill(s, template=True, decisions=dec)
         assert check_skill(s, template=False, decisions=dec), "template arm failed with template=False"
+    with tempfile.TemporaryDirectory() as tmp:
+        dest = pathlib.Path(tmp)
+        add_licence(dest, ROOT)
+        missing = [n for n in LICENCE_FILES if not (dest / n).is_file()]
+        if missing:
+            print(f"FAIL a built skill folder lacks {', '.join(missing)}")
+            return 1
     print("build-variants: self-test passed")
     return 0
 

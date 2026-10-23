@@ -120,7 +120,21 @@ def is_text(data: bytes) -> bool:
     return b"\0" not in data[:8192]
 
 
-def iter_targets(mode: str, paths: List[str]) -> Iterable[Tuple[str, bytes]]:
+SKIP_DIRS = {".git", "__pycache__", "dist", "node_modules"}
+
+
+def walk_files(root: pathlib.Path) -> List[str]:
+    """Every file under root, for a copy with no git (a downloaded ZIP), leaving out build and cache folders."""
+    return sorted(p.relative_to(root).as_posix() for p in root.rglob("*")
+                  if p.is_file() and not SKIP_DIRS.intersection(p.relative_to(root).parts))
+
+
+def in_git(root: pathlib.Path) -> bool:
+    r = subprocess.run(["git", "-C", str(root), "rev-parse", "--is-inside-work-tree"], capture_output=True, text=True)
+    return r.returncode == 0 and r.stdout.strip() == "true"
+
+
+def iter_targets(mode: str, paths: List[str], root: pathlib.Path = ROOT) -> Iterable[Tuple[str, bytes]]:
     if mode == "staged":
         for rel in git("diff", "--cached", "--name-only", "--diff-filter=ACMR", "-z"):
             r = subprocess.run(["git", "-C", str(ROOT), "show", f":{rel}"], capture_output=True)
@@ -130,9 +144,12 @@ def iter_targets(mode: str, paths: List[str]) -> Iterable[Tuple[str, bytes]]:
             fp = pathlib.Path(p)
             yield str(fp), fp.read_bytes()
     else:
-        files = set(git("ls-files", "-z")) | set(git("ls-files", "--others", "--exclude-standard", "-z"))
+        if in_git(root):
+            files = set(git("ls-files", "-z")) | set(git("ls-files", "--others", "--exclude-standard", "-z"))
+        else:
+            files = set(walk_files(root))  # not a git checkout: check every file, never a silent zero
         for rel in sorted(files):
-            fp = ROOT / rel
+            fp = root / rel
             if fp.is_file():
                 yield rel, fp.read_bytes()
 
@@ -152,6 +169,9 @@ def run(mode: str, paths: List[str], denylist: Optional[pathlib.Path], quiet: bo
             print(f)
         layer = "generic + denylist" if deny else "generic only (no denylist found)"
         print(f"check-leaks: {count} files, {len(findings)} finding(s), {layer}")
+    if mode == "all" and count == 0:
+        print("check-leaks: no files were checked; run it from the repository", file=sys.stderr)
+        return 2
     return 1 if findings else 0
 
 
@@ -183,6 +203,14 @@ def self_test() -> int:
         assert scan_text("x", "zorblax's", load_denylist(deny), []) != [], "possessive must match"
         out = scan_text("x", "Zorblax", load_denylist(deny), [])
         assert out and "zorblax" not in out[0].lower(), "a denylist hit must not print the term"
+        # Outside a git checkout (a downloaded ZIP), every file is still checked: never a silent zero.
+        bare = d / "no-git"
+        (bare / "docs").mkdir(parents=True)
+        (bare / "docs" / "note.md").write_text("see /Users/" + "someone/x\n")
+        (bare / "dist").mkdir()
+        (bare / "dist" / "built.md").write_text("ignored\n")
+        listed = [rel for rel, _ in iter_targets("all", [], bare)]
+        assert listed == ["docs/note.md"], f"outside git, every file but build output must be checked: {listed}"
     print("check-leaks: self-test passed")
     return 0
 
