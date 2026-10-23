@@ -6,4 +6,4 @@ max_turns: 2
 timeout_seconds: 180
 allowed_tools: [Skill, Read, Glob, Grep]
 ---
-talk-it-through: the reference project's sixteen migration items
+talk-it-through: the migration proposal's sixteen items

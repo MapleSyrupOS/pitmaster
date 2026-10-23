@@ -11,8 +11,8 @@
      triggers hold from ADR-003 on
   7. pitmaster's own STATUS.md (status-check, with the sections pitmaster.md names)
 
-In the public repository (no publish.txt) the publish self-test and the checks of pitmaster's own ADRs and STATUS
-are skipped: the publisher, the full ADR set and STATUS.md live only in the private one.
+In the public repository (no publish.txt) the publish self-test and the STATUS check are skipped: the publisher and
+STATUS.md live only in the private one. The ADR checks run on the public copies there.
 
 Python 3.8+, standard library only. Exit 1 if any check fails.
 """
@@ -23,7 +23,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ADR = ROOT / "skills" / "makeadr" / "scripts"
 ADR_PLUS = ROOT / "skills" / "makeadr" / "adr-plus"
-PRIVATE_ONLY = {"publish self-test", "ADR headers", "ADR index", "ADR check", "STATUS"}
+PRIVATE_ONLY = {"publish self-test", "STATUS"}
 PUBLIC = not (ROOT / "publish.txt").exists()
 CHECKS = [
     ("leaks", ["scripts/check-leaks.py"]),
@@ -44,7 +44,7 @@ CHECKS = [
     ("ADR index", [str(ADR / "adr-index.py"), "--check"]),
     # ADR-001 and ADR-002 predate the trigger rule (ADR-003), so the trigger check starts at ADR-003. ADR-009 and
     # ADR-010 name their chosen option "(chosen)" with no reason, and ADR-018 weighs three options with no Drivers
-    # list; that text is ruled, so they are skipped until the owner amends or rules them (STATUS.md, Waiting on owner).
+    # list; that text is ruled, so they are skipped until the owner amends or rules them.
     ("ADR check", [str(ADR / "adr-check.py"), "--triggers-from", "3", "--triggers-skip", "9,10,18"]),
     # pitmaster's own STATUS.md: the sections pitmaster.md names, every bullet citing a file that exists.
     ("STATUS", [str(ROOT / "skills" / "project-prep" / "scripts" / "status-check.py"), "--root", str(ROOT)]),

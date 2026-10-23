@@ -9,7 +9,8 @@ Two layers:
             matched case-insensitively on word boundaries; a line starting with "re:" is a regular expression;
             "#" starts a comment. When no denylist is present, only the generic layer runs.
 
-A match that is fine on purpose goes in scripts/leak-allow.txt: one line per exemption, "path-glob<TAB>regex",
+A match that is fine on purpose goes in scripts/leak-allow.txt (or, for a file that never goes public,
+scripts/leak-allow-private.txt, read when present): one line per exemption, "path-glob<TAB>regex",
 where the regex must match the matched text. Exemptions are public, so they never name a denylist term.
 
 Usage:
@@ -34,6 +35,8 @@ from typing import Iterable, List, Optional, Tuple
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ALLOW_FILE = ROOT / "scripts" / "leak-allow.txt"
+# Exemptions for files that never leave a private repository; it is read when present and is never published.
+PRIVATE_ALLOW_FILE = ROOT / "scripts" / "leak-allow-private.txt"
 DEFAULT_DENYLIST = pathlib.Path.home() / ".config" / "pitmaster" / "denylist.txt"
 
 GENERIC: List[Tuple[str, "re.Pattern[str]"]] = [
@@ -136,7 +139,7 @@ def iter_targets(mode: str, paths: List[str]) -> Iterable[Tuple[str, bytes]]:
 
 def run(mode: str, paths: List[str], denylist: Optional[pathlib.Path], quiet: bool = False) -> int:
     deny = load_denylist(denylist)
-    allow = load_allow(ALLOW_FILE)
+    allow = load_allow(ALLOW_FILE) + load_allow(PRIVATE_ALLOW_FILE)
     findings: List[str] = []
     count = 0
     for rel, data in iter_targets(mode, paths):

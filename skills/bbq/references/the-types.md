@@ -20,6 +20,7 @@ skipped, and the record says so. The table seeds step 2's reading; it does not l
 
 ## Adding a type
 
-Add rows in the same three columns to a `types.md` beside SKILL.md (or the file the config's `types` names). They
+Add rows in the same three columns to the file the config's `types` names (`docs/bbq-types.md` in your project by
+default; make it on first use). They
 join the table above, and a row with a built-in type's name replaces it. Add "(own session)" after the name of a
 type that should always write a prompt for a fresh session.

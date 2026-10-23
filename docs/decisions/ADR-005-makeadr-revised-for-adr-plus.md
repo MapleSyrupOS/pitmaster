@@ -1,8 +1,17 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-18
+owner: the owner
+kind: design
+built: partial
+proof: "`skills/makeadr/SKILL.md`, `skills/makeadr/scripts/adr-check.py`, `skills/makeadr/adr-plus.pin`, `scripts/check-pins.py`"
+owed: other projects switching to the same shared copy
+supersedes: nothing
+amends: nothing (it changes the order in ADR-003's queued work; see Context)
+---
 # ADR-005 — makeadr revised: ADR+ first, bbq's rounds, four modes, one pinned schema
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-18
-**Built:** PARTIAL — `skills/makeadr/SKILL.md`, `skills/makeadr/scripts/adr-check.py`; owed: the YAML header, with a pinned copy of the adr-plus schema and a check that fails when the copy drifts
-**Public copy:** approved by the owner 2026-10-21; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 
@@ -54,3 +63,4 @@ ADR after it is ruled, and shares its question rules with bbq instead of repeati
 
 - 2026-10-18: proposed.
 - 2026-10-18: ratified by the owner.
+- 2026-10-22: the YAML header and the pinned copy of the adr-plus schema built.

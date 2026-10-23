@@ -27,7 +27,7 @@ count: ask            # questions per bbq: ask (offer 8 / 12 / 20 / other) or a 
 record_dir: docs/bbq  # where records go (step 5)
 ending: auto          # auto | run-here | prompt | ask (step 6)
 land: pr              # pr (branch + PR) | commit (branch only) | file (just the file) (step 7)
-types: types.md       # your own types, in a file beside this one
+types: docs/bbq-types.md   # your own types, in your project (an update never overwrites it)
 batch_usage: on       # a Batch bbq loads budget-select and spend-ledger: on | off
 batch_format: ask     # a Batch bbq's format: ask (by size on top) | by-size | rounds | item-sheets | batch-sheet (no question)
 batch_sheet: form     # a Batch bbq's worksheet: form (a file where no form can be drawn) | file

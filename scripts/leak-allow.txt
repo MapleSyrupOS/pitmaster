@@ -1,3 +1,4 @@
 # Exemptions for scripts/check-leaks.py: path-glob<TAB>regex the matched text must fit. Public; never a denylist term.
-# The local runner names the private network ranges it treats as local, and tests one LAN address.
-drafts/local-lanes/scripts/run-local.py	^(10\.0\.0\.0|172\.16\.0\.0|192\.168\.0\.0|192\.168\.1\.20)$
+
+# The Code of Conduct names the address that takes conduct reports.
+CODE_OF_CONDUCT.md	^support@\S+\.ca$

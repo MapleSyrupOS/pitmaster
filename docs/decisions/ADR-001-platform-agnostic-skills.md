@@ -1,8 +1,16 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-16
+owner: the owner
+kind: architecture
+built: landed
+proof: "`scripts/build-variants.py`, `scripts/sync-manifests.py`, `skills/tier-select/rosters/openai.md`"
+supersedes: nothing
+amends: nothing
+---
 # ADR-001 — Platform-agnostic skills: one body, tagged platform notes, Claude and Codex native
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-16
-**Built:** LANDED — `scripts/build-variants.py`, `scripts/sync-manifests.py`, `skills/tier-select/rosters/openai.md`
-**Public copy:** approved by the owner 2026-10-22; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 

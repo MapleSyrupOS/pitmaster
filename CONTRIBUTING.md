@@ -13,7 +13,7 @@ Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## The shape every skill follows
 
-- **Frontmatter:** only `name` and `description`. The name is lowercase letters, digits and hyphens, matches the
+- **Frontmatter:** `name`, `description` and `metadata: family:` (plan, run, usage, check or records). The name is lowercase letters, digits and hyphens, matches the
   folder, and is at most 64 characters. The description says what the skill does and when to use it, with the
   phrases that should trigger it, in at most 1,024 characters.
 - **Steps in plain words.** Say what to do ("ask up to four questions per round"), not which tool to call. Name
@@ -25,7 +25,8 @@ Everyone taking part follows the [Code of Conduct](CODE_OF_CONDUCT.md).
   override.
 - **Scripts:** Python 3.8+ with the standard library only, and a `--self-test` that includes a deliberate failure
   the test must catch. The skill says what it does when Python is not there.
-- **Trigger evals** in `evals/`: five to ten prompts that should load the skill and three to five that should not.
+- **Trigger evals** in `evals/`: at least five prompts that should load the skill and three that should not
+  (the bigger skills have more).
 
 ## Before you open a pull request
 
@@ -42,7 +43,8 @@ python3 scripts/check-all.py
 ```
 
 It checks for personal details (home paths, emails, IP addresses, tokens), that every skill meets the spec and
-has its platform notes, that the Claude and Codex manifests agree, and that pitmaster's ADR index is current.
+has its platform notes, that the Claude and Codex manifests agree, that every pinned copy matches its pin, and
+that pitmaster's published decisions pass its own ADR checks.
 
 **Keep examples anonymous.** People in examples are Alex and Sam (they/them); machines are `alpha`, `bravo`,
 `charlie`, `delta` and `gpu-box`. Never commit a real name, machine, account or home path. If you keep a private

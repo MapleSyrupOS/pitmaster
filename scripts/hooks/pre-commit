@@ -1,0 +1,8 @@
+#!/bin/sh
+# pitmaster pre-commit: refuse a commit that carries personal details (scripts/check-leaks.py).
+# Install once per clone: git config core.hooksPath scripts/hooks
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "pre-commit: python3 not found; the leak check was skipped" >&2
+  exit 0
+fi
+exec python3 "$(git rev-parse --show-toplevel)/scripts/check-leaks.py" --staged

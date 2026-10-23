@@ -1,8 +1,16 @@
+---
+status: accepted
+status-note: — ratified by the owner 2026-10-20
+owner: the owner
+kind: process
+built: landed
+proof: "`skills/project-prep/SKILL.md`, `skills/project-prep/templates/AGENTS.md.tmpl`, `skills/project-prep/scripts/status-check.py`"
+supersedes: nothing
+amends: nothing
+---
 # ADR-010 — project-prep: get a project ready for agents, never overwriting a file
 
-**Status:** ACCEPTED — ratified by the owner 2026-10-20
-**Built:** LANDED — `skills/project-prep/SKILL.md`, `skills/project-prep/templates/AGENTS.md.tmpl`, `skills/project-prep/scripts/status-check.py`
-**Public copy:** approved by the owner 2026-10-21; the private ADR is the record.
+This is the public copy of a decision I made. I've left out a few internal notes.
 
 ## Decision
 
