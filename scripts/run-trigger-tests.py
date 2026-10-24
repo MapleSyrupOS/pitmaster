@@ -5,7 +5,9 @@ The cases live in evals/<case>/prompt.md with one grader in evals/<case>/graders
 eval` reads (use that harness where your account has it). This runner does the same check with headless Claude
 Code, so it works without the harness:
 
-  - each prompt runs in a fresh, empty folder with this repository loaded as a plugin (`--plugin-dir`);
+  - each prompt runs in a fresh, empty folder with this repository loaded as a plugin (`--plugin-dir`), or, with
+    a seed, in a fresh copy of a real repository (a shallow clone of a git repository, a plain copy otherwise),
+    so a case can be checked where a real project's files and rules are there to tempt the agent to look first;
   - the run is cut off after two turns; only the first decision matters;
   - a case passes when the Skill tool was called for its skill (skill-fired) or was not (skill-not-fired).
 
@@ -14,6 +16,9 @@ Usage:
   python3 scripts/run-trigger-tests.py --runs 1         override the run count
   python3 scripts/run-trigger-tests.py --case 'bbq-*'   only matching cases
   python3 scripts/run-trigger-tests.py --report FILE    also write a Markdown table of the results
+  python3 scripts/run-trigger-tests.py --seed self     run every case inside a copy of this repository
+  --seed PATH   a repository or folder to copy into each run's folder; "self" is this repository. A case can ask
+                for one itself with a `seed:` line in its prompt.md header (the same values); --seed wins.
   --jobs N (default 4)   --model NAME   --claude PATH (default: claude)
 
 Each run is a real model call billed to the signed-in plan. Exit 2 means the runs could not start (for
@@ -27,6 +32,7 @@ import fnmatch
 import json
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -48,7 +54,24 @@ def parse_case(folder: pathlib.Path) -> Dict:
     skill = re.search(r"\(\?:\[\\w-\]\+:\)\?([a-z0-9-]+)", g).group(1)
     expect = "max: 0" not in g
     return {"name": meta.get("name", folder.name), "prompt": body.strip(), "runs": int(meta.get("runs", "3")),
-            "skill": skill, "expect": expect}
+            "skill": skill, "expect": expect, "seed": meta.get("seed") or None}
+
+
+def seed_into(seed: str, tmp: str) -> str:
+    """A fresh copy of the seed inside tmp, returned as the run's folder. A git repository is cloned shallow, so the
+    copy has a real .git and only tracked files; anything else is copied as it is."""
+    src = ROOT if seed == "self" else pathlib.Path(seed).expanduser().resolve()
+    dest = pathlib.Path(tmp) / src.name
+    if (src / ".git").exists():
+        r = subprocess.run(["git", "clone", "-q", "--depth", "1", src.as_uri(), str(dest)], capture_output=True,
+                           text=True)
+        if r.returncode != 0:
+            raise RuntimeError(f"--seed: cannot clone {src}: {r.stderr.strip()}")
+    elif src.is_dir():
+        shutil.copytree(src, dest)
+    else:
+        raise RuntimeError(f"--seed: {src} is not a folder")
+    return str(dest)
 
 
 def skills_called(stream: str) -> List[str]:
@@ -72,7 +95,9 @@ def run_once(case: Dict, args) -> Tuple[bool, List[str], str]:
            "--strict-mcp-config", "--no-session-persistence"]
     if args.model:
         cmd += ["--model", args.model]
-    with tempfile.TemporaryDirectory() as cwd:
+    with tempfile.TemporaryDirectory() as tmp:
+        seed = args.seed or case["seed"]
+        cwd = seed_into(seed, tmp) if seed else tmp
         try:
             r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=240, stdin=subprocess.DEVNULL)
             out, err = r.stdout, r.stderr
@@ -94,6 +119,7 @@ def main() -> int:
     ap.add_argument("--model")
     ap.add_argument("--claude", default="claude")
     ap.add_argument("--report")
+    ap.add_argument("--seed")
     args = ap.parse_args()
     cases = [parse_case(d) for d in sorted(EVALS.iterdir())
              if (d / "prompt.md").is_file() and fnmatch.fnmatch(d.name, args.case)]

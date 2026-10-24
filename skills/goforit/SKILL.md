@@ -2,18 +2,20 @@
 name: goforit
 metadata:
   family: run
-description: Carry a plan straight on into the build once its planning skill ends. Typed at the end of a message that starts bbq, makeadr or talk-through (or on its own after one has finished), it takes that skill's closing offers, has the build done here or by a worker, and stops at "ratify" and at "merge"; "goforitreally" adds carte blanche and merge on green, so the only stop is the user's "ratify". Use when the user types "goforit" or "goforitreally". A plain "go for it", "yes, do it" or "ok" in answer to a question does not load this skill.
+description: Carry a plan straight on into the build once its planning skill ends. Typed at the end of a message that starts bbq, makeadr or talk-through (or on its own after one has finished), it takes that skill's closing offers, has the build done here or by a worker, and stops at "ratify" and at "merge"; "goforitreally" also builds what the plan pulls in and merges on green, so the only stop is the user's "ratify"; it is the rung below carte blanche. Use when the user types "goforit" or "goforitreally". A plain "go for it", "yes, do it" or "ok" in answer to a question does not load this skill.
 ---
 
 # goforit: once the plan is set, light the pit
 
 Decided by pitmaster ADR-017.
+The grant ladder: ADR-023.
 
 Sibling of `bbq`, `makeadr` and `talk-through` (the planning skills it follows and acts on), `tier-select` (picks
-who builds) and `carte-blanche` (what "goforitreally" grants). Built by a Skill bbq
-whose question record is kept in pitmaster's private repository.
+who builds) and `carte-blanche` (the rung above "goforitreally", which allows everything goforitreally does).
+`looseends` hands it a settled plan that was never built. Built by a Skill bbq whose question record is kept in
+pitmaster's private repository.
 
-**The smallest run** is steps 1 to 6, stopping for **ratify** and for **merge**.
+**The smallest voyage** is steps 1 to 6, stopping for **ratify** and for **merge**.
 
 ## Config
 
@@ -53,20 +55,27 @@ warn_at: 5 points, 1 PR, 2 workers   # goforitreally warns above any of these
      fresh session's prompt and stop;
    - mid or small work goes to **a worker** at that tier, and this session reviews its diff before anything lands;
    - at `prompt_at` context used or above, write a fresh session's prompt instead, and stop.
+   - plain goforit starts at most two subagents; goforitreally any within its budget. Neither starts a fresh
+     session or a swarm, works outside the plan's repository, or pushes to another live session's branch.
 5. **Build, then stop at ratify.** Build everything the record asks that needs no ratified ADR, run the project's
-   checks and open a PR. Then ask for the one word that is always the user's: **ratify**, typed or dictated.
+   checks and open a PR. A new judgement call that comes up while building is parked and asked, not taken. Then
+   ask for the one word that is always the user's: **ratify**, typed or dictated.
 6. **After "ratify"**, record it with `makeadr`, then follow the ratified ADR's own build steps, whatever the work
    (for a new skill, bbq's Skill type holds them). Run the checks, update the PR, and ask to **merge**.
-7. **goforitreally** runs the same steps under `carte-blanche`, with merge on green as the grant it names: nothing
-   is asked before "ratify", and after it the PR merges itself once the checks are green.
+7. **goforitreally** runs the same steps all the way through, the middle rung of the ladder (goforit,
+   goforitreally, carteblanche, trescarteblanche; ADR-023). It builds the plan and what the plan pulls in (an
+   adjacent fix, debt it uncovers), takes the recommended option on a new call mid-build and writes a `veto:` line
+   for it, asks nothing before "ratify", and after it merges its own PR once the checks are green. It never picks
+   unrelated work: that is carte blanche.
 8. **Size it first (goforitreally only).** Estimate the points (`budget-select`'s unit, by default 1 % of the
    weekly limit), the PRs and the workers; the sizecheck skill will do this once it exists. At or under
-   `warn_at`, start without a word, and the estimate becomes the carte-blanche budget. Above it, say "This looks
-   big: about N points, M PRs, K workers" and offer **go**, **trim** (say what to drop) or **back out** (plain
-   goforit, stopping at each gate).
+   `warn_at`, start without a word, and the estimate is the budget; a number the user gives is its ceiling. Above
+   it, say "This looks big: about N points, M PRs, K workers" and offer **go**, **trim** (say what to drop) or
+   **back out** (plain goforit, stopping at each gate).
 
 **Never:** ratify, or count any word but "ratify" as ratifying; answer a taste question for the user; skip a
-planning skill's questions; merge without "goforitreally" or a plain yes to merge; push to the main branch.
+planning skill's questions; merge without "goforitreally" or a plain yes to merge (a project rule that allows
+merging grants nothing by itself); push to the main branch.
 
 ## Platform notes
 

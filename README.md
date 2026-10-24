@@ -1,140 +1,241 @@
-# pitmaster
+# Pitmaster
 
-**Low and slow planning for fast agents.** Twelve skills that make Claude (and any agent that reads skills) ask
-before it builds, write down what was decided, and keep a long run fed, on budget and on the right models. Beside
-them sits **the shed**: small tools you can run with no agent at all.
+**A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
+ones.**
 
-They were distilled from months of daily use on one large project of about 1.5 million lines, run with fleets of
-agents and local models.
+There are fourteen skills so far, and more on the way, for agents like Claude Code, Codex and Antigravity. Pitmaster
+helps you better understand and organize your project without losing track of all the moving parts.
 
-> **Early, and still moving.** pitmaster is young: expect changes between versions, and read the
-> [CHANGELOG](CHANGELOG.md) when you update. Some skills act on your repository: they push
-> [branches](#new-to-github), open [pull requests](#new-to-github) and, if you allow it, [merge](#new-to-github) them. Each one says
-> so before it does, and nothing merges unless you grant it.
+Originally, the point of Pitmaster was to be used solely with agents; however, many of the skills use small scripts
+that are usable by yourself at a terminal. [The shed](#the-shed) gives you access to those.
 
-pitmaster is a plugin for Claude Code and Codex, and a set of plain skill folders for Cowork, claude.ai and any
-other tool that reads the [Agent Skills](https://agentskills.io) format. Apache-2.0.
+> Some skills give your agent a lot of authority: they can push [branches](#git-and-github-words), open
+> [pull requests](#git-and-github-words) and, if you allow it, [merge](#git-and-github-words). Each one tells you
+> before it acts (or reports right after, under carte-blanche), and nothing merges unless you grant it, but no
+> safeguard replaces your own review.
 
-## Where to go
+A plugin for Claude Code and Codex; plain skill folders for everything else. Apache-2.0.
 
-| you want to… | go to |
+## Contents
+
+| section | read it to… |
 |---|---|
-| see what pitmaster is in five minutes | [Start here](#start-here-five-minutes), below |
-| pick a skill for a job | [The skills](#the-skills) |
-| run a tool without an agent | [The shed](#the-shed) |
-| install it, or update it | [Install](#install) and [Update](#update) |
-| ask a question, report a problem, give feedback | [Help and feedback](#help-and-feedback) |
-| change a setting | [Configure](#configure) |
-| see what changed in a release | [CHANGELOG.md](CHANGELOG.md) |
-| read the decisions behind the skills | [docs/decisions/](docs/decisions/) (the published ones; a missing number was not published) |
-| add a skill of your own | [CONTRIBUTING.md](CONTRIBUTING.md) |
-| learn the GitHub words | [New to GitHub?](#new-to-github) |
+| [What it is](#what-it-is) | find out who it's for, and the easiest way to start |
+| [New to skills and rules?](#new-to-skills-and-rules) | learn what an agent, a rule and a skill are, and what happens when you type "bbq" |
+| [What it does](#what-it-does) | install it and try it in five minutes, then pick a skill for a job |
+| [The shed](#the-shed) | run a small tool with no agent at all |
+| [Install](#install) and [Update](#update) | install it in another agent, or get a new version |
+| [Platform support](#platform-support) | check that your agent works with it |
+| [Configure](#configure) | change a setting |
+| [Help and feedback](#help-and-feedback) | ask a question, report a problem, give feedback |
+| [About Pitmaster](#about-pitmaster) | see where it came from, in its author's words |
+| [Words](#words) | look up a word, and see which ones are Pitmaster's own |
+| [More](#more) | the changelog, how to add a skill, the decisions behind the skills, the licence |
 
-## Start here (five minutes)
+## What it is
 
-**Who it's for.** You hand real work to agents, often several at once, and you want them to ask the right
-questions first, stay inside a budget, and leave a record you can check later. If you run one agent on one small
-task at a time, you may only need `bbq`.
+**Who it's for.** Trying to organize and work on your projects using AI? Trying to turn vibes into skills? Don't
+care about skills, but those scripts look neat? Pitmaster might be for you.
+
+**Where to start.** The easiest way to start using Pitmaster is to have a bbq. You can say "have a bbq" and the AI
+agent will ask you about the topic and how many questions you want, then ask them in rounds and write down what you
+settled. If you already know more about what you want, you can say "16q bbq user interface makeadr" and it will ask
+you 16 questions about the user interface in your project, help you plan one if it doesn't exist, and then make a
+decision record on file.
+
+### New to skills and rules?
+
+New to agents, rules and skills? Start here.
+
+An **agent** works inside your project: it reads files, runs commands and makes changes. Claude Code and Codex are
+agents, and your agent's settings decide when it must ask first. Tell an agent what to do in the chat, or give it
+rules that apply to every session and skills for particular jobs.
+
+A **rule** is a short standing order that applies to every conversation with the agent. The agent reads its rules
+before doing anything else, which makes them the place for project-wide policies like "never push straight to main"
+or "keep answers short". Rules are kept in a plain text file at the top of your project folder: `CLAUDE.md` for
+Claude Code, `AGENTS.md` for Codex and most other agents. The agent loads the whole file at the start of every
+session, so a long rules file uses up the agent's context, which is how much it can keep in mind at once, and the
+tokens your usage is counted in, before the actual work has even started.
+
+A **skill** is a folder holding one instruction file, `SKILL.md`. Some skills also carry a script or a template to
+help carry those instructions out. Skills cost almost nothing until they're used. The agent keeps a short list of
+skill names, each with one line on when it applies, and reads a skill's full instructions only when you name it or
+your request matches. So a skill can be as detailed as the job needs: steps, questions, and the exact shape of what
+gets written down.
+
+| | a rule | a skill |
+|---|---|---|
+| when the agent reads it | before anything else, in every session | only when you name it or your request matches |
+| how long it is | short, often one line | as long as the job needs |
+| where it lives | `CLAUDE.md` or `AGENTS.md`, at the top of your project | a folder with a `SKILL.md`, installed or copied in |
+| example | "never push straight to main" | bbq: ask questions in rounds, then write down the plan |
+
+Pitmaster is a plugin full of skills, each started by saying its name in chat (or loaded on its own when your request
+matches). They range from question sessions (`bbq`) to project set-up (`project-prep`) to `carte-blanche`, which
+lets your agent keep working for a whole session without stopping to ask, inside the limits you set, and writes down
+every call it made so you can undo it. Most work alone or combine with others to suit how you work.
+
+**What happens when you type "bbq".**
+
+1. Type "bbq, ask me 8 questions" in the agent's chat box.
+2. The agent recognises the request and reads bbq's instructions.
+3. Before asking, the agent looks at your project. If there's a status file (a short note about where the project
+   stands), it reads that too. Then it asks questions in numbered rounds, recommending an answer for each one.
+4. After the questions, the agent writes a short file recording what you settled, question by question.
+5. That file becomes the prompt for work in the same chat or a new one.
+
+Skills change how the agents work; they don't change your permission settings. Skills announce pushes, pull requests
+and merges before acting, or report afterwards under carte-blanche; merging always needs your permission. Included
+scripts run only when the agent runs them as commands.
+
+## What it does
+
+### Start here (five minutes)
 
 **What you need.** Claude Code or Codex (any paid plan works; the usage skills assume a plan with a weekly usage
-limit), or Cowork or claude.ai for the skill zips. For the skills that open pull requests, `git` and GitHub's
-`gh`, signed in once with `gh auth login`. Python 3.8 or newer runs the optional scripts some skills carry; without
-it, those skills say so and carry on by hand.
+limit), Cowork or claude.ai for the skill zips, or an open-source agent such as OpenCode, which can also run models
+on your own computer. Some skills need a little more:
 
-**Install** (Claude Code; every other way is under [Install](#install)). Type these two lines in Claude Code's chat
-box, one at a time:
+| you need | what it's for | without it |
+|---|---|---|
+| `git` | keeps your project's history; any skill that makes branches or commits needs it | those skills can't save their work on a branch |
+| GitHub's `gh`, signed in once with `gh auth login` | lets the agent open pull requests on GitHub for you | the work stops at a saved branch, and you open the pull request yourself |
+| Python 3.8 or newer | runs the small optional scripts some skills carry | those skills do the same steps by hand |
+
+**Install.** Pick the way that fits:
+
+<details>
+<summary>Claude Code: just ask</summary>
+
+Ask Claude to "install the Pitmaster plugin from MapleSyrupOS/pitmaster". It runs the same two steps as typing it
+(`claude plugin marketplace add MapleSyrupOS/pitmaster`, then `claude plugin install pitmaster@pitmaster`). Restart
+Claude Code afterwards.
+
+</details>
+
+<details>
+<summary>Claude Code: type it</summary>
+
+To install Pitmaster in Claude Code, type these two lines in the chat box, one after the other:
 
 ```
 /plugin marketplace add MapleSyrupOS/pitmaster
 /plugin install pitmaster@pitmaster
 ```
 
-**Three things to try first.**
+</details>
 
-1. Before your next piece of work, say **"bbq, ask me 8 questions"**. You answer in rounds; it writes the plan.
-2. When you settle something worth remembering, say **"makeadr"**. You get a short, dated decision file.
-3. When you have a backlog and an hour of usage to spare, say **"dealer's choice"**. It asks four questions, picks
-   the most useful work and tells you what it picked.
+<details>
+<summary>Codex</summary>
 
-**Words you'll meet.**
+Run these in a terminal:
 
-- **Skill:** a packaged set of instructions an agent loads when your request matches.
-- **Agent:** the AI assistant doing the work (Claude Code, Codex and so on).
-- **Plugin:** how the skills install in Claude Code and Codex, all twelve at once.
-- **Points:** a share of your plan's usage limit; by default, 1 point is 1 % of the weekly limit.
-- **Lead and workers:** the session that plans and lands the work, and the helper agents it starts.
-- **Swarm:** several agents working at once on one run.
-- **Record:** the file a skill leaves behind (a question record, an ADR, a ledger row), so the next session
-  starts from it rather than from memory.
-- **ADR:** a short, dated file for one decision and why; pitmaster's format for them is ADR+.
-- **Ratify:** you approve a decision. After that its words are never edited, only added to.
-- **Veto line:** a call the agent made for you, written down so you can reverse it with one word.
-- **Taste:** naming, looks and direction. Always yours, whatever authority you give an agent.
-- **The shed:** small tools you can run with no agent at all.
+```
+codex plugin marketplace add MapleSyrupOS/pitmaster
+codex plugin add pitmaster@pitmaster
+```
 
-GitHub words (repository, branch, pull request, merge) are under [New to GitHub?](#new-to-github).
+</details>
+
+<details>
+<summary>Cowork or claude.ai</summary>
+
+Download a skill's zip from the [latest release](https://github.com/MapleSyrupOS/pitmaster/releases) (pick the
+`claude` build) and upload it in Claude's skill settings, one zip per skill.
+
+</details>
+
+<details>
+<summary>Just the shed's tools</summary>
+
+No agent needed. Copy a tool's folder from [`pitmaster-shed`](https://github.com/MapleSyrupOS/pitmaster-shed) into
+your project, or use the shed as a [pre-commit](https://pre-commit.com) hook repository. Each tool's README says how
+to run it.
+
+</details>
+
+Every other way, and how to update, is under [Install](#install) and [Update](#update).
+
+**Three more things to try.**
+
+1. When you settle something you and the agent need to remember, say **"makeadr"**. It writes a short, dated
+   decision file, so later sessions know what you decided and why.
+2. **Dealer's choice** lets your agent pick its own work for the session. It asks four quick questions first (how
+   much usage, anything off-limits, and so on), then keeps picking until it reaches the budget you set. You can give
+   it a general direction (`dealer's choice <topic>`) or not.
+3. Not ready for questions yet? Say **"talk-through"** and talk an idea through in the chat; it will help make sure
+   it's kept on record. Say "wrap it up", or just tell the agent you're done with the session.
+
+**What to say.** Some skills are understood easily, while some may take some getting used to. Here's what each one
+means.
 
 | say | it means |
 |---|---|
-| bbq | "Grill me before we start": a Big Batch of Questions. |
-| makeadr | "Write this decision down properly." |
-| carte-blanche | "Go ahead without asking, inside these limits." |
-| tastetest | "Would a stranger say this is ready?" |
-| talk-through | "Let's talk it through, then write down what we decided." |
-| dealers-choice | "You pick what to work on." |
-| goforit | "The plan is settled: build it, and stop only for my yes." |
-| tier-select | "Which model should do this?" |
-| budget-select | "How much of my usage should this get?" |
-| spend-ledger | "What did that cost, and what did we get?" |
-| swarm-bottleneck | "What's slowing my agents down?" |
-| project-prep | "Get this project ready for agents." |
+| bbq | "Before you build anything, read where the project stands and ask me a Big Batch of Questions so we agree on the plan." |
+| makeadr | "Record this decision in a dated decision file, so later sessions know what we decided and why." |
+| carte-blanche | "Until this session ends, you don't need my OK to push branches, open pull requests or merge them once their checks pass. Stay inside the budget and the project's rules, and leave a veto line for every call you make." |
+| tastetest | "Audit from an agent that knows nothing about the project." |
+| setfree | "Get the release ready, show me exactly what goes out, and wait for my word before anything is published." |
+| talk-through | "Let's have a chat about this and you can distill the important parts of the conversation for me." |
+| dealers-choice | "You pick what to work on: look at what needs doing, ask me a few quick questions, and pick the most useful job." |
+| goforit | "This plan is settled. Build it now, and stop only for my approval and my merge." |
+| goforitreally | "Build the plan and merge it once the checks pass. Stop only for my approval." |
+| looseends | "What did we leave unfinished?" |
+| tier-select | "Out of our available models, which model should handle this part of the work?" |
+| budget-select | "Help me decide what share of my weekly usage goes to this, so one job doesn't take more than I want." |
+| spend-ledger | "What did the agents spend their time on, and how many tokens did it take?" |
+| swarm-bottleneck | "Several agents are working at once and getting in each other's way: what's slowing the agents down?" |
+| project-prep | "Organize this project for me and my agents." |
 
-## The skills
+### The skills
 
-**Start with these four.** Each row says what the skill does and the words that start it; Claude also loads a
-skill on its own when your request matches.
+**Start with these four.** Each row says what the skill does and the words that start it; your agent also loads
+a skill on its own when your request matches.
 
 | skill | what it does | start it with |
 |---|---|---|
-| **bbq** | A Big Batch of Questions: grills you in numbered rounds before a piece of work starts, and writes the record that becomes its prompt. Ten types, including **Skill**, which takes a new skill from draft to shipped. | "bbq", "makeskill", "ask me 12 questions before we start" |
-| **makeadr** | Turns a question session into an architecture decision record, or a few lines into a short one (the light route). Three templates; scripts that build the index and check that each "Built" claim points at something that exists. | "makeadr", "let's make an ADR for…" |
-| **carte-blanche** | Standing authority for one session: the agent picks, pushes branches, opens PRs and spends a set budget without asking, inside your project's rules, and leaves a veto line for every call. Taste always comes back to you. | "carte blanche" |
-| **tastetest** | A blind taste test before the public gets a bite: an auditor that knows nothing about your project gets only what an outsider would see, tries it, and reports READY or NOT READY with ranked findings. Profiles for a repository going public and an app going to the App Store. | "tastetest", "is this ready to go public?" |
+| **bbq** | A Big Batch of Questions. It asks you questions in numbered rounds before a piece of work starts, then writes down what you settled; that record becomes the prompt for the work. It has ten types, one per kind of job; the **Skill** type takes a new skill from draft to shipped. | "bbq", "makeskill", "ask me 12 questions before we start" |
+| **makeadr** | Writes a decision down as an architecture decision record (ADR), from a question session or, for a short one, from a few lines. It brings three templates, and scripts that build the list of decisions and check that each claim about what was built points at something that exists. | "makeadr", "let's make an ADR for…" |
+| **carte-blanche** | For one session, the agent chooses its own work, pushes branches, opens pull requests, merges them once the checks pass and spends a budget it estimates without asking, inside your project's rules. "trescarteblanche" does the same in every project you name with it. It writes down each decision it made for you as a veto line, so you can reverse it. Taste always comes back to you. | "carte blanche", "trescarteblanche pitmaster and …" |
+| **tastetest** | A blind readiness check before anything goes public. An auditor that knows nothing about your project is shown only what an outsider would see, tries it, and reports READY or NOT READY with ranked findings. It has profiles for a repository going public and for an app going to the App Store. "tastetestreally" also fixes what it finds and audits again until READY. | "tastetest", "is this ready to go public?", "tastetestreally" |
 
-**The rest, for power users**, by what they are for:
+**The other ten skills**, by what they are for:
 
 **Plan the work**
 
 | skill | what it does | start it with |
 |---|---|---|
-| **talk-through** | Talks a subject through as an open conversation, in voice or text, tracking decisions, open questions, action items and corrections; on your word it writes one record, each decision marked agreed, proposed or open and cited to where it came up. | "talk-through", "chitchat", "let's talk it through" |
+| **talk-through** | Talks a subject through as an open conversation and quietly tracks decisions, open questions, action items and corrections. When you say so, it writes one record that marks each decision agreed, proposed or open, and says where it came up. Any of its words with "really" run on ("talk-throughreally") also merges the record's pull request once the checks pass. | "talk-through", "chitchat", "let's talk it through", "talk-throughreally" |
 
 **Run it**
 
 | skill | what it does | start it with |
 |---|---|---|
-| **dealers-choice** | The agent picks what to work on: four quick questions, then it reads your status, debt list and PR queue, says what it picked and why, and keeps going until the budget stop. | "dealer's choice" |
-| **goforit** | Once a plan is settled, carries it on into the build, here or by a worker, and stops only for your "ratify" and your merge. "goforitreally" hands off the merge too. Also an answer: "goforit" mid-questions means take the recommended answers and go. | "bbq … goforit", "goforitreally" |
-| **tier-select** | Picks the model and effort for a run's lead and each worker, by the shape of the job, on any vendor. | "which model should lead this?" |
+| **dealers-choice** | The agent picks what to work on. After four quick questions it reads your status file, your debt list (known problems and owed work) and your open pull requests, says what it picked and why, and keeps going until it reaches a stop line. A topic after it ("dealer's choice docs") keeps the pick inside that topic. "tresdealers-choice" picks across every project you name. | "dealer's choice", "dealer's choice docs", "tresdealers-choice" |
+| **goforit** | Once a plan is settled, carries it on into the build, in this chat or with a worker, and stops only for your approval ("ratify") and your merge. "goforitreally" lets the agent merge too, once the checks pass. bbq also offers "goforit" itself, mid-questions, when every remaining answer can be cited. | "bbq … goforit", "goforitreally" |
+| **looseends** | Finds what was left unfinished in this chat, across the project, or around one decision or topic: questions never answered, promises not kept, decisions waiting on you, work never merged. It checks that each is still open, groups them by who must act, and offers to tie them off. Its scan script also runs without an agent. "treslooseends" checks every project you name. "looseendsreally" ties off its own share without asking. | "looseends", "looseends project", "treslooseends", "any loose ends?", "looseendsreally" |
+| **setfree** | Release day. It shows each decision record waiting to be made public, so you approve or hold each one, and offers a blind tastetest. Then it works through your release checklist and stops for your word before every public step: publishing, tagging a version, making a repository public. | "setfree", "release day", "cut a release" |
+| **tier-select** | Picks which model, and how much effort, the lead and each worker should use, by the kind of job, whichever company's models you use. | "which model should lead this?" |
 
 **Watch the usage**
 
 | skill | what it does | start it with |
 |---|---|---|
-| **budget-select** | Gives a run its share of your plan's usage limit, in points, with stop lines and a Budget block for its prompt. | "how much budget should this get?" |
-| **spend-ledger** | Records what a session actually spent (tokens from its own transcript, the usage meter, a list-price proxy) beside what it landed, one row per session, and reports the cost per landing over a week. | "log the spend", "what did we get for the points?" |
-| **swarm-bottleneck** | Names the one constraint holding a multi-agent run back (limits, context, CI, the review queue, your attention, failing tools) with evidence and moves. | "what's the bottleneck?" |
+| **budget-select** | Gives a voyage its share of your plan's usage limit, in points, sets its stop lines, and writes a short budget section for the voyage's prompt. | "how much budget should this get?" |
+| **spend-ledger** | Records what a session actually used (from its own conversation log and your usage meter, plus an estimate at list prices) beside what it got merged, one row per session, and reports the cost per merged change over a week. | "log the spend", "what did we get for the points?" |
+| **swarm-bottleneck** | Names the one thing holding a multi-agent voyage back (usage limits, how much an agent can hold in mind at once, slow checks, the review queue, your attention, failing tools), with the evidence and what to do about it. | "what's the bottleneck?" |
 
 **Set the project up**
 
 | skill | what it does | start it with |
 |---|---|---|
-| **project-prep** | Sets a new or existing project up for agents (not app code): by default the agent rules and a STATUS file whose claims cite files; a log, debt list, decisions folder, glossary and more on request. On a branch, never overwriting a file. Ends by offering to put your first decision on record. | "project-prep", "prep this project" |
+| **project-prep** | Gets a new or existing project ready for agents; it writes no app code. By default it writes the agent rules file and a status file in which every claim names the file that backs it; on request, a log, a debt list, a decisions folder, a glossary and more. It works on a new branch and never overwrites a file, and ends by offering to put your first decision on record. "project-prepreally" also merges its set-up branch once the checks pass. | "project-prep", "prep this project", "project-prepreally" |
 
 The skills work together: a `bbq` asks `budget-select` and `tier-select` for their recommendations, and hands an
-ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand. `dealers-choice` picks the work and asks whether the run has `carte-blanche`. `project-prep` sets a project up and hands its first decision to `makeadr`.
+ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand. `dealers-choice` picks the work and asks whether the voyage has `carte-blanche`. `project-prep` sets a project up and hands its first decision to `makeadr`. `looseends` finds what a voyage left open and hands the agent's share to `goforit` or `dealers-choice`.
 
-## The shed
+### The shed
 
 [`pitmaster-shed`](https://github.com/MapleSyrupOS/pitmaster-shed) holds small tools a person can run without an
 agent: one Python 3 script per tool (standard library only), each in its own folder with a README and a self-test,
@@ -154,10 +255,8 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 | `split-status-log` | Splits a newest-first dated log by month, byte for byte. |
 | `status-check` | Checks a STATUS file's length and that every bullet cites a file that exists. |
 
-**How the skills use it.** `makeadr` carries pinned copies of `adr-index` and `adr-check`, and `project-prep`
-carries `status-check`, so every install works offline with nothing extra to fetch. A fix is made in the shed
-first; each copy is then updated byte for byte, and `scripts/check-pins.py` fails, naming the file, if a copy
-ever drifts from its pin.
+**How the skills use it.** `makeadr` carries its own copies of `adr-index` and `adr-check`, and `project-prep`
+carries `status-check`, so every install works offline with nothing extra to fetch.
 
 ## Install
 
@@ -171,7 +270,7 @@ ever drifts from its pin.
 The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bottleneck`,
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
-`/pitmaster:tastetest` and `/pitmaster:goforit`. Claude
+`/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends` and `/pitmaster:setfree`. Claude
 also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal:
@@ -186,14 +285,15 @@ codex plugin add pitmaster@pitmaster
 Download a skill's zip from the [latest release](https://github.com/MapleSyrupOS/pitmaster/releases) (pick the
 `claude` build) and upload it in Claude's skill settings. One zip per skill; each is a plain zip with a `.skill` name.
 
-**Any other tool that reads skills**
+**Any other agent that reads skills**
 
-Copy a folder from `skills/` into your tool's skills folder, or use the `generic` zips from the release. Each
+Copy a folder from `skills/` into your agent's skills folder, or use the `generic` zips from the release. Each
 skill's *Platform notes* section says what it does differently there.
 
 ## Update
 
-An installed plugin does not change by itself. Refresh the marketplace, then update the plugin.
+An installed plugin does not change by itself. Refresh the marketplace, then update the plugin. What changed in each
+version is in the [CHANGELOG](CHANGELOG.md).
 
 **Claude Code**: run these in a terminal (or use the `/plugin` menu in Claude Code's chat box):
 
@@ -226,8 +326,10 @@ old one.
 | Other Agent Skills tools | copy a folder | expected to work; untested |
 
 Every skill keeps its steps in plain words and puts anything platform-specific in one tagged *Platform notes*
-section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). The first five skills' first moves were tried in Codex,
-Antigravity and OpenCode on 2026-10-16; the later seven have been used in Claude Code and Codex.
+section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). The first five skills' opening steps were
+tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later nine have been used in Claude Code and
+Codex; the two newest, looseends and setfree, were made in Claude Code and have not yet been tried elsewhere.
+*Smoke-tested* means a quick check that the basics work.
 
 ## Configure
 
@@ -245,25 +347,91 @@ instance, is read by bbq, makeadr and talk-through alike.
 
 ## Help and feedback
 
-Questions, bug reports and ideas are all welcome as an [issue](https://github.com/MapleSyrupOS/pitmaster/issues).
-Most useful: a skill that loaded when it should not have (or did not when it should), a step that needed a guess,
-and a word that was not explained. For anything about conduct, see the [Code of Conduct](CODE_OF_CONDUCT.md).
+If something is unclear, wrong or worth changing, open an [issue](https://github.com/MapleSyrupOS/pitmaster/issues):
+a short note to the project. For anything about conduct, see the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## New to GitHub?
+## About Pitmaster
+
+I'm building MapleSyrup OS (coming soon!) with agents from several AI models. Pitmaster is how I try to stay
+organized; it happened organically. Most of Pitmaster is a more universal version of what I've been doing in my own
+projects. I made Pitmaster to formalize the habits I built up while directing AI agents. I'm not a programmer, and
+I'm new to the tools people in this field use. That gives me a different view, and it's why I'd love feedback and
+ideas for making it better.
+
+Pitmaster is made and improved with its own skills: every new skill, for instance, starts as a "skill bbq".
+Adversarial audits, where another model tries to poke holes in the work, are surprisingly helpful. My
+"neighbourhood" is how I run them: agents from other accounts and other companies (Codex, Gemini, the local models
+on my own machine) check the same work without seeing each other's answers. I think it can help programmers and
+non-programmers in different ways, and I'd love to hear how it helps you.
+
+## Words
+
+Some of these words come with AI agents, some come from Git and GitHub, and some are Pitmaster's own. Each group is
+marked, so you can tell whose word it is.
+
+### Agent words
+
+- **Agent:** the AI assistant doing the work (Claude Code, Codex and so on).
+- **Model:** the AI behind an agent, such as Claude Opus or GPT. Larger models take on harder work and use more of
+  your plan's usage.
+- **Effort:** how long a model may think before it answers. More effort, more usage.
+- **Session:** one conversation with an agent, from its first message to its close.
+- **Prompt:** the instructions an agent starts from. A bbq record can be the prompt for the work that follows.
+- **Tokens:** the small pieces of text a model reads and writes; usage is counted in them.
+- **Rule:** a short instruction the agent reads at the start of every session, kept in `AGENTS.md` or
+  `CLAUDE.md`.
+- **Skill:** a packaged set of instructions an agent loads when your request matches.
+- **Plugin:** a bundle of skills installed in one go; how Pitmaster installs in Claude Code and Codex.
+- **Swarm:** several agents working at once on one voyage.
+- **ADR:** architecture decision record, a short dated file for one decision and why. A common practice in
+  software teams; Pitmaster didn't invent it. Pitmaster's own format for one is ADR+.
+
+### Git and GitHub words
+
+Git is the tool that keeps a project's history; GitHub is a website built on it. Repository, commit, branch, push
+and merge are Git's words, which GitHub uses too. Pull request, checks, issue and release are GitHub's own.
 
 - **Repository (repo):** a project's folder of files, with its full history.
+- **Commit:** a saved state of the project: a snapshot of the work at one moment, with a note saying what changed.
 - **Branch:** a separate line of work, so changes can be made without touching the main copy.
-- **Commit:** one saved change, with a note saying what it is.
+- **Push:** send your commits up to GitHub.
 - **Pull request (PR):** a proposed change from a branch, waiting to be reviewed and merged.
+- **Checks:** automatic tests that run on a pull request. A green tick means they all passed; a red cross means
+  one failed. Developers also call this *CI* (continuous integration).
 - **Merge:** the proposed change joins the main copy.
-- **Merge on green:** merge only once the automatic checks pass.
+- **Merge on green:** merge as soon as the checks pass (turn green). Developer shorthand, not a GitHub button;
+  GitHub's own feature for it is called *auto-merge*.
+- **Land:** developer slang: a change lands when it is merged. Not a GitHub word.
 - **Issue:** a question, a bug report or a request, filed on the project's page.
+- **Release:** a numbered version with files to download, such as Pitmaster's skill zips.
+
+### Pitmaster's own words
+
+- **Voyage:** one stretch of work handed to agents, from start to finish; it can take one session or several.
+  "Runlap" and "run-lap" mean the same.
+- **Lead and workers:** when a job is split across several agents, the lead is the main session you talk to: it
+  plans the work and brings the finished pieces together. The workers (aka subagents) are the helper sessions the
+  lead starts to handle the pieces.
+- **Points and stop line:** points let you budget a share of your plan's usage limit. By default, one point means
+  1 % of the weekly limit. A stop line tells the voyage when to stop starting new work; work already under way
+  finishes.
+- **Record:** a record is exactly that: a document the agent can look back at, so it doesn't have to remember every
+  question and decision in the project.
+- **ADR+:** Pitmaster's format for an ADR. What was decided and what is actually built are separate lines, each
+  Built claim points at its proof, and later changes are added as dated amendments, never edits.
+- **Ratify:** your yes to a decision. After that it's locked; if you change your mind, you add a dated note instead
+  of rewriting it.
+- **Veto line:** an undo button. When the agent decides something for you, it writes it down so you can reverse it
+  with one word.
+- **Taste:** however much an agent does on its own, taste stays with you: names, looks and where the project is
+  going.
+- **The shed:** small tools you can run with no agent at all.
 
 ## More
 
 - [CHANGELOG.md](CHANGELOG.md): what changed in each release.
 - [CONTRIBUTING.md](CONTRIBUTING.md): how to add a skill (with `bbq`, of course).
-- [docs/decisions/](docs/decisions/): the decisions behind the skills.
+- [docs/decisions/](docs/decisions/): the decisions behind the skills. Decision numbers skip where a decision was kept private.
 - [LICENSE](LICENSE) (Apache-2.0) and [NOTICE](NOTICE).
 
 Copyright 2026 Writerblockade.

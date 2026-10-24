@@ -1,0 +1,8 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+# Pinned to a commit until the shed's next release is tagged; then re-pin to the tag (ADR-020, owed).
+source: MapleSyrupOS/pitmaster-shed
+version: 0.2.0
+ref-kind: commit
+ref: 10d22f61f71b6e88da3a5fe15aad125d11c3502d
+file: 9eaaca6b5df123185455a95a5951e11c0195b06f42edaf50457b6ca76081ac15  adr-public.py  adr-public/adr-public.py

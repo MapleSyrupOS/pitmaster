@@ -49,6 +49,11 @@ It checks for personal details (home paths, emails, IP addresses, tokens), that 
 has its platform notes, that the Claude and Codex manifests agree, that every pinned copy matches its pin, and
 that pitmaster's published decisions pass its own ADR checks.
 
+**Shed tools carried by skills.** `makeadr` and `project-prep` carry pinned copies of tools from
+[`pitmaster-shed`](https://github.com/MapleSyrupOS/pitmaster-shed). A fix to one is made in the shed first; each
+copy is then updated byte for byte, and `scripts/check-pins.py` fails, naming the file, if a copy ever drifts from
+its pin.
+
 **Keep examples anonymous.** People in examples are Alex and Sam (they/them); machines are `alpha`, `bravo`,
 `charlie`, `delta` and `gpu-box`. Never commit a real name, machine, account or home path. If you keep a private
 list of your own names and hosts in `~/.config/pitmaster/denylist.txt` (one per line, outside the repository), the

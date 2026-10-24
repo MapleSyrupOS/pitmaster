@@ -2,7 +2,7 @@
 
 **Dated:** 2026-10-22, from Apple's App Review Guidelines
 (https://developer.apple.com/app-store/review/guidelines/) and App Store Connect rules as known then. **Apple
-changes these**, so each run checks the live page and reports the differences as checklist drift (the skill's
+changes these**, so each audit checks the live page and reports the differences as checklist drift (the skill's
 step 3). Section numbers below are Apple's as of this date; trust the live page where they differ.
 
 **Picked when:** the project builds an Apple-platform app headed for the App Store or TestFlight (an `.xcodeproj`

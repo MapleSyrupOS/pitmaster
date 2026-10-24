@@ -10,6 +10,8 @@
   6. pitmaster's own ADRs: every YAML header passes the schema, the index is current, every proof resolves and the
      triggers hold from ADR-003 on
   7. pitmaster's own STATUS.md (status-check, with the sections pitmaster.md names)
+  8. project-prep's rules catalogue: its shape, 30 words a rule, 35 rules in all, no repeat of a ground rule
+     (scripts/check-rules.py, ADR-022)
 
 In the public repository (no publish.txt) the publish self-test and the STATUS check are skipped: the publisher and
 STATUS.md live only in the private one. The ADR checks run on the public copies there.
@@ -35,6 +37,7 @@ CHECKS = [
     ("status-check self-test", [str(ROOT / "skills" / "project-prep" / "scripts" / "status-check.py"), "--self-test"]),
     ("blind-copy self-test", [str(ROOT / "skills" / "tastetest" / "scripts" / "blind-copy.py"), "--self-test"]),
     ("seeded-fixture self-test", [str(ROOT / "skills" / "tastetest" / "scripts" / "seeded-fixture.py"), "--self-test"]),
+    ("looseends-scan self-test", [str(ROOT / "skills" / "looseends" / "scripts" / "looseends-scan.py"), "--self-test"]),
     ("skill spec", ["scripts/build-variants.py", "--check"]),
     ("manifest parity", ["scripts/sync-manifests.py", "--check"]),
     ("pins self-test", ["scripts/check-pins.py", "--self-test"]),
@@ -49,6 +52,8 @@ CHECKS = [
     # pitmaster's own STATUS.md: the sections pitmaster.md names, every bullet citing a file that exists.
     ("STATUS", [str(ROOT / "skills" / "project-prep" / "scripts" / "status-check.py"), "--root", str(ROOT)]),
     ("spend-ledger self-test", [str(ROOT / "skills" / "spend-ledger" / "scripts" / "spend-ledger.py"), "--self-test"]),
+    ("rules self-test", ["scripts/check-rules.py", "--self-test"]),
+    ("rules", ["scripts/check-rules.py"]),
 ]
 
 

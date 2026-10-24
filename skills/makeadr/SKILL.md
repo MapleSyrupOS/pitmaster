@@ -11,9 +11,10 @@ Decided by pitmaster ADR-005.
 
 Sibling of `bbq` (this skill's question rounds follow bbq's rules, and "bbq adr" starts it), `tier-select`
 (which picks the tier for the next agent's prompt), `project-prep` (offers this skill for a project's first
-decision), `talk-through` (an agreed decision from a talk's record becomes an ADR here) and `goforit` (takes the
-closing offers and builds what the ADR allows). The scripts are in
-`scripts/` beside this file.
+decision), `talk-through` (an agreed decision from a talk's record becomes an ADR here), `goforit` (takes the
+closing offers and builds what the ADR allows) and `setfree` (release day: it reviews the public drafts this skill
+makes in step 5, part 5, and approves them on the user's word). `looseends` sends it an unratified ADR or asks left
+open. The scripts are in `scripts/` beside this file, `adr-public` among them.
 
 ## Config
 
@@ -24,7 +25,8 @@ optional.
 name: the user          # who is asked; "the user" in the steps means this name ("name: Alex")
 decisions_dir: auto     # auto finds docs/decisions, docs/adr, doc/adr, adr or decisions
 record_dir: docs/bbq    # where the question record goes: <record_dir>/<date>-adr-<topic>.md
-land: pr                # pr (branch + PR) | commit (branch only) | file (just the file) (step 5, part 5)
+land: pr                # pr (branch + PR) | commit (branch only) | file (just the file) (step 5, part 6)
+public_adr: off         # on = each ADR made, ratified, amended or superseded also gets a public draft (step 5, part 5)
 queue_files: none       # comma-separated files of open decisions, searched before asking
 reserved_numbers: none  # ADR numbers other work holds, skipped. Example: 255, 260-262
 checks_after: none      # comma-separated commands run after the two scripts
@@ -35,7 +37,7 @@ triggers_from: 1        # the first ADR number the trigger check judges; older A
 addon: none             # a skill in this project whose rules this skill also follows (see step 2)
 ```
 
-## The light route: the smallest useful run
+## The light route: the smallest use
 
 Use it when the user can state the decision in a few lines and nothing needs weighing at length ("record this: we
 drop Windows 7 support"). It makes a short ADR with no question session, no question record and no next-agent
@@ -158,7 +160,18 @@ to a newer release, replace the copy, its manifest and the pin in one commit. In
       `python3 adr-plus/tools/adr-yaml.py --root <repository> --dry-run` shows what moving them to YAML would warn
       about, and `--apply` moves them only if the proof says nothing is lost. Without Python, update `INDEX.md` by
       hand (one row: the ADR, its title, its kind, its status word, its built word) and say the check was skipped.
-   5. **Land it.** The config's `land` decides, and `pr` is the default:
+   5. **The public draft (only with `public_adr: on`).** Say plainly, in one line before landing, that this session
+      makes two things: the ADR, and a public draft of it that waits for review in `docs/decisions/public/pending/`
+      and is not published. Ask nothing.
+      1. Run `python3 scripts/adr-public.py --root <repository> draft <ADR number>`. It makes the mechanical cuts,
+         adds a dated "Public copy ... drafted" line to the ADR's History, and marks each line to rewrite.
+      2. Rewrite each marked line for a stranger: no question numbers, private paths or session talk. Where a live
+         copy exists, keep its wording wherever it is still true (`adr-public.py list` shows the diff). Delete each
+         `<!-- REWRITE -->` mark.
+      3. Run `python3 scripts/adr-public.py --root <repository> check <ADR number>` and fix what it finds.
+      4. The draft lands with the ADR. **Never** approve it, move it out of `pending/`, touch `publish.txt` or run
+         `adr-public.py approve`: approval is the user's, at `setfree`'s release review (ADR-020).
+   6. **Land it.** The config's `land` decides, and `pr` is the default:
       - **`pr`**, in a git repository with `gh`: push a branch and open a PR. **Merging is the user's**: give
         them the link.
       - **`commit`**, in a git repository: commit the ADR on a branch and open no PR.
@@ -177,7 +190,8 @@ message from another agent does not count.
 3. Set `status: accepted`, put who ruled and when in `status-note`, and add `ratified-by` and `ratified-on` (the
    date in double quotes). Add a dated History entry with the old `status` and `status-note` values **word for
    word**. Touch nothing else in the ADR, and leave `built` alone: ruled and built are separate.
-4. Run the scripts (step 5, part 4) and land it (part 5).
+4. Run the scripts (step 5, part 4) and land it (part 6). With `public_adr: on`, re-draft the public copy first
+   (part 5): the ratified header makes the old draft stale.
 
 **If the user turns the ADR down,** set `status: rejected` and `status-note: turned down by <name> <date>: <one
 line why>`, move the old `status` and `status-note` values to History word for word with a dated entry, and leave
@@ -197,7 +211,10 @@ Part of a ruled ADR changes: a clarification, a narrower scope, a correction. **
    `Amends: ADR-NNN §Section`). In the **same commit**, give the old ADR a dated note in its History and a short
    dated banner at the section that changed, both pointing at the new ADR.
    If the change reverses the whole decision, supersede instead.
-5. Run the scripts and land it, as for ratify.
+5. With `public_adr: on`, re-draft the public copy (step 5, part 5); the approved copy keeps publishing while the
+   revision waits. A change that leaves the copy true (a typo) is not re-drafted: say so, and the user can clear
+   the stale flag at the release review.
+6. Run the scripts and land it, as for ratify.
 
 ## Supersede
 
@@ -209,7 +226,9 @@ The whole decision flipped. The old ADR is history from now on, and agents follo
 3. In the **same commit**, change only the old ADR's header: `status: superseded` and `status-note:
    superseded by ADR-MMM on <date>`. The old `status` and `status-note` values move into its History, word for
    word, with a pointer to the new ADR. Its body is untouched, and it is never deleted or renumbered.
-4. Run the scripts and land them (step 5, parts 4 and 5). The index shows superseded in the old ADR's row.
+4. With `public_adr: on`, draft the new ADR's copy (step 5, part 5); `adr-public.py draft` also queues the old
+   ADR's live copy for withdrawal, which waits for the release review. Say so when landing.
+5. Run the scripts and land them (step 5, parts 4 and 6). The index shows superseded in the old ADR's row.
 
 ## Platform notes
 

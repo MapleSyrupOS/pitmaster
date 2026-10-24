@@ -2,17 +2,17 @@
 name: swarm-bottleneck
 metadata:
   family: usage
-description: Name the one constraint that is limiting a multi-agent run (a swarm, an overnight queue, a lead with workers) right now, with the evidence and one to three moves that relieve it. Use when the user or a lead session asks "what's the bottleneck", "where are we stuck", "how's the swarm doing", "what are we waiting on", or when deciding what to start next while several jobs share the same limits, reviewers or machines. "Why is this slow" loads it only in a multi-agent run; one slow command, script, query or web page is an ordinary speed question. Read-only; it measures and reports, and starts nothing.
+description: Name the one constraint that is limiting a multi-agent voyage, also called a runlap (a swarm, an overnight queue, a lead with workers), right now, with the evidence and one to three moves that relieve it. Use when the user or a lead session asks "what's the bottleneck", "where are we stuck", "how's the swarm doing", "what are we waiting on", or when deciding what to start next while several jobs share the same limits, reviewers or machines. "Why is this slow" loads it only in a multi-agent voyage; one slow command, script, query or web page is an ordinary speed question. Read-only; it measures and reports, and starts nothing.
 ---
 
 # swarm-bottleneck: measure, then name one constraint
 
-You measure, the run's board says what matters, and you judge. The answer is **one binding constraint** (the one
-thing holding the run back most), the evidence for it, and one to three moves that relieve it; never a tour of
+You measure, the voyage's board says what matters, and you judge. The answer is **one binding constraint** (the one
+thing holding the voyage back most), the evidence for it, and one to three moves that relieve it; never a tour of
 everything that is slow.
 
-The smallest useful run is steps 1 to 4 on the work in flight, the open pull requests and the last few CI runs;
-hosts are only for runs that use machines of their own.
+The smallest use is steps 1 to 4 on the work in flight, the open pull requests and the last few CI runs;
+hosts are only for voyages that use machines of their own.
 
 ## Config
 
@@ -20,8 +20,8 @@ Edit these lines here, or put the same lines in a `pitmaster.md` at your project
 optional.
 
 ```
-name: the user        # who owns the run's decisions. "name: Alex" makes this skill say "Alex".
-board: auto           # the run's board: auto finds the newest run record or README with a streams table
+name: the user        # who owns the voyage's decisions. "name: Alex" makes this skill say "Alex".
+board: auto           # the voyage's board: auto finds the newest voyage record or README with a streams table
 hosts: none           # "none", or a file describing your machines (see "Your hosts")
 ```
 
@@ -41,7 +41,7 @@ hosts: none           # "none", or a file describing your machines (see "Your ho
 
    Take a failed reading again once before believing the thing is down; a machine in the hosts file that does not
    answer counts as a failed reading.
-2. **Read the critical path:** the chain of work that ends in the next landing, from the run's board (its record
+2. **Read the critical path:** the chain of work that ends in the next landing, from the voyage's board (its record
    or README: the streams table, what has landed and what waits on what) and the newest handoff's order of work.
    A delay off it costs nothing.
 3. **Name the constraint:** the one that, relieved, brings the next landing forward the most. If two would do so
@@ -78,7 +78,7 @@ hosts: none           # "none", or a file describing your machines (see "Your ho
 
 ## Your hosts (optional)
 
-If the run uses machines of its own (build servers, test boxes, a GPU machine), name a hosts file in the config,
+If the voyage uses machines of its own (build servers, test boxes, a GPU machine), name a hosts file in the config,
 with one block per machine: its name, how to reach it, how many jobs it runs at once, and the command that lists
 what it is running. Step 1 then reads each machine's load and free slots, and the menu's *your hosts* row applies.
 
