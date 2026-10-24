@@ -11,7 +11,7 @@ amends: nothing
 ---
 # ADR-019 — looseends: find what was left unfinished, and offer to tie it off
 
-This is the public copy of a decision I made. I've left out a few internal notes.
+This is the published version of this decision. Some internal details have been left out.
 
 ## Decision
 
@@ -22,6 +22,9 @@ things waiting on the user's ruling, and work never landed. It checks each is st
 and on the user's yes ties off the small ones and hands the rest on. It runs only when asked.
 
 ## The rules
+
+> **Amended 2026-10-23 by ADR-023, ratified by the user:** looseendsreally ties off the agent's own loose ends
+> without asking; treslooseends checks the projects named (rule 6).
 
 1. **Scope:** the word after the opener sets it: `chat` or `session`, `project`, or anything else as a topic. A
    plain "looseends", or a plainer ask ("what's left hanging?", "what did we leave open?", "what's still open?"),
@@ -68,3 +71,4 @@ and on the user's yes ties off the small ones and hands the rest on. It runs onl
 
 - 2026-10-23: proposed.
 - 2026-10-23: ratified by the owner.
+- 2026-10-23: amended.

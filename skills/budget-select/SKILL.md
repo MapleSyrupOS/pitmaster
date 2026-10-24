@@ -2,20 +2,21 @@
 name: budget-select
 metadata:
   family: usage
-description: Choose the usage budget for a session that will run workers or a long job (a voyage, also called a runlap), in points of the plan's usage limit (by default 1 % of the weekly limit), set its stop lines, and write the Budget block its prompt carries. Use at the start of a session that will dispatch workers, before writing an overnight prompt, swarm kickoff or handoff, and when the user asks "how much budget", "what share should this get", "split the week between these", "which account", or "what should we spend the rest of the week on". Works with any platform's usage meter; where none can be read, it asks the user for the reading.
+description: Choose the usage budget for a session that will run workers or a long job (a comrun, also com-run, com run, commission run or commissioned run), in points of the plan's usage limit (by default 1 % of the weekly limit), set its stop lines, and write the Budget block its prompt carries. Use at the start of a session that will dispatch workers, before writing an overnight prompt, swarm kickoff or handoff, and when the user asks "how much budget", "what share should this get", "split the week between these", "which account", or "what should we spend the rest of the week on". Works with any platform's usage meter; where none can be read, it asks the user for the reading.
 ---
 
 # budget-select: a share, its stop lines, and a measurement afterwards
 
-Sibling of `tier-select` (model and effort for the lead and each worker), `bbq` (loads this skill first when a voyage
-spends points) and `spend-ledger` (measures afterwards). This skill decides how much of the plan's limit a session
-may spend.
+Sibling of `tier-select` (model and effort for the lead and each worker), `bbq` (loads this skill first when a comrun
+spends points) and `spend-ledger` (measures afterwards). `townhall` loads it for a stop line when a run
+seats outside neighbours or goes over its cost line. This skill decides how much of the plan's limit a session may
+spend.
 
 **A usage meter is shared.** Every lead, every worker and the user's own chats on the same plan move the same
 meter, so a lead cannot read its own spend off it while another lead runs beside it.
 
 A session that will not dispatch workers or run long does only step 0; step 4 and the last two sections are for
-bigger voyages.
+bigger comruns.
 
 ## Config
 
@@ -88,7 +89,7 @@ and covers the tail (the *Cover* line, step 3).
    Share: NN points (1 point = <unit>) of a CC-point ceiling split R:R with <other lead>; reserve VV kept for the user.
    Room: HH points (the lower of the ceiling and the hard stop less the reading, less the reserve); split R:R gives NN and MM.
    Written when the <meter> meter read WW % (date, time); that reading is not yours. On pickup: take the reading
-   (or ask the user for it), name your meter, note your start reading in the voyage's ledger, and cap the share at
+   (or ask the user for it), name your meter, note your start reading in the comrun's ledger, and cap the share at
    your hard stop minus your reading. Read the meter before each batch of dispatches; note a reading only at batch
    ends and when a stop line is within 5 points. Stop starting new work at the first of: your ledger's spend
    reaching NN points (K = <tokens>/point, or the meter alone if no K yet); the meter reaching your start + the
@@ -104,12 +105,12 @@ and covers the tail (the *Cover* line, step 3).
 
 ## Calibration
 
-K is the finished workers' tokens per point, fitted from the calibration log's rows, which come from real voyages.
+K is the finished workers' tokens per point, fitted from the calibration log's rows, which come from real comruns.
 **Until there are some, there is no K: every point estimate says it is unmeasured**, and the stop lines use the
 meter alone. A lead's own context and the user's chats move the meter too, so a fitted K **overstates** a lead's
 spend, the safe direction. A mix heavier in large models costs more per token; refit as rows come.
 
-## No meter: a lead that cannot read the usage meter (bigger voyages)
+## No meter: a lead that cannot read the usage meter (bigger comruns)
 
 A lead in a cloud container usually cannot read the meter or list the account's other sessions (see bbq's Cloud
 type). Its prompt then carries:
@@ -119,11 +120,11 @@ type). Its prompt then carries:
 - **"You are not alone."** Other leads and the user's chats move the same meter.
 - **The ledger as the only spend line** (step 3's share line). With no K yet, plan from the share and stop at the
   first of the prompt's hard stop or the context line.
-- **Context as a stop line.** The lead's own context fills first on a large share (one large voyage saw
+- **Context as a stop line.** The lead's own context fills first on a large share (one large comrun saw
   about 10 of 35 points). At `handoff_context`: wait for in-flight workers, write the calibration row and hand off
   to a successor (bbq's Cloud type says how).
 
-## 48 hours before a meter's reset: the use-it plan (bigger voyages)
+## 48 hours before a meter's reset: the use-it plan (bigger comruns)
 
 From 48 hours before a meter's reset, **once per day per meter, whatever the headroom**, read it and work out the
 points the hard stop leaves that the plans in hand will not use, and **propose** two or three ways to spend them,

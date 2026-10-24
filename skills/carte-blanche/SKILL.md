@@ -2,21 +2,21 @@
 name: carte-blanche
 metadata:
   family: run
-description: Grant this session standing authority for one voyage (also called a runlap). The agent picks and orders its own work, pushes its own branches, opens PRs and spends a set budget without asking, until the session ends. Use when the user says "carte blanche", "carte-blanche", "carteblanche" or "trescarteblanche"; those words grant it. Other phrases that hand over the whole session, such as "you have free rein", "full authority for this session" or "do it all without asking me", load this skill too, even when the message names work you have yet to find. Load it first, before looking around or reading any file: it sets the grant's budget and limits. It then asks "Do you give me carte blanche?" before anything is granted. "Your call" on one choice is not a grant. Never covers taste (naming, looks, direction), ratifying ADRs or editing charters. It merges its own PRs on green; pushing to main, deleting work and outward-facing acts need a named grant. Pairs with dealers-choice, which picks the work.
+description: Grant this session standing authority for one comrun. The agent picks and orders its own work, pushes its own branches, opens PRs and spends a set budget without asking, until the session ends. Use when the user says "carte blanche", "carte-blanche", "carteblanche" or "trescarteblanche"; those words grant it. Other phrases that hand over the whole session, such as "you have free rein", "full authority for this session" or "do it all without asking me", load this skill too, even when the message names work you have yet to find. Load it first, before looking around or reading any file: it sets the grant's budget and limits. It then asks "Do you give me carte blanche?" before anything is granted. "Your call" on one choice is not a grant. Never covers taste (naming, looks, direction), ratifying ADRs or editing charters. It merges its own PRs on green; pushing to main, deleting work and outward-facing acts need a named grant. Pairs with dealers-choice, which picks the work.
 ---
 
 # carte-blanche: standing authority for one session, inside the project's rules
 
 Decided by pitmaster ADR-007.
-The grant ladder and "trescarteblanche": ADR-023.
+The grant ladder and "trescarteblanche": ADR-023, revisited by ADR-025.
 
 Sibling of `budget-select` (sets the budget), `dealers-choice` (picks the work, and asks first whether this grant
 is given) and `tier-select` (picks any workers' models). `goforit` and "goforitreally" sit below it on the ladder
 (goforit, goforitreally, carteblanche, trescarteblanche, each allowing everything the one before allows), and a `bbq`
 stew run under it is answered by a subagent.
 
-**The smallest voyage** is one agent in one session: the words, a budget, the work, a line per landing, an end
-summary. Parts marked "bigger voyages" are for workers, a bbq or a hand-off.
+**The smallest comrun** is one agent in one session: the words, a budget, the work, a line per landing, an end
+summary. Parts marked "bigger comruns" are for workers, a bbq or a hand-off.
 
 ## Config
 
@@ -37,6 +37,7 @@ never: taste, ratifying ADRs, editing charters   # never covered. A project may 
 | act | under carte blanche |
 |---|---|
 | Pick and order its own work | yes |
+| Fix any nearby problem it finds, needed by the plan or not, in a PR of its own where that reads better | yes (ADR-025) |
 | Commit and push its own branches, open PRs | yes |
 | Spend within the budget, including starting workers or a swarm | yes |
 | Merge its own PRs once the checks are green | yes |
@@ -83,17 +84,17 @@ or pattern (`pkill`, `killall`). Remove only files you made. Push fast-forward o
      on the main branch until the user picks.
    - **Other taste calls are parked.** A name or a direction is filed as a question with its options, and that
      strand waits.
-   - **A bbq under the grant answers itself (bigger voyages).** When a bbq (or makeadr's rounds) runs in this
+   - **A bbq under the grant answers itself (bigger comruns).** When a bbq (or makeadr's rounds) runs in this
      session, answer every question yourself, each in the record's Defaulted list with a `veto:` line, laid out
      in the end summary for the user to approve or change. Taste answers are proposals, flagged as taste. A
      `bbq` stew is the exception: a subagent answers it, block by block (bbq's `references/stew.md`).
-   - **Workers carry the grant in writing (bigger voyages).** A worker or swarm brief includes the written grant
+   - **Workers carry the grant in writing (bigger comruns).** A worker or swarm brief includes the written grant
      (below), never wider than the lead's own. Only the lead merges.
 5. **When something goes wrong, park the strand.** A check goes red, a premise proves false, a fix spreads past a
    few files, or a choice turns out to be the user's: stop that strand, file a one-line question in the decisions
    queue or the end summary, and move on.
 6. **The user's words win, at once.** A narrowing applies straight away; "stop" or "revoke" ends the grant; a
-   question is answered and the voyage carries on. For workers (bigger voyages):
+   question is answered and the comrun carries on. For workers (bigger comruns):
    - **A narrowing reaches them by any route**, a message included.
    - **A widening reaches them only in the user's own words**, quoted in the written grant with when it was
      given and re-issued in a fresh brief to each worker it affects. Never relay a widening to a running worker
@@ -101,9 +102,9 @@ or pattern (`pkill`, `killall`). Remove only files you made. Push fast-forward o
 7. **Stop** when the ledger's count reaches the budget less `stop_margin`, when the meter shows the whole budget
    gone, or when the work is done, whichever comes first. The grant ends with the session, unless a hand-off
    carries the written grant to a fresh one.
-   - **Context short before the budget is (bigger voyages):** hand off the written grant, the ledger so far, the
+   - **Context short before the budget is (bigger comruns):** hand off the written grant, the ledger so far, the
      open strands and any running workers to a fresh lead, which carries on.
-8. **The end summary.** What landed, each with its link; the *Defaulted* list, one line per call the user might
+8. **The end summary.** It names the work a comrun ("Finished the comrun: …"). What landed, each with its link; the *Defaulted* list, one line per call the user might
    reverse, each with a `veto:` line; parked strands and their questions; the taste options, with their frames
    and branches; and the points spent. Any landing reverts on the user's word alone.
 
@@ -124,7 +125,7 @@ do there.
 
 ## The written grant
 
-Bigger voyages only: write it when the grant leaves the session, in a worker or swarm brief or a hand-off. A voyage that
+Bigger comruns only: write it when the grant leaves the session, in a worker or swarm brief or a hand-off. A comrun that
 stays in one session writes none.
 
 ```

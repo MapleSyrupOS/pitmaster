@@ -14,7 +14,8 @@ Sibling of `bbq` (this skill's question rounds follow bbq's rules, and "bbq adr"
 decision), `talk-through` (an agreed decision from a talk's record becomes an ADR here), `goforit` (takes the
 closing offers and builds what the ADR allows) and `setfree` (release day: it reviews the public drafts this skill
 makes in step 5, part 5, and approves them on the user's word). `looseends` sends it an unratified ADR or asks left
-open. The scripts are in `scripts/` beside this file, `adr-public` among them.
+open. `townhall` hands over a decision its debaters argued, its record already holding the options
+considered. The scripts are in `scripts/` beside this file, `adr-public` among them.
 
 ## Config
 
@@ -160,9 +161,9 @@ to a newer release, replace the copy, its manifest and the pin in one commit. In
       `python3 adr-plus/tools/adr-yaml.py --root <repository> --dry-run` shows what moving them to YAML would warn
       about, and `--apply` moves them only if the proof says nothing is lost. Without Python, update `INDEX.md` by
       hand (one row: the ADR, its title, its kind, its status word, its built word) and say the check was skipped.
-   5. **The public draft (only with `public_adr: on`).** Say plainly, in one line before landing, that this session
-      makes two things: the ADR, and a public draft of it that waits for review in `docs/decisions/public/pending/`
-      and is not published. Ask nothing.
+   5. **The public draft (only with `public_adr: on`).** Make it in the background, silently: say nothing about it
+      in the chat and ask nothing (ADR-020, amendment of 2026-10-24). It waits for review in
+      `docs/decisions/public/pending/`, unpublished, and shows in the PR's files and the ADR's History line.
       1. Run `python3 scripts/adr-public.py --root <repository> draft <ADR number>`. It makes the mechanical cuts,
          adds a dated "Public copy ... drafted" line to the ADR's History, and marks each line to rewrite.
       2. Rewrite each marked line for a stranger: no question numbers, private paths or session talk. Where a live
@@ -227,7 +228,8 @@ The whole decision flipped. The old ADR is history from now on, and agents follo
    superseded by ADR-MMM on <date>`. The old `status` and `status-note` values move into its History, word for
    word, with a pointer to the new ADR. Its body is untouched, and it is never deleted or renumbered.
 4. With `public_adr: on`, draft the new ADR's copy (step 5, part 5); `adr-public.py draft` also queues the old
-   ADR's live copy for withdrawal, which waits for the release review. Say so when landing.
+   ADR's live copy for withdrawal, which waits for the release review. Note it in one short line of the PR body,
+   not in the chat.
 5. Run the scripts and land them (step 5, parts 4 and 6). The index shows superseded in the old ADR's row.
 
 ## Platform notes

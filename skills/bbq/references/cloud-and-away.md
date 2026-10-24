@@ -16,7 +16,7 @@ The bbq asks for each of these and writes the answer into the record:
   ledger reaches the share, and each hand-off is logged so the chain's length shows.
 - **How asks travel** when the user is away: an ask goes out as a notification and into the decisions queue, the
   stream that needs it parks while other work goes on, and an answer is applied whenever it arrives. An ask still
-  unanswered at hand-off (or at the voyage's end) takes its recommended option and goes into the hand-off's
+  unanswered at hand-off (or at the comrun's end) takes its recommended option and goes into the hand-off's
   *Defaulted* list with a `veto:` line.
 - **Capacity.** In place of measuring hosts, a *Capacity* section from the project's cloud rules: no `ssh`, no
   LAN, no local models. A machine the container cannot reach goes through CI: allowlisted jobs, one queue that
@@ -24,7 +24,7 @@ The bbq asks for each of these and writes the answer into the record:
   host-selection skill, it takes this over.
 - **The shared container.** Builders share its CPU and scratch space, so the prompt caps how many run at once
   (ask; 3 is the recommended answer), gives each its own worktree, and says to name scratch files uniquely.
-- **Other repositories.** Every repository the voyage may touch, the access each needs, and what stays the user's
+- **Other repositories.** Every repository the comrun may touch, the access each needs, and what stays the user's
   (merges, tags, releases).
 
 ## The ending

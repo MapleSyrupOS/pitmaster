@@ -10,7 +10,7 @@ amends: nothing
 ---
 # ADR-017 — goforit: carry a settled plan on into the build, stopping at "ratify"
 
-This is the public copy of a decision I made. I've left out a few internal notes.
+This is the published version of this decision. Some internal details have been left out.
 
 ## Decision
 
@@ -21,6 +21,10 @@ closing offers, has the build done here or by a worker, and stops for the two wo
 "ratify". goforit never ratifies and never answers a taste question for the user.
 
 ## The rules
+
+> **Amended 2026-10-23 by ADR-023, ratified by the user:** the grant ladder. goforitreally is the middle rung,
+> below carteblanche, not goforit plus carte blanche (rule 7); goforit gains a two-subagent cap and stays in the
+> plan's repository.
 
 1. **Triggers:** `goforit` or `goforitreally`, as a typed word. A plain "go for it", "yes, do it" or "ok" in
    answer to a question does not load it.
@@ -56,7 +60,8 @@ closing offers, has the build done here or by a worker, and stops for the two wo
 
 - 2026-10-22: proposed.
 - 2026-10-22: ratified by the owner.
-- 2026-10-22: amended by the owner.
+- 2026-10-22: amended.
+- 2026-10-23: amended.
 
 ## Amendment — 2026-10-22
 

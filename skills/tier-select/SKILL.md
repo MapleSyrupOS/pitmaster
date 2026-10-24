@@ -2,7 +2,7 @@
 name: tier-select
 metadata:
   family: run
-description: Decide the model and effort for a session's lead (the session that dispatches, judges and lands) and for each worker it spawns, by the shape of the job, on any vendor. It picks a neutral tier (small, mid, large, top) and an effort, then turns them into real models with a dated roster per vendor (Claude, OpenAI, Google, or one it writes with you). Use when a bbq or a prompt-writing session must say who leads a voyage (also called a runlap), before writing an overnight prompt, swarm kickoff or handoff, before spawning subagents or workers, and when the user asks "which model for this", "who should lead", "can the small model do this" or "plan the workers".
+description: Decide the model and effort for a session's lead (the session that dispatches, judges and lands) and for each worker it spawns, by the shape of the job, on any vendor. It picks a neutral tier (small, mid, large, top) and an effort, then turns them into real models with a dated roster per vendor (Claude, OpenAI, Google, or one it writes with you). Use when a bbq or a prompt-writing session must say who leads a comrun (also com-run, com run, commission run or commissioned run), before writing an overnight prompt, swarm kickoff or handoff, before spawning subagents or workers, and when the user asks "which model for this", "who should lead", "can the small model do this" or "plan the workers".
 ---
 
 # tier-select: who leads, and which tier does each job
@@ -19,11 +19,12 @@ models) then turns each tier into a real model.
 
 Effort is one of **low, medium, high, xhigh, max**, or the nearest setting the platform has (the roster says).
 
-Sibling of `budget-select` (how much the voyage may spend; it advises on tiers and this skill decides) and `bbq`
+Sibling of `budget-select` (how much the comrun may spend; it advises on tiers and this skill decides) and `bbq`
 (which asks the user who leads, with this skill's recommendation). `tastetest` asks it for its auditor's model,
-and `goforit` for who builds.
+and `goforit` for who builds. `townhall` asks it for its debaters, mixing models where the account has
+more than one.
 
-**The smallest use** is a worker's tier: the roster steps, then the table in part B. Part A is only for a voyage that
+**The smallest use** is a worker's tier: the roster steps, then the table in part B. Part A is only for a comrun that
 starts a lead.
 
 ## Config
@@ -53,7 +54,7 @@ local_models: none  # "none", or where your local-model notes live (local models
 **Never assume the biggest model.** Whenever a prompt will start a session that leads (an overnight, a swarm, an
 arc, a debt night, a handoff):
 
-1. **Name the voyage's shape** from `leads.md`: what the lead itself must judge, not what its workers do.
+1. **Name the comrun's shape** from `leads.md`: what the lead itself must judge, not what its workers do.
 2. **Take the row's tier and effort**, and turn the tier into a model with the roster. With no matching row, take
    the cheaper of the two nearest and say it is unmeasured.
 3. **Ask the user**, never default it: in a bbq, as round one's lead question; elsewhere, as one question with the

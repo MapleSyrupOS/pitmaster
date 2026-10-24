@@ -6,6 +6,68 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.23] — 2026-10-24
+
+### Changed
+- The noun "voyage" is now **comrun** (short for "commissioned run") in every skill, the README, the starter guide
+  and the glossary, at the owner's ruling after three townhall rounds and trigger tests of five words. It counts
+  only as comrun, com-run, com run, commission run or commissioned run; "voyage", "runlap" and "run-lap" are no
+  longer named. budget-select, spend-ledger, swarm-bottleneck and tier-select name all five forms in their
+  descriptions; bbq, carte-blanche and dealers-choice, which load on their own words, say "comrun". ADR-007, 008
+  and 009 amended; their public copies re-drafted for the release review. Trigger cases: four now use the new
+  forms, and `spend-ledger-yes-08`, `spend-ledger-no-06` and `budget-select-no-05` are new.
+- `carte-blanche` and `dealers-choice`: the end summary and end report name the work a comrun ("Finished the
+  comrun: …"), at the owner's word.
+
+## [0.4.22] — 2026-10-24
+
+### Changed
+- `goforit`: plain goforit sizes itself like goforitreally (`warn_at`; go, trim or back out above it) and starts as
+  many subagents as its estimate allows, not two. goforitreally fixes only what the plan can't land without, inside
+  the plan's PR, and writes anything else down (ADR-025).
+- `carte-blanche`: nearby fixes, needed by the plan or not, are carte blanche's (ADR-025).
+- `dealers-choice`: tresdealers-choice asks first before reaching a project not named (ADR-025 rule 4).
+
+## [0.4.21] — 2026-10-24
+
+### Added
+- `bbq` gains a **Tool** type for a tool a person runs without an agent ("tool bbq", "shedtool bbq", or the opener
+  "maketool"): ten things to cover, a `tools_home` config line, and a life cycle of record, ADR, then the build
+  offered (ADR-026). Three trigger cases.
+
+### Changed
+- `townhall`'s record ends with the usage where it is reported, in small print, for the record only (ADR-024,
+  amendment of 2026-10-24).
+- `bbq`'s Skill type offers the move into the shipped skills folder after ratification instead of making it
+  (ADR-004, amended by ADR-026).
+
+## [0.4.20] — 2026-10-24
+
+### Changed
+- `makeadr` makes the public ADR draft silently when `public_adr: on`: no chat notice; a supersede's queued
+  withdrawal gets one short line in the PR body (ADR-020, amendment of 2026-10-24).
+
+## [0.4.19] — 2026-10-24
+
+### Added
+- `townhall`, the fifteenth skill (ADR-024): agents argue a decision, a verdict or an attack-and-defend review in
+  rounds while the lead, who never argues, judges and recommends; "familymeeting" seats subagents of the lead's own
+  model family. Its scripts are pinned copies of two new pitmaster-shed tools: `neighbours` (reads
+  `~/.pitmaster/neighbours.md` and says who answers) and `record-check` (checks a record's decisions tables).
+  12 trigger cases in `evals/`.
+
+### Changed
+- `talk-through` carries a pinned `record-check` and runs it on its record at the wrap, where Python runs; how it
+  writes is unchanged (ADR-014, amended by ADR-024).
+- `makeadr`, `talk-through`, `budget-select` and `tier-select` no longer call `townhall` a draft.
+
+## [0.4.18] — 2026-10-24
+
+### Changed
+- `makeadr`, `talk-through`, `budget-select` and `tier-select` name the `townhall` draft in their Sibling lines: agents
+  argue a decision or a verdict in rounds and the lead, who never argues, judges (bbq record
+  `docs/bbq/2026-10-24-skill-townhall.md`; the skill is a draft until its ADR is ratified).
+
 ## [0.4.17] — 2026-10-23
 
 ### Fixed

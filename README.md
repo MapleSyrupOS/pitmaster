@@ -3,16 +3,16 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are fourteen skills so far, and more on the way, for agents like Claude Code, Codex and Antigravity. Pitmaster
+There are fifteen skills so far, and more on the way, for agents like Claude Code, Codex and Antigravity. Pitmaster
 helps you better understand and organize your project without losing track of all the moving parts.
 
 Originally, the point of Pitmaster was to be used solely with agents; however, many of the skills use small scripts
 that are usable by yourself at a terminal. [The shed](#the-shed) gives you access to those.
 
-> Some skills give your agent a lot of authority: they can push [branches](#git-and-github-words), open
-> [pull requests](#git-and-github-words) and, if you allow it, [merge](#git-and-github-words). Each one tells you
-> before it acts (or reports right after, under carte-blanche), and nothing merges unless you grant it, but no
-> safeguard replaces your own review.
+> Some skills give your agent [a lot of authority](#how-far-each-word-lets-the-agent-go): they can push
+> [branches](#git-and-github-words), open [pull requests](#git-and-github-words) and, if you allow it,
+> [merge](#git-and-github-words). Each one tells you before it acts (or reports right after, under carte-blanche),
+> and nothing merges unless you grant it, but no safeguard replaces your own review.
 
 A plugin for Claude Code and Codex; plain skill folders for everything else. Apache-2.0.
 
@@ -24,6 +24,7 @@ A plugin for Claude Code and Codex; plain skill folders for everything else. Apa
 | [New to skills and rules?](#new-to-skills-and-rules) | learn what an agent, a rule and a skill are, and what happens when you type "bbq" |
 | [What it does](#what-it-does) | install it and try it in five minutes, then pick a skill for a job |
 | [The shed](#the-shed) | run a small tool with no agent at all |
+| [How far each word lets the agent go](#how-far-each-word-lets-the-agent-go) | compare goforit, goforitreally, carteblanche and trescarteblanche |
 | [Install](#install) and [Update](#update) | install it in another agent, or get a new version |
 | [Platform support](#platform-support) | check that your agent works with it |
 | [Configure](#configure) | change a setting |
@@ -207,6 +208,7 @@ a skill on its own when your request matches.
 | skill | what it does | start it with |
 |---|---|---|
 | **talk-through** | Talks a subject through as an open conversation and quietly tracks decisions, open questions, action items and corrections. When you say so, it writes one record that marks each decision agreed, proposed or open, and says where it came up. Any of its words with "really" run on ("talk-throughreally") also merges the record's pull request once the checks pass. | "talk-through", "chitchat", "let's talk it through", "talk-throughreally" |
+| **townhall** | Puts a decision, or a verdict on finished work, to several agents who argue it out in rounds, each holding a side, while the lead never argues: it judges and recommends, then writes one record of who argued what. "townhall" seats the other models you list as your neighbours (other companies' models, local models, other accounts); "familymeeting" seats helpers from the lead's own model family. It acts on nothing itself: a decision goes on to `makeadr`. | "townhall: SQLite or Postgres?", "familymeeting" |
 
 **Run it**
 
@@ -222,9 +224,9 @@ a skill on its own when your request matches.
 
 | skill | what it does | start it with |
 |---|---|---|
-| **budget-select** | Gives a voyage its share of your plan's usage limit, in points, sets its stop lines, and writes a short budget section for the voyage's prompt. | "how much budget should this get?" |
+| **budget-select** | Gives a comrun its share of your plan's usage limit, in points, sets its stop lines, and writes a short budget section for the comrun's prompt. | "how much budget should this get?" |
 | **spend-ledger** | Records what a session actually used (from its own conversation log and your usage meter, plus an estimate at list prices) beside what it got merged, one row per session, and reports the cost per merged change over a week. | "log the spend", "what did we get for the points?" |
-| **swarm-bottleneck** | Names the one thing holding a multi-agent voyage back (usage limits, how much an agent can hold in mind at once, slow checks, the review queue, your attention, failing tools), with the evidence and what to do about it. | "what's the bottleneck?" |
+| **swarm-bottleneck** | Names the one thing holding a multi-agent comrun back (usage limits, how much an agent can hold in mind at once, slow checks, the review queue, your attention, failing tools), with the evidence and what to do about it. | "what's the bottleneck?" |
 
 **Set the project up**
 
@@ -233,7 +235,7 @@ a skill on its own when your request matches.
 | **project-prep** | Gets a new or existing project ready for agents; it writes no app code. By default it writes the agent rules file and a status file in which every claim names the file that backs it; on request, a log, a debt list, a decisions folder, a glossary and more. It works on a new branch and never overwrites a file, and ends by offering to put your first decision on record. "project-prepreally" also merges its set-up branch once the checks pass. | "project-prep", "prep this project", "project-prepreally" |
 
 The skills work together: a `bbq` asks `budget-select` and `tier-select` for their recommendations, and hands an
-ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand. `dealers-choice` picks the work and asks whether the voyage has `carte-blanche`. `project-prep` sets a project up and hands its first decision to `makeadr`. `looseends` finds what a voyage left open and hands the agent's share to `goforit` or `dealers-choice`.
+ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand. `dealers-choice` picks the work and asks whether the comrun has `carte-blanche`. `project-prep` sets a project up and hands its first decision to `makeadr`. `looseends` finds what a comrun left open and hands the agent's share to `goforit` or `dealers-choice`. `townhall` argues a decision out and hands it to `makeadr`.
 
 ### The shed
 
@@ -257,6 +259,22 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 
 **How the skills use it.** `makeadr` carries its own copies of `adr-index` and `adr-check`, and `project-prep`
 carries `status-check`, so every install works offline with nothing extra to fetch.
+
+## How far each word lets the agent go
+
+Four words hand the agent more each step up; each allows everything the one before it allows.
+
+| the agent may… | goforit | goforitreally | carteblanche | trescarteblanche |
+|---|:-:|:-:|:-:|:-:|
+| build the plan you settled, with [workers](#pitmasters-own-words) as its estimate allows | ● | ● | ● | ● |
+| make a new choice itself and write it down, so you can [veto](#pitmasters-own-words) it | | ● | ● | ● |
+| merge its own pull requests without asking, once the checks pass | | ● | ● | ● |
+| pick its own work, nearby fixes included | | | ● | ● |
+| start new sessions and [swarms](#agent-words) | | | ● | ● |
+| work in more than one project (the ones you name) | | | | ● |
+
+Under every word, the agent never [ratifies](#pitmasters-own-words) a decision or makes a taste call (names, looks,
+direction), and pushing to main, deleting work or anything public still needs you to name it.
 
 ## Install
 
@@ -327,8 +345,8 @@ old one.
 
 Every skill keeps its steps in plain words and puts anything platform-specific in one tagged *Platform notes*
 section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). The first five skills' opening steps were
-tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later nine have been used in Claude Code and
-Codex; the two newest, looseends and setfree, were made in Claude Code and have not yet been tried elsewhere.
+tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later ten have been used in Claude Code and
+Codex; the three newest, looseends, setfree and townhall, were made in Claude Code and have not yet been tried elsewhere.
 *Smoke-tested* means a quick check that the basics work.
 
 ## Configure
@@ -382,7 +400,7 @@ marked, so you can tell whose word it is.
   `CLAUDE.md`.
 - **Skill:** a packaged set of instructions an agent loads when your request matches.
 - **Plugin:** a bundle of skills installed in one go; how Pitmaster installs in Claude Code and Codex.
-- **Swarm:** several agents working at once on one voyage.
+- **Swarm:** several agents working at once on one comrun.
 - **ADR:** architecture decision record, a short dated file for one decision and why. A common practice in
   software teams; Pitmaster didn't invent it. Pitmaster's own format for one is ADR+.
 
@@ -407,13 +425,13 @@ and merge are Git's words, which GitHub uses too. Pull request, checks, issue an
 
 ### Pitmaster's own words
 
-- **Voyage:** one stretch of work handed to agents, from start to finish; it can take one session or several.
-  "Runlap" and "run-lap" mean the same.
+- **Comrun:** one stretch of work handed to agents, from start to finish; it can take one session or several.
+  Short for "commissioned run". It also works written com-run, com run, commission run or commissioned run.
 - **Lead and workers:** when a job is split across several agents, the lead is the main session you talk to: it
   plans the work and brings the finished pieces together. The workers (aka subagents) are the helper sessions the
   lead starts to handle the pieces.
 - **Points and stop line:** points let you budget a share of your plan's usage limit. By default, one point means
-  1 % of the weekly limit. A stop line tells the voyage when to stop starting new work; work already under way
+  1 % of the weekly limit. A stop line tells the comrun when to stop starting new work; work already under way
   finishes.
 - **Record:** a record is exactly that: a document the agent can look back at, so it doesn't have to remember every
   question and decision in the project.
