@@ -47,6 +47,16 @@ On every stew, a fact that seems to change is flagged, never changed quietly.
   names its item. Away sends blocks as asks. Neighbours, when the user adds them, draft per block.
 goforit is unchanged.
 
+## Context
+
+Drivers:
+- Short bbqs must stay light.
+- Stew is a way of handling questions, so it must not pull in other skills or outside models.
+- The user writes much of a wording job in their own words, and those words must not be changed quietly.
+- Doctrine: function first, then ours, then compatibility. The mode is the user's own, and it reuses bbq's mode
+  pattern (ADR-006's Away, ADR-015's Batch) and Batch's worksheet rule.
+
+
 ## Alternatives
 
 ### A mode on any type (chosen: the user's word)

@@ -20,6 +20,15 @@ on the user's word writes them up as one record, each decision marked agreed, pr
 where it came up. It loads on `talk-through`, `talkitout`, `talkitthrough`, `chatabout` or
 `talk-it-through`, or on "let's (just) talk it through"; a plain "let's chat about…" does not load it. It ships in the plugin and, by the user's upload, in the Claude apps, from one source.
 
+## Context
+
+Drivers:
+- Everyday phrases load a skill by mistake, the lesson defplz's name taught.
+- Voice talks happen in the Claude apps, which the plugin does not reach.
+- The record is shared memory between sessions, so it must say only what was said: nothing upgraded, nothing
+  invented (the draft's rules).
+
+
 ## The rules
 
 > **Amended 2026-10-23 by ADR-023, ratified by the user:** talk-throughreally merges the record's PR on green after

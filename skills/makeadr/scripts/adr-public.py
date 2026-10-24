@@ -2,7 +2,7 @@
 """adr-public: draft each ADR's public copy, keep it in step with the private ADR, and hold it until it is approved.
 
 Usage: adr-public.py [--root DIR] [--dir PATH] COMMAND ...
-       adr-public.py --self-test [--break pending|leak|stale|oneway]
+       adr-public.py --self-test [--break pending|leak|stale|oneway|drivers]
 
 Commands
     draft ADR...     Make the mechanical cuts of the private ADR into docs/decisions/public/pending/ (see "The
@@ -23,7 +23,8 @@ Commands
                      (a typo): record the new version as the copy's source, with a History line, and no new draft.
 
 The cuts (draft)
-    Dropped: the Context, Access and Open questions sections, the Owner and Consulted lines, and every Q-, A- and
+    Dropped: the Context (all but its Drivers list, which adr-check asks for wherever two or more options are
+    weighed), Access and Open questions sections, the Owner and Consulted lines, and every Q-, A- and
     D-number (a parenthesis of only numbers goes; a number left in prose is marked). History becomes dates and one
     word ("2026-10-21: proposed."). "the owner" becomes "the user". The opening line goes under the title. Marked
     for the agent: a Q/A/D number left in prose, a private path, a PR number, an amendment section, and a header
@@ -51,7 +52,8 @@ What it promises
 --self-test  Builds its own repository in a temporary folder and prints one ok or FAIL line per case. --break ARM
              switches one guard off, to watch its arm go red by name: pending (a publish.txt line that names a
              pending copy goes unreported), leak (the leak check is skipped), stale (staleness is not checked),
-             oneway (a History line to a missing file, or a public copy naming a private path, goes unreported).
+             oneway (a History line to a missing file, or a public copy naming a private path, goes unreported),
+             drivers (draft drops a Context's Drivers list with the rest of Context).
 
 Python 3.8 or newer, standard library only.
 """
@@ -89,7 +91,8 @@ PRIVATE_PREFIXES = ("docs/bbq/", "docs/proposals/", "docs/audits/", "docs/field-
                     ".claude/", "scripts/leak-allow-private", "docs/decisions/ADR-",
                     "docs/decisions/public/pending/", "docs/decisions/public/withdrawn/")
 DROPPED_SECTIONS = ("context", "access", "open questions", "open question")
-GUARDS = {"pending": True, "leak": True, "stale": True, "oneway": True}
+DRIVERS_LABEL = re.compile(r"^(?:\*\*)?Drivers(?::\*\*|\*\*:|:)\s*$")
+GUARDS = {"pending": True, "leak": True, "stale": True, "oneway": True, "drivers": True}
 ARMS = tuple(GUARDS)
 
 
@@ -413,6 +416,26 @@ def cut_line(line: str, public: Optional[PubTree]) -> Tuple[str, List[str]]:
     return new, reasons
 
 
+def drivers_list(lines: List[str]) -> List[str]:
+    """A Context section's Drivers list: its label line and the `- ` items under it, as written; [] if none.
+    adr-check asks for this list wherever two or more options are weighed, so the copy keeps it (and only it)."""
+    for i, line in enumerate(lines):
+        if not DRIVERS_LABEL.match(line.strip()):
+            continue
+        out = [line]
+        for later in lines[i + 1:]:
+            if not later.strip():
+                if len(out) > 1:
+                    break
+                continue
+            if re.match(r"\s*- ", later) or (len(out) > 1 and later.startswith("  ")):
+                out.append(later)
+            else:
+                break
+        return out if len(out) > 1 else []
+    return []
+
+
 def make_copy(text: str, public: Optional[PubTree]) -> Tuple[str, List[str], List[str]]:
     """The mechanical cuts. Returns (the copy, the sections it dropped, the History bullets it dropped)."""
     header, rest = split_header(text)
@@ -466,6 +489,11 @@ def make_copy(text: str, public: Optional[PubTree]) -> Tuple[str, List[str], Lis
     body += cut(extra)
     for heading, lines in secs:
         low = heading.strip().lower()
+        kept = drivers_list(lines) if low == "context" and GUARDS["drivers"] else []
+        if kept:
+            notes_dropped.append(f"{heading} (all but its Drivers list)")
+            body += ["## " + heading, ""] + cut(kept) + [""]
+            continue
         if low in DROPPED_SECTIONS:
             notes_dropped.append(heading)
             continue
@@ -598,9 +626,14 @@ def copy_shape(lay: Layout, path: pathlib.Path, strict: bool) -> List[Finding]:
     after = [x for x in rest[ti + 1:] if x.strip()]
     if not after or after[0].strip() != OPENING:
         add(f"the line under the title is not: {OPENING}")
-    for h in heads:
+    for heading, lines in secs:
+        h = heading.strip().lower()
+        kept = drivers_list(lines) if h == "context" else []
+        if kept and [x for x in lines if x.strip()] == [x for x in kept if x.strip()]:
+            continue
         if h in DROPPED_SECTIONS:
-            add(f"has a '## {h.title()}' section, which a public copy leaves out")
+            more = " with more than its Drivers list" if kept else ""
+            add(f"has a '## {h.title()}' section{more}, which a public copy leaves out")
     body = "\n".join(rest)
     for label in ("Owner", "Consulted"):
         if f"**{label}:**" in body:
@@ -961,6 +994,10 @@ The owner rules a thing (Q1, Q2). Details are in `docs/bbq/2026-10-01-demo.md` a
 
 Private context only the owner needs.
 
+Drivers:
+- speed (Q2)
+- one source
+
 ## The rules
 
 1. **Rule** (Q3, Defaulted): do it. Q4 chose this.
@@ -1058,8 +1095,10 @@ def self_test(broken: Optional[str]) -> int:
             expect("green: draft writes the copy into pending/ under the private file's name", pend.is_file())
             expect("green: the opening line sits under the title",
                    re.search(r"\n# ADR-001 — [^\n]*\n\n" + re.escape(OPENING) + r"\n", text) is not None)
-            expect("green: Context, Access and Open questions are dropped",
-                   not re.search(r"^## (Context|Access|Open questions)", text, re.M) and "Private context" not in text)
+            expect("green: Access and Open questions are dropped, and Context but for its Drivers list",
+                   not re.search(r"^## (Access|Open questions)", text, re.M) and "Private context" not in text)
+            expect("(drivers) the Context's Drivers list is kept, its numbers cut, for adr-check's trigger rule",
+                   "\n## Context\n\nDrivers:\n- speed\n- one source\n" in text)
             expect("green: a date, number or yes/no in the header keeps its quotes",
                    yaml_scalar("2026-10-23") == '"2026-10-23"' and yaml_scalar("12") == '"12"'
                    and yaml_scalar("yes") == '"yes"' and yaml_scalar("the owner") == "the owner")
@@ -1090,6 +1129,11 @@ def self_test(broken: Optional[str]) -> int:
             expect("green: a rewritten copy checks clean", not found)
             if found:
                 q_print_findings(found)
+            ctx = pend.read_text(encoding="utf-8")
+            pend.write_text(ctx.replace("Drivers:\n", "Private context.\n\nDrivers:\n"), encoding="utf-8")
+            expect("green: a Context with more than its Drivers list fails the check by name",
+                   any("more than its Drivers list" in f[2] for f in run_checks(lay)))
+            pend.write_text(ctx, encoding="utf-8")
             private = lay.dec / "ADR-001-demo.md"
             append_history(private, "- 2026-10-05 — a note that changes History only.")
             expect("green: a History line on the private ADR does not make the copy stale",

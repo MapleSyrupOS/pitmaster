@@ -27,6 +27,16 @@ two scripts live in **pitmaster-shed** with pinned copies: `neighbours`, which r
 says who answers, and `record-check`, which talk-through also runs on its records, through this ADR's amendment of
 ADR-014 §Access.
 
+## Context
+
+Drivers:
+- Models agree with each other within a turn or two, so a fair argument needs held positions, set rounds, a judge
+  who never argued, and seats spread across model families.
+- A townhall burns tokens in proportion to debaters × rounds, so the cost is shown before it starts.
+- Outside models cost money or plan usage and see the project's files, so they sit only by name from the allow list.
+- A run's record is shared memory, so it is checked the same way a talk's record is.
+
+
 ## The rules
 
 > **Amended 2026-10-24:** rule 8's record ends with the usage, in small print. See the amendment below.

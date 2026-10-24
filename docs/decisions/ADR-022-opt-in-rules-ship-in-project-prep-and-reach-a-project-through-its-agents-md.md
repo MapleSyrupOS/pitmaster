@@ -25,6 +25,16 @@ and off later, touching nothing in `AGENTS.md` outside its own section (amending
 copy changes only on the user's yes. All groups together stay within 35 lines, no rule over 30 words, and a
 check enforces it.
 
+## Context
+
+Drivers:
+- A rule is only always on if every tool reads it every session (ADR-001: any tool that reads `SKILL.md`).
+- Every switched-on line costs context in every session, so the catalogue must stay small and nothing new should
+  load for users who never switch a group on.
+- The user rules what is in a project's rules; nothing may change under them.
+- No bulk nobody asked for (the user's words: "won't add bulk").
+
+
 ## The rules
 
 1. **What reaches a project**: the chosen groups' lines, in a marked Rules section of the project's

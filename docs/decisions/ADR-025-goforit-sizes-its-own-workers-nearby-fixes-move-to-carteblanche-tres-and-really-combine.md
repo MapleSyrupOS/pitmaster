@@ -25,6 +25,16 @@ problem is worth doing is carteblanche's, because picking work is what carteblan
 -really were checked and both hold**; where one skill has both, they combine, tres- first and -really last, each
 keeping its own meaning. Ratifying, taste and the other limits of ADR-023 are unchanged.
 
+## Context
+
+Drivers:
+- Each word up the ladder should add about the same amount, so the steps are easy to remember (ADR-023's first
+  driver).
+- A build under -really never stalls on a fix it needs.
+- Every -really word should mean the same thing: finish and merge, not "do more".
+- Doctrine, function then ours then compatibility: the words and their order are kept; only what each allows moves.
+
+
 ## The rules
 
 1. **goforit's size** (amends ADR-023 rules 4, 5). Plain goforit estimates points, PRs and workers as
