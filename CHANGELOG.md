@@ -6,6 +6,15 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.24] — 2026-10-24
+
+### Fixed
+- A public ADR copy keeps its Context's **Drivers list** (makeadr's `adr-public`, re-pinned from pitmaster-shed #6).
+  adr-check asks for that list wherever two or more options are weighed, and the copies had lost it, so 0.4.23's
+  public CI failed on seven of them (ADR-014, 021 to 026).
+- `scripts/publish.py` gains a **ci** check: the dry run and `--publish` run the copy's own `check-all.py`, the
+  command the public repository's CI runs, so a tree that would go out red stops before it goes out.
+
 ## [0.4.23] — 2026-10-24
 
 ### Changed

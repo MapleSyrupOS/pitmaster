@@ -23,6 +23,14 @@ that ADR is ratified it **offers** the build: the code in the project's tools ho
 in each skill that uses it, in one PR here. The Skill type changes to match: after its ADR is ratified it
 offers the move into the shipped skills folder instead of making it, which amends ADR-004's Skill type section.
 
+## Context
+
+Drivers:
+- Tools are a kind of work of their own: they run with no agent, on three platforms, and reach many skills by pins.
+- The Skill and Tool types should behave alike, so one habit serves both (the user's words).
+- bbq is public: the type has to make sense in a project whose tools do not live in a "shed".
+
+
 ## The rules
 
 1. **Starting it**: "tool bbq", "shedtool bbq", or "maketool", which opens bbq straight in the Tool type.

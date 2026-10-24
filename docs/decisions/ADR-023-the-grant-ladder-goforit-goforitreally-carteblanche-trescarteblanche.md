@@ -30,6 +30,18 @@ looseends, project-prep, talk-through and the prompt-pack draft gain it as a run
 looseendsreally, project-prepreally, talk-throughreally, prompt-packreally), each also merging its own PR on green.
 No word ratifies, and taste is never covered.
 
+## Context
+
+Drivers:
+- One ladder the user can say from memory, each word a superset of the one below.
+- No word quietly reaches further than the user meant: tres- names its projects, and authority never grows with
+  scope.
+- Budgets come from estimates, not from a question asked by habit (the user: "i just want these things to be
+  based on estimates").
+- Doctrine, function then ours then compatibility: the words are ours; the ladder is a function call the user
+  makes once.
+
+
 ## The rules
 
 > **Amended 2026-10-24 by ADR-025, ratified by the user:** rules 1, 4, 5 and 11. Plain goforit sizes itself and
