@@ -2,19 +2,20 @@
 name: bbq
 metadata:
   family: plan
-description: A Big Batch of Questions. Grill the user in numbered rounds to settle a plan before any work starts (a run, an overnight queue, a decision, a new skill), then write the record that becomes the prompt. Use when the user types "bbq" or "makeskill", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt", or "interview me about a skill I want". "makeskill" opens bbq straight in the Skill type, which writes a new skill folder from the answers. Other types are ADR, Overnight, Arc, Debt, Morning, Host, Week, PR and Cloud (a run led from a cloud container). Any type can run as a Batch ("batch skill bbq", "batch adr bbq"): many items at once, a builder per item. "multitask" also loads it, and it asks "Batch bbq?" first.
+description: A Big Batch of Questions. Grill the user in numbered rounds to settle a plan before any work starts, such as a voyage (also called a runlap), an overnight queue, a decision or a new skill, then write the record that becomes the prompt. Use when the user types "bbq" or "makeskill", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt", or "interview me about a skill I want". "makeskill" opens bbq straight in the Skill type, which writes a new skill folder from the answers. Other types are ADR, Overnight, Arc, Debt, Morning, Host, Week, PR and Cloud (a voyage led from a cloud container). Any type can run as a Batch ("batch skill bbq", "batch adr bbq"): many items at once, a builder per item. "multitask" also loads it, and it asks "Batch bbq?" first. Any type can run as a stew ("stew bbq", "stew skill bbq"; also "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew", the two words side by side): asked in blocks, each re-planning the next.
 ---
 
-# bbq: a Big Batch of Questions, then the run or its prompt
+# bbq: a Big Batch of Questions, then the voyage or its prompt
 
 A bbq asks every question a piece of work needs before it starts, in numbered rounds. Each answer becomes a rule
-tagged with the question that set it, and the record the bbq ends with is the prompt for the run, whether this
+tagged with the question that set it, and the record the bbq ends with is the prompt for the voyage, whether this
 session runs it or a fresh one does.
 
-Siblings: `budget-select` (how much of the week the run may spend), `tier-select` (which model and effort lead it,
+Siblings: `budget-select` (how much of the week the voyage may spend), `tier-select` (which model and effort lead it,
 and which tier does each job) and `makeadr` (turns an ADR-type bbq into a decision record). `project-prep` offers a
-bbq at the end of its run, and a `talk-through` plan that needs its questions settled starts one. `goforit`, typed at the end of the opener, takes the bbq's closing offers and carries
-the record on into the work. A bbq never re-asks a question a sibling already settled.
+bbq as it finishes, and a `talk-through` plan that needs its questions settled starts one. `goforit`, typed at the end of the opener, takes the bbq's closing offers and carries
+the record on into the work. `looseends` reads a record's Owed and Defaulted lists as loose ends. A bbq never
+re-asks a question a sibling already settled.
 
 ## Config
 
@@ -35,12 +36,13 @@ batch_sheet: form     # a Batch bbq's worksheet: form (a file where no form can 
 
 ## Steps
 
-A plain bbq is steps 1 to 7. A bigger run also reads a file from `references/`:
+A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
 
 - `references/the-types.md`: the topic fits a named type, or the user wants a type of their own.
 - `references/skill-type.md`: the Skill type, or the user typed "makeskill".
 - `references/cloud-and-away.md`: a Cloud bbq, or the user will be away or on a poor link.
 - `references/batch.md`: a Batch bbq.
+- `references/stew.md`: a stew bbq ("stew bbq", "stew skill bbq"), or one turned into a stew mid-way.
 
 1. **The first round: the count, the type, the lead.** One round of questions, before any reading.
    - **The count.** Use the number the user named ("ask me 20 questions"), else the config's `count`, else ask
@@ -51,15 +53,18 @@ A plain bbq is steps 1 to 7. A bigger run also reads a file from `references/`:
      cited, no goforit.
    - **The type**, unless the user named it or the topic makes it plain; an untyped bbq is fine. "makeskill"
      means the Skill type: do not ask.
-   - **Who leads (model and effort)**, whenever the run needs a lead session (an Overnight, an Arc, a Host run,
-     any run with workers). Never assume the biggest model; `tier-select` recommends. The answer goes into the
+   - **Who leads (model and effort)**, whenever the voyage needs a lead session (an Overnight, an Arc, a Host voyage,
+     any voyage with workers). Never assume the biggest model; `tier-select` recommends. The answer goes into the
      record and the kickoff line.
    - **Will the user be reachable?** In a Cloud bbq, and whenever the user says they are away (ADR-006).
    - **Batch?** When the user says "batch" or names several items of one kind to build at once, the bbq runs in
      Batch mode (ADR-015). When the user says "multitask", ask "Batch bbq?" first.
+   - **Stew?** When "stew" and "bbq" sit side by side ("stew bbq", "stew skill bbq", "bbq stew"), the bbq runs as
+     a stew (ADR-021): in blocks, each re-planning the next, with one setup round after the count. "Let me stew
+     on it" never starts one.
 2. **Ground before you grill.** Before the first round of real questions, read the status file, the newest log
    entry, the open queue it points at and the type's reading, so no question asks what the files already answer.
-   Then load siblings, each only if the run needs it, in this order: `budget-select` if the run spends a share of
+   Then load siblings, each only if the voyage needs it, in this order: `budget-select` if the voyage spends a share of
    the usage limit, then `tier-select` for who leads and who works.
 3. **The rounds.** Up to four questions a round, numbered across rounds (Q1…QN) so answers can be cited. Put
    the recommended option first, marked *(Recommended)*, and give each option its benefit in one line. Ask the
@@ -89,7 +94,7 @@ A plain bbq is steps 1 to 7. A bigger run also reads a file from `references/`:
    - a kickoff paragraph (step 7).
 
    A Skill bbq also writes the skill folder.
-6. **Route the run** by the config's `ending`: `run-here`, `prompt` and `ask` always do that. At `auto`, the
+6. **Route the voyage** by the config's `ending`: `run-here`, `prompt` and `ask` always do that. At `auto`, the
    default:
    - a typed bbq that names its own session (Overnight, Arc, Host, Cloud) always writes a prompt for a fresh
      session;
@@ -126,17 +131,22 @@ A plain bbq is steps 1 to 7. A bigger run also reads a file from `references/`:
   offer is a `start_session` card with `target: "cloud"` that the user starts. A Batch worksheet form is
   `show_widget`'s elicitation shape: one choice group per question, the recommended option pre-selected, an
   *Other* box. Batch builders are sessions the user can open (`start_session` with a worktree, in the desktop
-  app) or `Agent` subagents with worktree isolation.
+  app) or `Agent` subagents with worktree isolation. A stew's worksheet is the same form. Under carte blanche, a
+  stew's answerer is an `Agent` subagent, kept going across the blocks with `SendMessage`.
 - **Cowork / claude.ai:** ask with `AskUserQuestion` where it is offered. There is no `/context` and usually no
   git or `gh`, so step 6 asks the user and step 7 ends with the record file and the kickoff line. The user zips
   the Skill type's folder and uploads it in their skill settings. No session tool for a Cloud relay: write the
-  hand-off and stop. A Batch bbq's records are prompts the user starts by hand.
+  hand-off and stop. A Batch bbq's records are prompts the user starts by hand. With no subagents, a stew under
+  carte blanche runs as a plain carte-blanche bbq, and its worksheets are files.
 - **Codex:** ask each round as a numbered list in one message (or with a question tool, if your Codex has one)
   and wait for the answers. Codex shows the skill no context percentage, so step 6 asks the user. The Skill type
   writes to `.agents/skills/` in a project or `~/.codex/skills/` for the user. No session tool for a Cloud relay:
   write the hand-off and stop. Batch builders are Codex subagents where your Codex has them; otherwise each
-  item's record is a prompt the user starts.
+  item's record is a prompt the user starts. A stew under carte blanche is answered by a Codex subagent where
+  there is one, otherwise it runs as a plain carte-blanche bbq; its worksheets are files.
 - **Other tools:** ask each round as a numbered list in one message, the options lettered and the recommended
   one first, then wait for the answers. Step 6 asks the user unless the tool reports context used. The Skill type
   writes to the folder the tool documents for skills. A Cloud relay uses the tool's own session-start tool if it
-  has one; otherwise write the hand-off and stop, and the user starts the next lead.
+  has one; otherwise write the hand-off and stop, and the user starts the next lead. A stew's worksheets are
+  files; under carte blanche it uses the tool's subagents if it has them, otherwise it runs as a plain
+  carte-blanche bbq.

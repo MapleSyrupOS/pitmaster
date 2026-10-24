@@ -1,23 +1,25 @@
-# Getting started with pitmaster — the starter guide (words only)
+# Getting started with Pitmaster — the starter guide (words only)
 
-**Status:** draft words, 2026-10-21. The look is the owner's to design: layout, art, colours, type and format
-(poster, zine, cards, a web page) are all open. Every panel below is a suggestion; cut, merge or rename freely.
-Each panel has a headline, one line on what it's for, what you type, what happens, and a tip.
+**Status:** draft words, 2026-10-23, reworded in the owner's words by the bbq in
+`docs/bbq/2026-10-23-readme-starter-guide.md` (Q94–Q137). The look is the owner's to design: layout, art, colours,
+type and format (poster, zine, cards, a web page) are all open. Each panel has four parts: a headline, what you type,
+what happens, and a tip (Q94). A line marked *(from the README)* was filled in from the README's wording rather than
+asked on its own; change it freely.
 
 ---
 
 ## Panel 0 — Cover
 
-**Headline:** Getting started with pitmaster
-**In a line:** Skills that make your agents ask before they build, stay on budget, and leave a record you can
-check.
-**Small print:** Works in Claude Code, Codex, Cowork, claude.ai and any tool that reads Agent Skills.
+**Headline:** Getting started with Pitmaster
+**In a line:** A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage
+existing ones.
+**Small print:** Works with Claude Code, Codex, Antigravity and any other agent that reads skills.
 
 ---
 
 ## Panel 1 — Install
 
-**In a line:** Two commands and the skills are there.
+**Headline:** Two commands and the skills are there.
 **You type (Claude Code):**
 
 ```
@@ -25,107 +27,158 @@ check.
 /plugin install pitmaster@pitmaster
 ```
 
-**What happens:** twelve skills appear. You can call one by name, or just ask in plain words and Claude picks the
+**What happens:** Fourteen skills become available. Call one by name, or ask in plain words and your agent picks the
 right one.
-**Tip:** Codex has its own two lines (`codex plugin marketplace add …`, `codex plugin add …`); see the README.
+**Tip:** Use the README to figure out how to use Pitmaster in the way that works best for your setup.
 
 ---
 
-## Panel 2 — bbq: grill me first
+## Panel 2 — bbq
 
-**In a line:** A Big Batch of Questions. Before any real work starts, it grills you.
-**You type:** "bbq, ask me 8 questions before we start"
-**What happens:** numbered rounds of questions, each with a recommended answer. When you're done, it writes the
-plan down, and that record becomes the prompt for the work.
-**Tip:** say "go with your picks" on any question you don't care about.
+**Headline:** bbq: ask me first
+**You type:** "have a bbq", or "16q bbq user interface"
+**What happens:** Before the agent builds anything, it reads your project and asks you rounds of questions, each with a
+recommended answer. When you're done, it writes down what you settled, and that becomes the plan for the work.
+**Tip:** Answer with a question if you need to. If something needs checking, it checks before going on.
 
 ---
 
-## Panel 3 — Write the decision down (makeadr)
+## Panel 3 — makeadr
 
-**In a line:** Decisions get forgotten. Written ones don't.
+**Headline:** Decisions get forgotten. ADRs don't.
 **You type:** "makeadr: we're using Postgres, not SQLite"
-**What happens:** a short, dated decision file: what was decided, why, what else was considered, and what's built.
-**Tip:** you change a decision later with an amendment, never by rewriting it, so the history stays honest.
+**What happens:** A short, dated decision file: what was decided, why, what else was considered, and what's built.
+*(unchanged from the last draft)*
+**Tip:** You can amend a decision, but the history stays, so you can always see how you got there.
 
 ---
 
-## Panel 4 — Budget and models (budget-select, tier-select)
+## Panel 4 — talk-through
 
-**In a line:** Decide how much usage a run gets, and which model does what.
-**You type:** "how much budget should this get?" and "which model should lead this?"
-**What happens:** a share of your usage in points (1 point = 1 % of your weekly limit by default), stop lines, and
-the right model for each job: a large one to plan, smaller ones to read and check.
-**Tip:** the stop line is there so a long run ends with something left for tomorrow.
+**Headline:** "Let's have a chat about this and you can distill the important parts of the conversation for me."
+**You type:** "talk-through" *(from the README)*
+**What happens:** A talk, not a build: go back and forth on a topic, and it will help make sure it's kept on record.
+**Tip:** Say "wrap it up" or just tell the agent you're done with the session.
 
 ---
 
-## Panel 5 — Let the agent pick (dealers-choice)
+## Panel 5 — Budget and models (budget-select, tier-select)
 
-**In a line:** Not sure what to work on next? Let it choose.
+**Headline:** Share out your weekly usage, and pick the right model for each part.
+**You type:** "how much budget should this get?" and "which model should lead this?" *(from the README)*
+**What happens:** You get a share of your weekly usage in points (by default, 1 point is 1 % of your weekly limit), a
+stop line, and a model for each job: a big one to plan, smaller ones to read and check.
+**Tip:** Set a stop line so a long voyage leaves room in your weekly and session usage.
+
+---
+
+## Panel 6 — Dealer's choice
+
+**Headline:** Not sure what to work on next? Let it choose.
 **You type:** "dealer's choice"
-**What happens:** four quick questions (is this carte blanche, how much usage and on which machines, anything
-off-limits, who leads). Then it reads your status, debt list and open PRs, picks what unblocks the most, tells
-you in one line, and starts.
-**Tip:** redirect it any time. Your words win.
+**What happens:** It asks four quick questions first (how much usage, anything off-limits, and so on), then keeps
+picking until it reaches the budget you set. *(from the README)*
+**Tip:** Give it a direction if you like: "dealer's choice docs". Or don't, and see what it picks.
 
 ---
 
-## Panel 6 — Go ahead without asking (carte-blanche)
+## Panel 7 — How much can it do without asking? (goforit, goforitreally, carte-blanche, trescarteblanche)
 
-**In a line:** Hand over the work, keep the final say.
-**You type:** "carte blanche"
-**What happens:** the agent works without asking, inside your project's rules and a set budget: it picks, pushes
-its own branches and opens PRs. Taste (names, looks, direction) always comes back to you, and every call it made
-for you gets a veto line.
-**Tip:** merging is off unless you name it: "carte blanche, plus merge on green".
+**Headline:** How much can it do without asking?
+**You type:** "goforit", "goforitreally", "carte blanche" or "trescarteblanche"
+**What happens:** Each word allows everything the one before it does, and adds one thing.
 
----
+| say | adds | still stops for you at |
+|---|---|---|
+| goforit | builds the plan you just settled | your approval and your merge |
+| goforitreally | merges by itself once you've approved | your approval |
+| carteblanche | any work, for the whole session | anything public, pushing to main, deleting work |
+| trescarteblanche | every project you name | the same |
 
-## Panel 7 — What did it cost? (spend-ledger, swarm-bottleneck)
-
-**In a line:** See what a run spent, and what's slowing your agents down.
-**You type:** "what did that cost?" or "what's the bottleneck?"
-**What happens:** one row per session, what it spent beside what it landed. Or the one thing holding your agents
-back right now, with the evidence and what to try.
-**Tip:** "cost per PR" over a week shows which runs were worth it.
+*(No tip: the table says it, Q137.)*
 
 ---
 
-## Panel 8 — Set up a new project (project-prep)
+## Panel 8 — Where did the time and tokens go? (spend-ledger, swarm-bottleneck)
 
-**In a line:** Give agents what they need before the first task.
+**Headline:** Where did the time and tokens go?
+**You type:** "log the spend" or "what's the bottleneck?" *(from the README)*
+**What happens:** spend-ledger writes one row per session: what it used, beside what got merged. swarm-bottleneck
+names the one thing holding your agents back right now, with the evidence and what to try.
+**Tip:** Check your cost per pull request across a week to see which voyages were good value and which cost too much.
+
+---
+
+## Panel 9 — project-prep
+
+**Headline:** Organize this project for you and your agents.
 **You type:** "prep this project"
-**What happens:** one round of questions, then the files agents need to work well (rules, a status file, a
-glossary, folders for proposals and decisions), on a branch, never overwriting anything.
-**Tip:** it ends by offering to write down your project's first decision.
+**What happens:** One round of questions, then the files your agents need (a rules file, a status file, and more if
+you want it), on a new branch, never overwriting anything.
+**Tip:** It ends by offering to write down your project's first decision.
 
 ---
 
-## Panel 9 — Cheat sheet (back cover)
+## Panel 10 — tastetest
+
+**Headline:** An outsider's audit.
+**You type:** "tastetest" or "is this ready to go public?" *(from the README)*
+**What happens:** It starts a fresh agent that gets none of your notes, only what a stranger would see, has it try
+your project, and gives you a plain READY or NOT READY.
+**Tip:** Making an app? It has an App Store check too.
+
+---
+
+## Panel 11 — looseends
+
+**Headline:** What did we leave unfinished?
+**You type:** "looseends" *(from the README)*
+**What happens:** It looks through the chat you're in, the whole project or one topic for anything left hanging,
+checks each is still open, and offers to tie them off.
+**Tip:** Point it somewhere: "looseends project", or "looseends" plus a topic.
+
+---
+
+## Panel 12 — setfree
+
+**Headline:** Release day, on your word.
+**You type:** "setfree" or "release day" *(from the README)*
+**What happens:** It shows each decision waiting to go public so you can approve or hold it, offers a blind
+tastetest, then works through your release checklist and stops for your word before every public step.
+**Tip:** Nothing is published, tagged or made public until you say so.
+
+---
+
+## Panel 13 — Cheat sheet (back cover)
+
+The README's "What to say" table, word for word, so the two always match (Q131):
 
 | say | it means |
 |---|---|
-| bbq | Grill me before we start: a Big Batch of Questions. |
-| makeadr | Write this decision down properly. |
-| budget-select | How much of my usage should this get? |
-| tier-select | Which model should do this? |
-| swarm-bottleneck | What's slowing my agents down? |
-| spend-ledger | What did that cost, and what did we get? |
-| dealers-choice | You pick what to work on. |
-| carte-blanche | Go ahead without asking, inside these limits. |
-| project-prep | Get this project ready for agents. |
-| talk-through | Let's talk it through, then write down what we decided. |
-| tastetest | Is this ready for strangers? Taste it blind and tell me. |
-| goforit | We've talked enough: build it, and stop when you need my yes. |
+| bbq | Before you build anything, read where the project stands and ask me a Big Batch of Questions so we agree on the plan. |
+| makeadr | Record this decision in a dated decision file, so later sessions know what we decided and why. |
+| carte-blanche | Until this session ends, you don't need my OK to push branches, open pull requests or merge them once their checks pass. Stay inside the budget and the project's rules, and leave a veto line for every call you make. |
+| tastetest | Audit from an agent that knows nothing about the project. |
+| setfree | Get the release ready, show me exactly what goes out, and wait for my word before anything is published. |
+| talk-through | Let's have a chat about this and you can distill the important parts of the conversation for me. |
+| dealers-choice | You pick what to work on: look at what needs doing, ask me a few quick questions, and pick the most useful job. |
+| goforit | This plan is settled. Build it now, and stop only for my approval and my merge. |
+| goforitreally | Build the plan and merge it once the checks pass. Stop only for my approval. |
+| looseends | What did we leave unfinished? |
+| tier-select | Out of our available models, which model should handle this part of the work? |
+| budget-select | Help me decide what share of my weekly usage goes to this, so one job doesn't take more than I want. |
+| spend-ledger | What did the agents spend their time on, and how many tokens did it take? |
+| swarm-bottleneck | Several agents are working at once and getting in each other's way: what's slowing the agents down? |
+| project-prep | Organize this project for me and my agents. |
 
-**Sign-off:** Low and slow planning for fast agents.
+**Sign-off:** Stay organized in a way that helps you and your agents.
 
 ---
 
 ## For the designer (open, the owner's call)
 
 - Format: one poster, a folded zine, a card per skill, or a web page?
+- If it becomes a web page, panel 7 (the ladder) could be interactive: click a word and see what it adds (Q136).
 - A running character or mascot, or none?
-- One panel per skill, or group panels 4 and 7 as they are here?
+- One panel per skill, or grouped as panels 5, 7 and 8 are here?
 - Does the cheat sheet double as something to print?

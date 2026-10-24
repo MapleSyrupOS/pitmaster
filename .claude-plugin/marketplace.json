@@ -9,7 +9,7 @@
     {
       "name": "pitmaster",
       "source": "./",
-      "description": "Grill the plan before it starts (bbq), record decisions as ADRs (makeadr), talk a subject through and write down what was decided (talk-through), let the agent pick the work (dealers-choice) under standing authority (carte-blanche) and carry a settled plan into the build (goforit), pick the models (tier-select) and the budget (budget-select), log what it cost (spend-ledger), find the bottleneck (swarm-bottleneck), audit blind whether it is ready for strangers (tastetest), and prep a project for agents (project-prep).",
+      "description": "Grill the plan before it starts (bbq), record decisions as ADRs (makeadr), talk a subject through and write down what was decided (talk-through), let the agent pick the work (dealers-choice) under standing authority (carte-blanche) and carry a settled plan into the build (goforit), pick the models (tier-select) and the budget (budget-select), log what it cost (spend-ledger), find the bottleneck (swarm-bottleneck), audit blind whether it is ready for strangers (tastetest), find what was left unfinished (looseends), and prep a project for agents (project-prep).",
       "category": "productivity",
       "tags": [
         "skills",

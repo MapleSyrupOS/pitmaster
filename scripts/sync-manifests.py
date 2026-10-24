@@ -30,7 +30,7 @@ SHORT = "Grill the plan, record the decision, find the bottleneck, pick the budg
 PROMPTS = [
     "bbq: ask me 12 questions before we start this refactor",
     "makeadr: let's make an ADR for how we version the API",
-    "What's the bottleneck in this run right now?",
+    "What's the bottleneck in this voyage right now?",
 ]
 
 

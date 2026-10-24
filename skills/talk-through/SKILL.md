@@ -2,18 +2,20 @@
 name: talk-through
 metadata:
   family: plan
-description: Talk a subject through as an open conversation, in voice or text, while quietly tracking decisions, open questions, action items and corrections; then, on the user's word, write it all up as one record with each decision marked agreed, proposed or open and cited to where it came up. Use when the user types "talk-through", "talkitout", "talkitthrough", "chatabout", "chitchat" or "talk-it-through", or says "let's talk it through" or "let's just talk it through". Also offer it once when several decisions have piled up in a conversation that did not start with it.
+description: Talk a subject through as an open conversation, in voice or text, while quietly tracking decisions, open questions, action items and corrections; then, on the user's word, write it all up as one record with each decision marked agreed, proposed or open and cited to where it came up. Use when the user types "talk-through", "talkitout", "talkitthrough", "chatabout", "chitchat" or "talk-it-through" (any of them with "really" run on, such as "talk-throughreally", also merges the record's PR on green), or says "let's talk it through" or "let's just talk it through". Also offer it once when several decisions have piled up in a conversation that did not start with it.
 ---
 
 # talk-through: talk a subject through, then write it up as one record
 
 Decided by pitmaster ADR-014.
+"talk-throughreally": ADR-023.
 
 Sibling of `makeadr` (an agreed decision big enough for an ADR), `bbq` (a plan whose questions need settling
 before work starts) and `project-prep` (named only when the talk was about starting a project). `tastetest` offers
 a talk over a finished readiness report, and `goforit` typed after a talk carries its plan on into the work.
+`looseends` reads a talk's record for open questions and action items left undone.
 
-The smallest run: say "talk-through", talk, then say "let's wrap it up", and you get one record file (with
+The smallest use: say "talk-through", talk, then say "let's wrap it up", and you get one record file (with
 `land: file`, nothing else: no branch, no pull request).
 
 ## Config
@@ -68,7 +70,8 @@ land: pr                          # pr (branch + PR) | commit (branch only) | fi
    and its index, or run `project-prep`.
 6. **Land it** by the config's `land` (default `pr`), never on the main branch:
    - **`pr`**: on a branch, commit the record and the index row, open a docs PR, and give the link. Merging stays
-     the user's.
+     the user's, except after "talk-throughreally" (or any opener with "really" run on): then merge the PR once its
+     checks are green (ADR-023 rule 11). The wrap still waits for the user's word.
    - **`commit`**: the same commit on a branch, with no PR.
    - **`file`**: leave the record and the index row as files. Commit nothing.
 7. **Later.** A follow-up to the same talk appends a dated *Amendment* section to its record. One record per talk;

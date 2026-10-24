@@ -17,3 +17,5 @@ change the ADR and run the script again. An ADR's own header outranks this table
 | [ADR-015](ADR-015-bbq-gains-a-batch-mode.md) | bbq gains a Batch mode | process | accepted | landed |
 | [ADR-016](ADR-016-tastetest-a-blind-audit-of-whether-a-thing-is-ready-for-its-end-users.md) | tastetest: a blind audit of whether a thing is ready for its end users | process | accepted | partial |
 | [ADR-017](ADR-017-goforit-carry-a-settled-plan-on-into-the-build-stopping-at-ratify.md) | goforit: carry a settled plan on into the build, stopping at "ratify" | process | accepted | landed |
+| [ADR-019](ADR-019-looseends-find-what-was-left-unfinished-and-offer-to-tie-it-off.md) | looseends: find what was left unfinished, and offer to tie it off | process | accepted | partial |
+| [ADR-020](ADR-020-public-adr-copies-are-drafted-as-each-adr-changes-and-setfree-releases-them.md) | Public ADR copies are drafted as each ADR changes, and setfree releases them | process | accepted | partial |
