@@ -47,7 +47,8 @@ A draft needs no ADR. The move into the shipped skills folder needs one, ratifie
 3. **The ADR.** Offer `makeadr`. What the bbq already settled with citations, it writes from the record; it asks
    only what is still open.
 4. **The owner's ratification.** Only the owner's own "ratify" counts; an agent never ratifies. Stop and ask for it.
-5. **The move.** After the ratification, `makeadr` records it. Then the folder moves from `drafts/` into the
-   shipped skills folder, the plugin's patch version goes up by one (running its manifest-sync script, if the
+5. **The move, offered.** After the ratification, `makeadr` records it and the move is offered, not made
+   (ADR-026); the draft can still change until then. On a yes, or "goforit", the folder moves from `drafts/` into
+   the shipped skills folder, the plugin's patch version goes up by one (running its manifest-sync script, if the
    project has one), a CHANGELOG line is added, the project's checks run and the PR is updated. Then stop:
    merging is the owner's.

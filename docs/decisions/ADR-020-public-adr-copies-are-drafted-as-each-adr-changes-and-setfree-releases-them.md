@@ -69,3 +69,17 @@ by a config line, which project-prep offers.
 
 - 2026-10-23: proposed.
 - 2026-10-23: ratified by the owner.
+- 2026-10-24: amended.
+
+## Amendment — 2026-10-24, the user
+
+**What changed.** With drafting switched on, makeadr now makes the public draft in the background and says nothing
+about it in the chat, in place of saying that it made two things. The draft still lands in the same pull request,
+waiting for review, with a dated line in the ADR's History, so it shows in the pull request's files. When an ADR is
+superseded, the queued withdrawal of the old public copy gets one short line in the pull request body.
+
+**Why.** The user asked for the draft to happen in the background, silently, as first asked: a tool that tucks the
+draft away until release.
+
+**Touches:** §Decision (its third sentence) and §The rules, rule 3.
+

@@ -68,7 +68,7 @@ recommended answer. When you're done, it writes down what you settled, and that 
 **You type:** "how much budget should this get?" and "which model should lead this?" *(from the README)*
 **What happens:** You get a share of your weekly usage in points (by default, 1 point is 1 % of your weekly limit), a
 stop line, and a model for each job: a big one to plan, smaller ones to read and check.
-**Tip:** Set a stop line so a long voyage leaves room in your weekly and session usage.
+**Tip:** Set a stop line so a long comrun leaves room in your weekly and session usage.
 
 ---
 
@@ -105,7 +105,7 @@ picking until it reaches the budget you set. *(from the README)*
 **You type:** "log the spend" or "what's the bottleneck?" *(from the README)*
 **What happens:** spend-ledger writes one row per session: what it used, beside what got merged. swarm-bottleneck
 names the one thing holding your agents back right now, with the evidence and what to try.
-**Tip:** Check your cost per pull request across a week to see which voyages were good value and which cost too much.
+**Tip:** Check your cost per pull request across a week to see which comruns were good value and which cost too much.
 
 ---
 

@@ -10,13 +10,13 @@ amends: nothing
 ---
 # ADR-009 — spend-ledger: what a session spent, beside what it landed
 
-This is the public copy of a decision I made. I've left out a few internal notes.
+This is the published version of this decision. Some internal details have been left out.
 
 ## Decision
 
 pitmaster gains a skill, **spend-ledger**, that records what each session actually spent beside what it landed,
 one row per session in an append-only ledger in the project, and reports spend per landing over a window. It is
-the after-the-fact twin of `budget-select`: that skill sets a share before a run, this one measures it afterwards.
+the after-the-fact twin of `budget-select`: that skill sets a share before a comrun, this one measures it afterwards.
 It has two jobs, **close** (one session) and **report** (a window). Its script reads token counts straight from
 Claude Code and Codex transcripts, so spend is measured, not remembered. It keeps three figures apart: tokens
 (measured), the meter (read before and after) and the points this session moved, which it estimates when other
@@ -24,9 +24,9 @@ sessions shared the meter.
 
 ## The rules
 
-1. **Triggers:** `spend-ledger`, `log the spend`, `what did this run cost`, `what did we get for the points`,
+1. **Triggers:** `spend-ledger`, `log the spend`, `what did this comrun cost`, `what did we get for the points`,
    `cost per PR`, and session close in a project that keeps a ledger. Near-misses go to their owners: a budget
-   before a run to `budget-select`, a model choice to `tier-select`, a live token breakdown to the platform.
+   before a comrun to `budget-select`, a model choice to `tier-select`, a live token breakdown to the platform.
 2. **The row:** date, session, platform, lead, window, tokens by kind (fresh, cached, written, out), workers'
    share, model mix, list price (a proxy), meter (start and end, alone or shared, estimated points), landed (a
    count, then links), note.
@@ -67,3 +67,5 @@ sessions shared the meter.
 
 - 2026-10-20: proposed.
 - 2026-10-20: ratified by the owner.
+- 2026-10-23: amended by the owner.
+- 2026-10-24: amended by the owner.

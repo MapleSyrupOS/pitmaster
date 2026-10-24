@@ -6,4 +6,4 @@ max_turns: 2
 timeout_seconds: 180
 allowed_tools: [Skill, Read, Glob, Grep]
 ---
-Who should lead tonight's run-lap, and at what effort?
+Who should lead tonight's commissioned run, and at what effort?

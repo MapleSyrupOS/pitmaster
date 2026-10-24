@@ -2,16 +2,16 @@
 name: bbq
 metadata:
   family: plan
-description: A Big Batch of Questions. Grill the user in numbered rounds to settle a plan before any work starts, such as a voyage (also called a runlap), an overnight queue, a decision or a new skill, then write the record that becomes the prompt. Use when the user types "bbq" or "makeskill", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt", or "interview me about a skill I want". "makeskill" opens bbq straight in the Skill type, which writes a new skill folder from the answers. Other types are ADR, Overnight, Arc, Debt, Morning, Host, Week, PR and Cloud (a voyage led from a cloud container). Any type can run as a Batch ("batch skill bbq", "batch adr bbq"): many items at once, a builder per item. "multitask" also loads it, and it asks "Batch bbq?" first. Any type can run as a stew ("stew bbq", "stew skill bbq"; also "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew", the two words side by side): asked in blocks, each re-planning the next.
+description: A Big Batch of Questions. Grill the user in numbered rounds to settle a plan before any work starts, such as a comrun, an overnight queue, a decision or a new skill, then write the record that becomes the prompt. Use when the user types "bbq", "makeskill" or "maketool", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt", or "interview me about a skill I want". "makeskill" opens bbq straight in the Skill type, which writes a new skill folder from the answers; "maketool" opens the Tool type. Other types are ADR, Overnight, Arc, Debt, Morning, Host, Week, PR and Cloud. Any type can run as a Batch ("batch skill bbq", "batch adr bbq"): many items at once, a builder per item. "multitask" also loads it, and it asks "Batch bbq?" first. Any type can run as a stew ("stew bbq", "stew skill bbq"; also "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew", the two words side by side): asked in blocks, each re-planning the next.
 ---
 
-# bbq: a Big Batch of Questions, then the voyage or its prompt
+# bbq: a Big Batch of Questions, then the comrun or its prompt
 
 A bbq asks every question a piece of work needs before it starts, in numbered rounds. Each answer becomes a rule
-tagged with the question that set it, and the record the bbq ends with is the prompt for the voyage, whether this
+tagged with the question that set it, and the record the bbq ends with is the prompt for the comrun, whether this
 session runs it or a fresh one does.
 
-Siblings: `budget-select` (how much of the week the voyage may spend), `tier-select` (which model and effort lead it,
+Siblings: `budget-select` (how much of the week the comrun may spend), `tier-select` (which model and effort lead it,
 and which tier does each job) and `makeadr` (turns an ADR-type bbq into a decision record). `project-prep` offers a
 bbq as it finishes, and a `talk-through` plan that needs its questions settled starts one. `goforit`, typed at the end of the opener, takes the bbq's closing offers and carries
 the record on into the work. `looseends` reads a record's Owed and Defaulted lists as loose ends. A bbq never
@@ -29,6 +29,7 @@ record_dir: docs/bbq  # where records go (step 5)
 ending: auto          # auto | run-here | prompt | ask (step 6)
 land: pr              # pr (branch + PR) | commit (branch only) | file (just the file) (step 7)
 types: docs/bbq-types.md   # your own types, in your project (an update never overwrites it)
+tools_home: ask       # where tools run without an agent live, for the Tool type: ask | a folder (tools/) | a repository
 batch_usage: on       # a Batch bbq loads budget-select and spend-ledger: on | off
 batch_format: ask     # a Batch bbq's format: ask (by size on top) | by-size | rounds | item-sheets | batch-sheet (no question)
 batch_sheet: form     # a Batch bbq's worksheet: form (a file where no form can be drawn) | file
@@ -40,6 +41,7 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
 
 - `references/the-types.md`: the topic fits a named type, or the user wants a type of their own.
 - `references/skill-type.md`: the Skill type, or the user typed "makeskill".
+- `references/tool-type.md`: the Tool type ("tool bbq", "shedtool bbq"), or the user typed "maketool".
 - `references/cloud-and-away.md`: a Cloud bbq, or the user will be away or on a poor link.
 - `references/batch.md`: a Batch bbq.
 - `references/stew.md`: a stew bbq ("stew bbq", "stew skill bbq"), or one turned into a stew mid-way.
@@ -52,9 +54,9 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
      too, saying what it rests on: no rounds, each question takes its cited answer (ADR-017). If any cannot be
      cited, no goforit.
    - **The type**, unless the user named it or the topic makes it plain; an untyped bbq is fine. "makeskill"
-     means the Skill type: do not ask.
-   - **Who leads (model and effort)**, whenever the voyage needs a lead session (an Overnight, an Arc, a Host voyage,
-     any voyage with workers). Never assume the biggest model; `tier-select` recommends. The answer goes into the
+     means the Skill type and "maketool" the Tool type: do not ask.
+   - **Who leads (model and effort)**, whenever the comrun needs a lead session (an Overnight, an Arc, a Host comrun,
+     any comrun with workers). Never assume the biggest model; `tier-select` recommends. The answer goes into the
      record and the kickoff line.
    - **Will the user be reachable?** In a Cloud bbq, and whenever the user says they are away (ADR-006).
    - **Batch?** When the user says "batch" or names several items of one kind to build at once, the bbq runs in
@@ -64,7 +66,7 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
      on it" never starts one.
 2. **Ground before you grill.** Before the first round of real questions, read the status file, the newest log
    entry, the open queue it points at and the type's reading, so no question asks what the files already answer.
-   Then load siblings, each only if the voyage needs it, in this order: `budget-select` if the voyage spends a share of
+   Then load siblings, each only if the comrun needs it, in this order: `budget-select` if the comrun spends a share of
    the usage limit, then `tier-select` for who leads and who works.
 3. **The rounds.** Up to four questions a round, numbered across rounds (Q1…QN) so answers can be cited. Put
    the recommended option first, marked *(Recommended)*, and give each option its benefit in one line. Ask the
@@ -94,7 +96,7 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
    - a kickoff paragraph (step 7).
 
    A Skill bbq also writes the skill folder.
-6. **Route the voyage** by the config's `ending`: `run-here`, `prompt` and `ask` always do that. At `auto`, the
+6. **Route the comrun** by the config's `ending`: `run-here`, `prompt` and `ask` always do that. At `auto`, the
    default:
    - a typed bbq that names its own session (Overnight, Arc, Host, Cloud) always writes a prompt for a fresh
      session;

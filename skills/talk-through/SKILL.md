@@ -8,12 +8,14 @@ description: Talk a subject through as an open conversation, in voice or text, w
 # talk-through: talk a subject through, then write it up as one record
 
 Decided by pitmaster ADR-014.
+The record check at the wrap: ADR-024.
 "talk-throughreally": ADR-023.
 
 Sibling of `makeadr` (an agreed decision big enough for an ADR), `bbq` (a plan whose questions need settling
 before work starts) and `project-prep` (named only when the talk was about starting a project). `tastetest` offers
 a talk over a finished readiness report, and `goforit` typed after a talk carries its plan on into the work.
-`looseends` reads a talk's record for open questions and action items left undone.
+`looseends` reads a talk's record for open questions and action items left undone. An open decision with two fair
+options can be put to `townhall`, where agents argue it and the lead recommends.
 
 The smallest use: say "talk-through", talk, then say "let's wrap it up", and you get one record file (with
 `land: file`, nothing else: no branch, no pull request).
@@ -66,7 +68,9 @@ land: pr                          # pr (branch + PR) | commit (branch only) | fi
    7. **Corrections,** if any facts changed.
    8. **Possible next steps:** which sibling could pick each item up. Suggest; do not run them.
 
-   Then add a row to the `index` list. If `record_dir` does not exist, offer two choices: create just that folder
+   Then, where Python 3 runs, check it: `python3 scripts/record-check.py <record>` (beside this file) confirms each
+   decision row is marked agreed, proposed or open and says where it came up. Fix what it finds, then add a row to
+   the `index` list. If `record_dir` does not exist, offer two choices: create just that folder
    and its index, or run `project-prep`.
 6. **Land it** by the config's `land` (default `pr`), never on the main branch:
    - **`pr`**: on a branch, commit the record and the index row, open a docs PR, and give the link. Merging stays
@@ -88,7 +92,8 @@ conversation.
 - **Claude Code:** text unless "voice" follows the opener. `gh` opens step 6's PR when it is signed in;
   otherwise the wrap ends with the committed branch and says so.
 - **Cowork / claude.ai:** voice mode in the Claude apps counts as voice. With no git or `gh`, the wrap gives the
-  record as a file to save and skips step 6; a checkpoint shows the record so far in the chat.
+  record as a file to save and skips step 6; a checkpoint shows the record so far in the chat. No script runs
+  there, so the wrap skips the record check.
 - **Codex:** text. `gh` opens step 6's PR where it is signed in.
 - **Other tools:** text. Write the record where the tool can write files; without `gh`, the record file is the
   result.

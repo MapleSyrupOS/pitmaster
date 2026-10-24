@@ -11,7 +11,7 @@ amends: nothing
 ---
 # ADR-016 — tastetest: a blind audit of whether a thing is ready for its end users
 
-This is the public copy of a decision I made. I've left out a few internal notes.
+This is the published version of this decision. Some internal details have been left out.
 
 ## Decision
 
@@ -23,6 +23,9 @@ private leaks, that its claims match what ships, and, for an app, what Apple req
 user's word to go live and never replaces it.
 
 ## The rules
+
+> **Amended 2026-10-23 by ADR-023, ratified by the user:** tastetestreally fixes the findings on a branch and
+> re-audits until READY, at most three rounds (rule 6).
 
 1. **Triggers:** `tastetest`, or a readiness ask: "is this ready to go public", "public readiness audit", "is it
    App Store ready", "audit this before launch". Near-misses: a code review, a security review, "is it done?", a
@@ -62,3 +65,4 @@ user's word to go live and never replaces it.
 
 - 2026-10-22: proposed.
 - 2026-10-22: ratified by the owner.
+- 2026-10-23: amended.
