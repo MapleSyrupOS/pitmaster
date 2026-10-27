@@ -27,7 +27,7 @@ existing ones.
 /plugin install pitmaster@pitmaster
 ```
 
-**What happens:** Fourteen skills become available. Call one by name, or ask in plain words and your agent picks the
+**What happens:** Sixteen skills become available. Call one by name, or ask in plain words and your agent picks the
 right one.
 **Tip:** Use the README to figure out how to use Pitmaster in the way that works best for your setup.
 

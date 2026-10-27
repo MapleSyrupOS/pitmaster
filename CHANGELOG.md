@@ -6,6 +6,45 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.28] — 2026-10-27
+
+### Changed
+- The README catches up with the sixteen skills and the shed's fifteen tools: the shed table adds `adr-public`,
+  `looseends-scan`, `neighbour-check`, `neighbours` and `record-check`, and says which skill carries which tool;
+  the Claude Code skill list adds townhall and neighbour-check. The starter guide's skill count reads sixteen.
+- The plugin's description names townhall, and the Claude marketplace's names townhall, neighbour-check and
+  setfree.
+
+## [0.4.27] — 2026-10-27
+
+### Changed
+- neighbour-check's `neighbour-check` and townhall's `neighbours` copies are pinned to pitmaster-shed's `v0.3.0` tag,
+  which holds the commit they were pinned to. The files are unchanged; only their pins move.
+
+## [0.4.26] — 2026-10-27
+
+### Added
+- **neighbour-check** (ADR-029): before a session sends work to a neighbour on townhall's allow list, it
+  reads what limits each one (Codex's 7-day meter, reset and burn; another Claude account's newest reading; Go's raw
+  floor; Ollama's and OpenAI-wire servers' models; a project's lane queue; a guard over ssh) and whether it is busy,
+  asks the user for the readings no file holds (agy, Go's weighted pool), and writes a Neighbours block. Every kind
+  and setting is editable: the skill's Config, the neighbours doc's `## neighbour-check` section, `pitmaster.md`, or a
+  flag. Its script is a pinned copy of pitmaster-shed's `neighbour-check`. "checkonneighbours" loads it too.
+
+### Changed
+- spend-ledger's close (step 5) leaves the closing usage reading in `~/.claude/meters.tsv` through neighbour-check's
+  `record`, so the user's other accounts see how this one ended.
+- budget-select, tier-select, townhall and spend-ledger name neighbour-check in their Sibling lines.
+- townhall's `neighbours` copy is re-pinned to the same pitmaster-shed commit: the shed's file gained two
+  marker lines around the doc reader neighbour-check shares, and nothing else changed.
+
+## [0.4.25] — 2026-10-24
+
+### Changed
+- The five shed copies pinned to a commit (makeadr's `adr-public`, looseends' `looseends-scan`, townhall's
+  `neighbours` and `record-check`, talk-through's `record-check`) are pinned to pitmaster-shed's `v0.2.0` tag. The
+  files are unchanged; only their pins move.
+
 ## [0.4.24] — 2026-10-24
 
 ### Fixed

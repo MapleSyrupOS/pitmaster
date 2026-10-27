@@ -7,7 +7,7 @@ owner: the owner
 kind: process
 built: partial
 proof: "`skills/townhall/SKILL.md`, `skills/townhall/scripts/neighbours.pin`, `skills/townhall/scripts/record-check.pin`, `skills/talk-through/scripts/record-check.pin`, `evals/townhall-yes-01/prompt.md`, `evals/townhall-no-01/prompt.md`"
-owed: the shed's next release tag, then the three pins move from the commit to it (ADR-012); the live tool, after its own bbq; the first real runs, judged by the owner
+owed: the live tool, after its own bbq; the first real runs, judged by the owner
 supersedes: nothing
 amends: ADR-014 §Access
 ---

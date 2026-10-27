@@ -3,7 +3,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are fifteen skills so far, and more on the way, for agents like Claude Code, Codex and Antigravity. Pitmaster
+There are sixteen skills so far, and more on the way, for agents like Claude Code, Codex and Antigravity. Pitmaster
 helps you better understand and organize your project without losing track of all the moving parts.
 
 Originally, the point of Pitmaster was to be used solely with agents; however, many of the skills use small scripts
@@ -201,7 +201,7 @@ a skill on its own when your request matches.
 | **carte-blanche** | For one session, the agent chooses its own work, pushes branches, opens pull requests, merges them once the checks pass and spends a budget it estimates without asking, inside your project's rules. "trescarteblanche" does the same in every project you name with it. It writes down each decision it made for you as a veto line, so you can reverse it. Taste always comes back to you. | "carte blanche", "trescarteblanche pitmaster and …" |
 | **tastetest** | A blind readiness check before anything goes public. An auditor that knows nothing about your project is shown only what an outsider would see, tries it, and reports READY or NOT READY with ranked findings. It has profiles for a repository going public and for an app going to the App Store. "tastetestreally" also fixes what it finds and audits again until READY. | "tastetest", "is this ready to go public?", "tastetestreally" |
 
-**The other ten skills**, by what they are for:
+**The other twelve skills**, by what they are for:
 
 **Plan the work**
 
@@ -227,6 +227,7 @@ a skill on its own when your request matches.
 | **budget-select** | Gives a comrun its share of your plan's usage limit, in points, sets its stop lines, and writes a short budget section for the comrun's prompt. | "how much budget should this get?" |
 | **spend-ledger** | Records what a session actually used (from its own conversation log and your usage meter, plus an estimate at list prices) beside what it got merged, one row per session, and reports the cost per merged change over a week. | "log the spend", "what did we get for the points?" |
 | **swarm-bottleneck** | Names the one thing holding a multi-agent comrun back (usage limits, how much an agent can hold in mind at once, slow checks, the review queue, your attention, failing tools), with the evidence and what to do about it. | "what's the bottleneck?" |
+| **neighbour-check** | Before work goes out to your other models, checks each one on your neighbours list for what limits it (its usage meter, when it resets and how fast it is being used, wherever that can be read; where it can't, it asks you) and whether it is busy, and writes a short neighbours section for the comrun's prompt. It also leaves this account's usage reading where your other account's sessions can see it. | "neighbour-check", "how much Codex is left?" |
 
 **Set the project up**
 
@@ -235,7 +236,11 @@ a skill on its own when your request matches.
 | **project-prep** | Gets a new or existing project ready for agents; it writes no app code. By default it writes the agent rules file and a status file in which every claim names the file that backs it; on request, a log, a debt list, a decisions folder, a glossary and more. It works on a new branch and never overwrites a file, and ends by offering to put your first decision on record. "project-prepreally" also merges its set-up branch once the checks pass. | "project-prep", "prep this project", "project-prepreally" |
 
 The skills work together: a `bbq` asks `budget-select` and `tier-select` for their recommendations, and hands an
-ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand. `dealers-choice` picks the work and asks whether the comrun has `carte-blanche`. `project-prep` sets a project up and hands its first decision to `makeadr`. `looseends` finds what a comrun left open and hands the agent's share to `goforit` or `dealers-choice`. `townhall` argues a decision out and hands it to `makeadr`.
+ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-select` set beforehand.
+`neighbour-check` reads the other models' limits before `tier-select` routes work to them. `dealers-choice` picks
+the work and asks whether the comrun has `carte-blanche`. `project-prep` sets a project up and hands its first
+decision to `makeadr`. `looseends` finds what a comrun left open and hands the agent's share to `goforit` or
+`dealers-choice`. `townhall` argues a decision out and hands it to `makeadr`.
 
 ### The shed
 
@@ -248,17 +253,24 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 |---|---|
 | `adr-check` | Checks every ADR's header, that each proof resolves, and that the extra sections appear only when options were weighed. |
 | `adr-index` | Writes the ADR index from the ADRs themselves; `--check` fails when it is stale. |
+| `adr-public` | Drafts the public copy of each ADR into a waiting folder and moves it up only when you approve it. It never publishes. |
 | `comment-only` | Proves an edit changed only comments, in C, C++ or assembly code. |
 | `compact` | Moves a block of text into an append-only archive, verbatim, and proves from git that nothing else changed. |
 | `elf-loaded` | Compares only the parts of two compiled programs that actually get loaded and run. |
 | `fence-mark` | Runs a command and always leaves a one-line marker and the whole diff. |
+| `looseends-scan` | Lists a project's loose ends (questions never answered, promises not kept, work never merged), each with the file and line it came from. |
 | `modeguard` | Refuses a lost executable bit (or any file-mode change) unless it is on an allow list. |
+| `neighbour-check` | Reads what limits each of your other models (its usage meter, its reset, how fast it is being used) and whether it is busy. |
+| `neighbours` | Reads your list of other models, checks it is sound, and says which of them answer right now. |
 | `ratchet` | Fails when a listed file grows past its line-count limit. |
+| `record-check` | Checks a meeting record's decisions tables: every decision marked agreed, proposed or open, and each saying where it came up. |
 | `split-status-log` | Splits a newest-first dated log by month, byte for byte. |
 | `status-check` | Checks a STATUS file's length and that every bullet cites a file that exists. |
 
-**How the skills use it.** `makeadr` carries its own copies of `adr-index` and `adr-check`, and `project-prep`
-carries `status-check`, so every install works offline with nothing extra to fetch.
+**How the skills use it.** Some skills carry their own copies of shed tools, so every install works offline with
+nothing extra to fetch: `makeadr` carries `adr-index`, `adr-check` and `adr-public`; `project-prep` carries
+`status-check`; `looseends` carries `looseends-scan`; `talk-through` and `townhall` carry `record-check`; `townhall`
+carries `neighbours`; and `neighbour-check` carries the tool of the same name.
 
 ## How far each word lets the agent go
 
@@ -288,8 +300,8 @@ direction), and pushing to main, deleting work or anything public still needs yo
 The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bottleneck`,
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
-`/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends` and `/pitmaster:setfree`. Claude
-also loads them on its own when your request matches.
+`/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
+`/pitmaster:townhall` and `/pitmaster:neighbour-check`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal:
 
@@ -345,8 +357,9 @@ old one.
 
 Every skill keeps its steps in plain words and puts anything platform-specific in one tagged *Platform notes*
 section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). The first five skills' opening steps were
-tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later ten have been used in Claude Code and
-Codex; the three newest, looseends, setfree and townhall, were made in Claude Code and have not yet been tried elsewhere.
+tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later eleven have been used in Claude Code and
+Codex; the four newest, looseends, setfree, townhall and neighbour-check, were made in Claude Code and have not yet
+been tried elsewhere.
 *Smoke-tested* means a quick check that the basics work.
 
 ## Configure

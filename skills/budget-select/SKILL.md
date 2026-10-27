@@ -9,7 +9,8 @@ description: Choose the usage budget for a session that will run workers or a lo
 
 Sibling of `tier-select` (model and effort for the lead and each worker), `bbq` (loads this skill first when a comrun
 spends points) and `spend-ledger` (measures afterwards). `townhall` loads it for a stop line when a run
-seats outside neighbours or goes over its cost line. This skill decides how much of the plan's limit a session may
+seats outside neighbours or goes over its cost line. `neighbour-check` runs after it and reads the neighbours'
+limits, the user's other accounts among them. This skill decides how much of the plan's limit a session may
 spend.
 
 **A usage meter is shared.** Every lead, every worker and the user's own chats on the same plan move the same
