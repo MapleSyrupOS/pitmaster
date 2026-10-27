@@ -11,8 +11,9 @@ Decided by pitmaster ADR-009.
 
 Sibling of `budget-select` (its calibration row takes this skill's token figures), `tier-select` (the report shows
 each lead model's cost per landing), `carte-blanche` and `dealers-choice` (their end summary's "points spent"
-comes from step 5), `swarm-bottleneck` (which may read the ledger when spend is the constraint) and `setfree` (which
-adds a row at the close of release day; not shipped yet).
+comes from step 5), `swarm-bottleneck` (which may read the ledger when spend is the constraint), `setfree` (which
+adds a row at the close of release day; not shipped yet) and `neighbour-check` (step 5 leaves it the closing
+reading, so the user's other accounts see how this one ended).
 
 **A usage meter is shared** by every session on the plan, including chats this machine never sees (claude.ai, the
 phone, a cloud container, another computer). So the ledger keeps three figures apart: **tokens**, measured from
@@ -65,7 +66,9 @@ prices: scripts/prices.tsv     # the dated list prices behind the proxy
 5. **Close: hand the numbers on in one line.** "Spent: $3.69 list-price proxy, ~0.4 pts (shared with 2), landed 1
    merged: #20." If `budget-select`'s calibration row is due (the session dispatched workers), its token columns
    take these figures: one measurement, written in two places. A `carte-blanche` or `dealers-choice` end summary
-   takes this row's meter figure as its points spent.
+   takes this row's meter figure as its points spent. Then leave the closing reading for the user's other
+   accounts: with `neighbour-check` installed, run its `record` (its step 1) with the end reading from step 2,
+   so the next run of neighbour-check on another account sees where this one stopped. With no end reading, skip it.
 6. **Report.** Run `scripts/spend-ledger.py report --ledger <ledger> --since <date> --until <date>` and say in a
    few lines: the totals; the cost per landing, and per merged landing where rows have a split; the sessions that
    spent and landed nothing, with their notes; spend by lead model; and the largest three. Add at most one

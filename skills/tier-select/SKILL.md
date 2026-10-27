@@ -22,7 +22,8 @@ Effort is one of **low, medium, high, xhigh, max**, or the nearest setting the p
 Sibling of `budget-select` (how much the comrun may spend; it advises on tiers and this skill decides) and `bbq`
 (which asks the user who leads, with this skill's recommendation). `tastetest` asks it for its auditor's model,
 and `goforit` for who builds. `townhall` asks it for its debaters, mixing models where the account has
-more than one.
+more than one. `neighbour-check` runs before it: this skill routes no work to a neighbour that check reports
+closed or busy.
 
 **The smallest use** is a worker's tier: the roster steps, then the table in part B. Part A is only for a comrun that
 starts a lead.

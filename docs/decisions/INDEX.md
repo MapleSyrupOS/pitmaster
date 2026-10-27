@@ -19,10 +19,11 @@ change the ADR and run the script again. An ADR's own header outranks this table
 | [ADR-017](ADR-017-goforit-carry-a-settled-plan-on-into-the-build-stopping-at-ratify.md) | goforit: carry a settled plan on into the build, stopping at "ratify" | process | accepted | landed |
 | [ADR-018](ADR-018-defplz-is-cut-its-rules-move-to-the-opt-in-rules-catalogue.md) | defplz is cut; its rules move to the opt-in rules catalogue | process | accepted | partial |
 | [ADR-019](ADR-019-looseends-find-what-was-left-unfinished-and-offer-to-tie-it-off.md) | looseends: find what was left unfinished, and offer to tie it off | process | accepted | partial |
-| [ADR-020](ADR-020-public-adr-copies-are-drafted-as-each-adr-changes-and-setfree-releases-them.md) | Public ADR copies are drafted as each ADR changes, and setfree releases them | process | accepted | partial |
+| [ADR-020](ADR-020-public-adr-copies-are-drafted-as-each-adr-changes-and-setfree-releases-them.md) | Public ADR copies are drafted as each ADR changes, and setfree releases them | process | accepted | landed |
 | [ADR-021](ADR-021-bbq-gains-a-stew-mode.md) | bbq gains a stew mode | process | accepted | landed |
 | [ADR-022](ADR-022-opt-in-rules-ship-in-project-prep-and-reach-a-project-through-its-agents-md.md) | Opt-in rules ship in project-prep and reach a project through its AGENTS.md | process | accepted | landed |
 | [ADR-023](ADR-023-the-grant-ladder-goforit-goforitreally-carteblanche-trescarteblanche.md) | The grant ladder: goforit, goforitreally, carteblanche, trescarteblanche | process | accepted | landed |
 | [ADR-024](ADR-024-townhall-agents-argue-a-decision-in-rounds-and-the-lead-who-never-argued-judges.md) | townhall: agents argue a decision out in rounds, and the lead, who never argued, judges | process | accepted | partial |
 | [ADR-025](ADR-025-goforit-sizes-its-own-workers-nearby-fixes-move-to-carteblanche-tres-and-really-combine.md) | goforit sizes its own workers, nearby fixes move up to carteblanche, and tres- and -really combine | process | accepted | partial |
 | [ADR-026](ADR-026-bbq-gains-a-tool-type-and-both-skill-and-tool-types-offer-the-build-after-ratify.md) | bbq gains a Tool type, and both the Skill and Tool types offer the build after ratify | process | accepted | landed |
+| [ADR-029](ADR-029-neighbour-check-what-limits-each-neighbour-and-whether-it-is-busy.md) | neighbour-check: what limits each neighbour, and whether it is busy, read live | process | accepted | partial |

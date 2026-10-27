@@ -5,9 +5,8 @@ ratified-by: the owner
 ratified-on: "2026-10-23"
 owner: the owner
 kind: process
-built: partial
+built: landed
 proof: "`skills/setfree/SKILL.md`, `skills/makeadr/scripts/adr-public.py`"
-owed: the shed's release of adr-public
 supersedes: nothing
 amends: ADR-011 §The rules, rule 4 (where a public copy is approved)
 ---

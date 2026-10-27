@@ -1,8 +1,7 @@
 # A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
 # then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
-# Pinned to a commit until the shed's next release is tagged; then re-pin to the tag (ADR-019, owed).
 source: MapleSyrupOS/pitmaster-shed
 version: 0.2.0
-ref-kind: commit
-ref: 27a7378cf079c8a6988e8f136c934c45a92605e9
+ref-kind: tag
+ref: v0.2.0
 file: 7eab047c6d4b7888a0d16eb0ae88107b69325f6f62d8025873f30b63f5f12e59  looseends-scan.py  looseends-scan/looseends-scan.py

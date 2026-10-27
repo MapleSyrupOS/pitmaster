@@ -12,8 +12,9 @@ Each rule below names the question of its bbq that set it (Q3…Q40).
 
 Sibling of `makeadr` (a decision a townhall argued, its record already holding the options considered),
 `talk-through` (an open decision from a talk can be put to a townhall; both skills' records pass the same checker),
-`budget-select` (the stop line for a run that seats outside neighbours or passes its cost line) and `tier-select`
-(the debaters' models).
+`budget-select` (the stop line for a run that seats outside neighbours or passes its cost line), `tier-select`
+(the debaters' models) and `neighbour-check` (which reads this skill's neighbours doc for what limits each
+neighbour and whether it is busy, before any are seated).
 
 **The smallest use:** "familymeeting: should X or Y?", one setup round, three rounds of argument, a recommendation
 and a record.
