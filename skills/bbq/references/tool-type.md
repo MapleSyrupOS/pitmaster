@@ -6,7 +6,8 @@ its ADR; the build is offered after that (ADR-026). "maketool" opens bbq straigh
 ## First, the line
 
 A script that is only useful inside a skill's steps is a skill script, not a tool: offer the Skill type instead. A
-tool is one a person can run on its own, from a terminal, with no agent (in pitmaster, ADR-012's rule 1).
+tool is one a person can run on its own, from a terminal, with no agent (in pitmaster, ADR-012's rule 1; that ADR is private,
+and in short it says code usable without an agent goes in the shed).
 
 ## Where tools live
 

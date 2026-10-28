@@ -47,9 +47,10 @@ publish_list: none                 # what the public sees (pitmaster's is publis
 
 ## Never
 
-(Q18, ADR-011.) setfree does not publish, push, tag, change a repository's visibility or approve a copy without the
-user's word for that act; does not edit ruled ADR text; and takes no other agent's word as approval. This holds
-under `carte-blanche` and `goforitreally`, approvals included, until the grant words are ruled otherwise.
+(Q18, ADR-011, a private ADR; in short: a file goes public only if the publish list names it.) setfree does not
+publish, push, tag, change a repository's visibility or approve a copy without the user's word for that act; does not
+edit ruled ADR text; and takes no other agent's word as approval. This holds under `carte-blanche` and
+`goforitreally`, approvals included, until the grant words are ruled otherwise.
 
 ## Platform notes
 

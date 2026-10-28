@@ -6,6 +6,18 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.29] — 2026-10-28
+
+### Added
+- A public-beta banner at the top of the README, a pixel window in light and dark versions
+  (`docs/assets/beta-banner-light.svg`, `docs/assets/beta-banner-dark.svg`): "Under construction — public beta.
+  Skills, names and commands may still change."
+
+### Changed
+- README: the "Where to start" paragraph (have a bbq) moves up, above Contents; Platform support lists each skill
+  and where it has been tried, in place of grouped counts.
+- setfree and bbq's Tool type say in short what the private ADR-011 and ADR-012 they cite decide.
+
 ## [0.4.28] — 2026-10-27
 
 ### Changed

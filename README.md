@@ -1,5 +1,10 @@
 # Pitmaster
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/beta-banner-dark.svg">
+  <img src="docs/assets/beta-banner-light.svg" width="100%" alt="Under construction — public beta. Skills, names and commands may still change.">
+</picture>
+
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
@@ -16,11 +21,17 @@ that are usable by yourself at a terminal. [The shed](#the-shed) gives you acces
 
 A plugin for Claude Code and Codex; plain skill folders for everything else. Apache-2.0.
 
+**Where to start.** The easiest way to start using Pitmaster is to have a bbq. You can say "have a bbq" and the AI
+agent will ask you about the topic and how many questions you want, then ask them in rounds and write down what you
+settled. If you already know more about what you want, you can say "16q bbq user interface makeadr" and it will ask
+you 16 questions about the user interface in your project, help you plan one if it doesn't exist, and then make a
+decision record on file.
+
 ## Contents
 
 | section | read it to… |
 |---|---|
-| [What it is](#what-it-is) | find out who it's for, and the easiest way to start |
+| [What it is](#what-it-is) | find out who it's for |
 | [New to skills and rules?](#new-to-skills-and-rules) | learn what an agent, a rule and a skill are, and what happens when you type "bbq" |
 | [What it does](#what-it-does) | install it and try it in five minutes, then pick a skill for a job |
 | [The shed](#the-shed) | run a small tool with no agent at all |
@@ -37,12 +48,6 @@ A plugin for Claude Code and Codex; plain skill folders for everything else. Apa
 
 **Who it's for.** Trying to organize and work on your projects using AI? Trying to turn vibes into skills? Don't
 care about skills, but those scripts look neat? Pitmaster might be for you.
-
-**Where to start.** The easiest way to start using Pitmaster is to have a bbq. You can say "have a bbq" and the AI
-agent will ask you about the topic and how many questions you want, then ask them in rounds and write down what you
-settled. If you already know more about what you want, you can say "16q bbq user interface makeadr" and it will ask
-you 16 questions about the user interface in your project, help you plan one if it doesn't exist, and then make a
-decision record on file.
 
 ### New to skills and rules?
 
@@ -356,10 +361,28 @@ old one.
 | Other Agent Skills tools | copy a folder | expected to work; untested |
 
 Every skill keeps its steps in plain words and puts anything platform-specific in one tagged *Platform notes*
-section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). The first five skills' opening steps were
-tried in Codex, Antigravity and OpenCode on 2026-10-16. Seven of the later eleven have been used in Claude Code and
-Codex; the four newest, looseends, setfree, townhall and neighbour-check, were made in Claude Code and have not yet
-been tried elsewhere.
+section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where each skill has been tried so far:
+
+| skill | Claude Code | Codex | Antigravity | OpenCode |
+|---|---|---|---|---|
+| bbq | used | smoke-tested | smoke-tested | smoke-tested |
+| budget-select | used | smoke-tested | smoke-tested | smoke-tested |
+| makeadr | used | smoke-tested | smoke-tested | smoke-tested |
+| swarm-bottleneck | used | smoke-tested | smoke-tested | smoke-tested |
+| tier-select | used | smoke-tested | smoke-tested | smoke-tested |
+| carte-blanche | used | used | not yet | not yet |
+| dealers-choice | used | used | not yet | not yet |
+| goforit | used | used | not yet | not yet |
+| project-prep | used | used | not yet | not yet |
+| spend-ledger | used | used | not yet | not yet |
+| talk-through | used | used | not yet | not yet |
+| tastetest | used | used | not yet | not yet |
+| looseends | used | not yet | not yet | not yet |
+| neighbour-check | used | not yet | not yet | not yet |
+| setfree | used | not yet | not yet | not yet |
+| townhall | used | not yet | not yet | not yet |
+
+The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.
 
 ## Configure
