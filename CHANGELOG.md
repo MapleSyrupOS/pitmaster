@@ -6,6 +6,41 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+## [0.4.31] — 2026-10-29
+
+### Added
+- project-prep also starts on "projectprep" (and "projectprepreally"), with a trigger eval.
+- README: a section under the opening, "Use Pitmaster to start a project or help with an existing project", with
+  the permissions note as a Warning box, "Is Pitmaster installed?", and the two ways in (projectprep or bbq).
+- README: example prompts in "Your first five minutes" (renamed from "Start here (five minutes)"), sorted into
+  project-prep first, could be either, and just a bbq.
+
+### Changed
+- README: the three skill lists ("What to say", "Start with these four", "The skills") are one list in five groups;
+  each skill's plain-words sentence now heads its row.
+- README, after a blind audit by Gemini 3.8 Flash and Codex: a bbq needs no extra tools; how to type a skill (word or
+  `/pitmaster:` form); what "really" and "tres" add; restart and a "did it work?" check after installing; the folder
+  projectprep works in; "comrun" links to its meaning; the shed's tools fold away by who they're for.
+- README: the Warning box is one plain line, with the full paragraph moved to "How far each word lets the agent go";
+  "Is Pitmaster installed?" says what to do next; "Where to start" is now "More ways to have a bbq", with its
+  shorthand spelled out; the veto line says the agent does the undoing.
+- README, after a second blind audit: merging needs your permission, given each time or ahead with a word; "install
+  it first" goes to the friendly install routes; restart and "just ask" in Install; where Codex's terminal is; how to
+  open your agent in a folder; "open source" beside Apache-2.0; Configure says every setting has a default.
+- README: a copyable bbq example at the top; the shed paragraph moves below the two ways in; project-prep's row says
+  to type `projectprep`; carte-blanche's notes let you ask for a call to be undone.
+- README pictures in the beta banner's pixel style, light and dark, lettered in MapleSyrup OS's Maple UI faces
+  (Terminus, OFL): the two cards for projectprep and bbq, the examples as three windows (stacked on narrow screens,
+  with the same examples to copy beneath), a bbq chat, and the authority staircase, its steps coloured from teal to deep red by how much each word lets
+  the agent do alone (`docs/assets/readme-*.svg`).
+
+## [0.4.30] — 2026-10-29
+
+### Changed
+- makeadr says in one line when it chooses to amend an ADR the user did not ask to amend ("This amends ADR-14 to
+  clarify its scope; say if it should be a new ADR instead."), then carries on without waiting (ADR-005, amendment
+  of 2026-10-29).
+
 ## [0.4.29] — 2026-10-28
 
 ### Added
