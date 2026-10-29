@@ -2,7 +2,7 @@
 name: project-prep
 metadata:
   family: records
-description: Set a project up with pitmaster's conventions for working with agents; it does not scaffold app code. Asks one round of questions, then writes the smallest set that works on a new branch, never overwriting a file: agent rules (AGENTS.md, with a CLAUDE.md pointing to it) and a STATUS.md whose every claim cites a file. The rest (log, debt, archive, decisions, glossary, proposals, pitmaster.md config) is offered in the same round, as are the opt-in rule groups, which it also switches on and off later. It ends by offering makeadr for the project's first decision. Use when the user types "project-prep", "prepwork" (either with "really" run on also merges its branch) or "setup-project", or says "prep this project", "set up this project for pitmaster", "init pitmaster", "scaffold this project for agents", "set up this repo the pitmaster way", "get this project ready for agents", "switch on the plain rules", "turn off a rule group" or "which rules are on?". Not for scaffolding an app, component or API.
+description: Set a project up with pitmaster's conventions for working with agents; it does not scaffold app code. Asks one round of questions, then writes the smallest set that works on a new branch, never overwriting a file: agent rules (AGENTS.md, with a CLAUDE.md pointing to it) and a STATUS.md whose every claim cites a file. The rest (log, debt, archive, decisions, glossary, proposals, pitmaster.md config) is offered in the same round, as are the opt-in rule groups, which it also switches on and off later. It ends by offering makeadr for the project's first decision. Use when the user types "project-prep", "projectprep", "prepwork" (with "really" run on, also merges its branch) or "setup-project", or says "prep this project", "set up this project for pitmaster", "init pitmaster", "scaffold this project for agents", "set up this repo the pitmaster way", "get this project ready for agents", "switch on the plain rules", "turn off a rule group" or "which rules are on?". Not for scaffolding an app, component or API.
 ---
 
 # project-prep: set a project up with pitmaster's conventions for working with agents
@@ -74,7 +74,7 @@ status_ceiling: 300     # the most lines STATUS.md may have; written into the ne
    Report what it finds, including in a `STATUS.md` that was already there; never rewrite an existing line to make
    it pass. Without Python, check by hand and say the script was not run.
 6. **Commit on a new branch** (the config's `branch`) and offer a pull request. Commit to the main branch, or push,
-   only when the user asks. After "project-prepreally" (or "prepworkreally"), push the branch, open the pull
+   only when the user asks. After "project-prepreally" (or "projectprepreally", "prepworkreally"), push the branch, open the pull
    request and merge it once its checks are green (ADR-023 rule 11); never past a safety stop.
 7. **Say what happened** in a short list: each file created, each file skipped and why, the pieces left out, the
    rule groups switched on, and the check's result.

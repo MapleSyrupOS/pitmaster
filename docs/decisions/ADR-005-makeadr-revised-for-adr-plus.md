@@ -11,7 +11,7 @@ amends: nothing (it changes the order in ADR-003's queued work; see Context)
 ---
 # ADR-005 — makeadr revised: ADR+ first, bbq's rounds, four modes, one pinned schema
 
-This is the public copy of a decision I made. I've left out a few internal notes.
+This is the published version of this decision. Some internal details have been left out.
 
 ## Decision
 
@@ -54,7 +54,7 @@ ADR after it is ruled, and shares its question rules with bbq instead of repeati
 
 ## Consequences
 
-- makeadr writes the format the owner ratified and can ratify, amend and supersede in it.
+- makeadr writes the format the user ratified and can ratify, amend and supersede in it.
 - Every project that uses makeadr runs one schema, pinned to one adr-plus release.
 - The YAML migration changes every ADR header, so line citations into old ADRs shift.
 - Commits us to the pinned copy with its drift check, and to trigger evals for the modes and for `bbq adr`.
@@ -63,4 +63,17 @@ ADR after it is ruled, and shares its question rules with bbq instead of repeati
 
 - 2026-10-18: proposed.
 - 2026-10-18: ratified by the owner.
-- 2026-10-22: the YAML header and the pinned copy of the adr-plus schema built.
+- 2026-10-22: amended.
+- 2026-10-29: amended.
+
+## Amendment — 2026-10-29
+
+**What changed.** When makeadr chooses to amend an ADR and the user did not ask for an amendment, it now says so in
+one line before writing, for example "This amends ADR-14 to clarify its scope; say if it should be a new ADR
+instead.", and carries on without waiting. The test for amend is unchanged: a change with its own reasons or options
+gets a new ADR, and one that reverses the decision supersedes the old one.
+
+**Why.** A frequent user noticed makeadr amending ADRs on the same topic instead
+of making new ones, without saying it had chosen to. The amendments were sound, and the user suggested only that
+makeadr say which ADR it is clarifying. Asking a question before every amendment was considered and not chosen: it
+adds a step to every run.

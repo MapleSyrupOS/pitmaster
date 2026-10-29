@@ -66,7 +66,9 @@ to a newer release, replace the copy, its manifest and the pin in one commit. In
    - **The mode**, unless the user's words make it plain: **new** (a decision with no ADR yet; small ones take the
      light route above), **ratify** (the user rules on a proposed ADR), **amend** (change part of a ruled ADR) or
      **supersede** (replace one). Ratify and amend have their own sections below and no rounds; supersede asks
-     the rounds for the new ADR.
+     the rounds for the new ADR. When you choose amend and the user did not say "amend", say so in one line
+     before writing, for example "This amends ADR-14 to clarify its scope; say if it should be a new ADR
+     instead.", and go on without waiting (ADR-005, amendment of 2026-10-29).
    - **For a full new ADR (and a superseding one), how many questions it should get**, with the options `4`, `12`,
      `20` and `50` (and room for another number). Where every question the ADR needs can be answered with a
      citation (a record's question, an earlier ADR, the user's words here), `goforit` replaces `50`, saying what it
@@ -203,7 +205,8 @@ the file and its number where they are, so it is not proposed again.
 Part of a ruled ADR changes: a clarification, a narrower scope, a correction. **Ruled text is never rewritten.**
 
 1. Find the ADR and the section the change touches. Ask what changed, why, and who agreed. Ask each as a
-   question only if the user has not said.
+   question only if the user has not said. If amend was your choice, not the user's word, the one-line notice of
+   step 1 comes first.
 2. Add a section at the bottom, below History: `## Amendment — <date>, <who>`, saying what
    changed, why, and which section it touches. The ruled text stays as it was.
 3. Add a dated line to History pointing at the amendment. If a header value changes too (`status`, `built`,
