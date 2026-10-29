@@ -16,25 +16,39 @@ A plugin for Claude Code and Codex; plain skill folders for everything else. Ope
 
 ## Use Pitmaster to start a project or help with an existing project
 
-> [!WARNING]
-> Some skills let your agent change your project and publish its work. Each says so before it acts, and nothing
-> merges unless you allow it. [How far each word lets the agent go](#how-far-each-word-lets-the-agent-go) has the
-> details.
-
 Is Pitmaster installed? If not, [install it first](#your-first-five-minutes). Then, in your agent's chat:
 
-<p>
-<a href="#skill-project-prep"><img src="docs/assets/readme-card-project-prep.svg" width="400" alt="Starting a project? Type projectprep to set it up. Button: what project-prep does."></a>
-<a href="#skill-bbq"><img src="docs/assets/readme-card-bbq.svg" width="400" alt="Already have a project and you want to just get moving? Start a bbq. Button: what bbq does."></a>
-</p>
+<table>
+<tr>
+<td width="50%" valign="top">
 
-A bbq works for something that doesn't need a project, too. For example: `bbq help me plan a website for my dogs`.
-It asks you questions, then writes down the plan.
+<a href="#skill-project-prep"><img src="docs/assets/readme-card-project-prep.svg" width="266" alt="projectprep: what project-prep does"></a>
+
+**Starting a project?** Type `projectprep`. It sets the project up for you and your agents.
+
+</td>
+<td width="50%" valign="top">
+
+<a href="#skill-bbq"><img src="docs/assets/readme-card-bbq.svg" width="266" alt="bbq: what bbq does"></a>
+
+**Already have a project and you want to just get moving?** Start a bbq! Type `bbq`. A bbq works for something that
+doesn't need a project, too.
+
+</td>
+</tr>
+</table>
+
+For example: `bbq help me plan a website for my dogs`. It asks you questions, then writes down the plan.
 
 Not sure which? [Your first five minutes](#your-first-five-minutes) has examples of both.
 
 Originally, the point of Pitmaster was to be used solely with agents; however, many of the skills use small scripts
 that are usable by yourself at a terminal. [The shed](#the-shed) gives you access to those.
+
+> [!WARNING]
+> Some skills let your agent change your project and publish its work. Each says so before it acts, and nothing
+> merges unless you allow it. [How far each word lets the agent go](#how-far-each-word-lets-the-agent-go) has the
+> details.
 
 ## Contents
 
