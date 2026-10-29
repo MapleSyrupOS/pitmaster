@@ -24,8 +24,8 @@ A plugin for Claude Code and Codex; plain skill folders for everything else. Ope
 Is Pitmaster installed? If not, [install it first](#your-first-five-minutes). Then, in your agent's chat:
 
 <p>
-<a href="#skill-project-prep"><img src="docs/assets/readme-card-project-prep-light.svg#gh-light-mode-only" width="400" alt="Starting a project? Type projectprep to set it up. Button: what project-prep does."><img src="docs/assets/readme-card-project-prep-dark.svg#gh-dark-mode-only" width="400" alt="Starting a project? Type projectprep to set it up. Button: what project-prep does."></a>
-<a href="#skill-bbq"><img src="docs/assets/readme-card-bbq-light.svg#gh-light-mode-only" width="400" alt="Already have a project and you want to just get moving? Start a bbq. Button: what bbq does."><img src="docs/assets/readme-card-bbq-dark.svg#gh-dark-mode-only" width="400" alt="Already have a project and you want to just get moving? Start a bbq. Button: what bbq does."></a>
+<a href="#skill-project-prep"><img src="docs/assets/readme-card-project-prep.svg" width="400" alt="Starting a project? Type projectprep to set it up. Button: what project-prep does."></a>
+<a href="#skill-bbq"><img src="docs/assets/readme-card-bbq.svg" width="400" alt="Already have a project and you want to just get moving? Start a bbq. Button: what bbq does."></a>
 </p>
 
 A bbq works for something that doesn't need a project, too. For example: `bbq help me plan a website for my dogs`.
