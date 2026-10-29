@@ -6,6 +6,11 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+### Changed
+- README: the projectprep and bbq cards are now raised pixel buttons, each with a teal "What it does" strip, in
+  place of windows with a type-here box (the owner: "The buttons for bbq and project prep seem weird and not intuitive
+  to click").
+
 ## [0.4.31] — 2026-10-29
 
 ### Added
