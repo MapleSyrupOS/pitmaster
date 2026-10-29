@@ -6,6 +6,9 @@ young: expect changes between minor versions until 1.0.
 
 ## [Unreleased]
 
+### Added
+- ACKNOWLEDGEMENTS.md: the people who shaped pitmaster, and what they did.
+
 ### Changed
 - README: the projectprep and bbq cards are now raised pixel buttons, each with a teal "What it does" strip, in
   place of windows with a type-here box (the owner: "The buttons for bbq and project prep seem weird and not intuitive
@@ -13,6 +16,10 @@ young: expect changes between minor versions until 1.0.
 - README: each button is one image, in the dark-theme colours, so it no longer shows twice: GitHub stopped hiding the
   `#gh-dark-mode-only` / `#gh-light-mode-only` copies (the owner: "why are there two of the same button?", then "they
   should be the ones on the right, but at the top").
+- README: the Warning box moves down, just above Contents, after the two buttons and the shed paragraph.
+- README: the two buttons are now plain pixel buttons, maple red ("projectprep") and amber ("bbq"), with real text under each in a
+  two-column table, so they no longer look like a screen of the tool (the owner: "I want simpler buttons and text
+  underneath the buttons").
 
 ## [0.4.31] — 2026-10-29
 
@@ -47,7 +54,7 @@ young: expect changes between minor versions until 1.0.
 ### Changed
 - makeadr says in one line when it chooses to amend an ADR the user did not ask to amend ("This amends ADR-14 to
   clarify its scope; say if it should be a new ADR instead."), then carries on without waiting (ADR-005, amendment
-  of 2026-10-29).
+  of 2026-10-29). Suggested by [cwlls](https://github.com/cwlls).
 
 ## [0.4.29] — 2026-10-28
 
