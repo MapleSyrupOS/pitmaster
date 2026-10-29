@@ -10,6 +10,9 @@ young: expect changes between minor versions until 1.0.
 - README: the projectprep and bbq cards are now raised pixel buttons, each with a teal "What it does" strip, in
   place of windows with a type-here box (the owner: "The buttons for bbq and project prep seem weird and not intuitive
   to click").
+- README: each button is one image, in the dark-theme colours, so it no longer shows twice: GitHub stopped hiding the
+  `#gh-dark-mode-only` / `#gh-light-mode-only` copies (the owner: "why are there two of the same button?", then "they
+  should be the ones on the right, but at the top").
 
 ## [0.4.31] — 2026-10-29
 
