@@ -1,6 +1,6 @@
 # tier-select: the lead table
 
-**Last checked: 2026-10-16.** Flag this table when it is more than about three months old.
+**Last checked: 2026-11-04.** Flag this table when it is more than about three months old.
 
 Each row answers: **what tier and effort should the lead (the session that dispatches, judges and lands) be for
 this comrun?** Workers are part B of `SKILL.md`; the vendor's roster in `rosters/` turns a tier into a model.
@@ -10,6 +10,10 @@ security design); a lead that only reads verdicts and lands does a mid-shaped jo
 `high` unless a row says otherwise: no record so far separates a `high` lead's outcome from an `xhigh` one's, and
 `high` costs less per turn. **Context, not the model, is what usually ends a lead's comrun**: plan the handoff by
 the lead's own context (`budget-select`) whichever row is chosen.
+
+**Re-pick the row at every relay.** A comrun's first lead may need L1 and its later leads only L2: once the
+large-tier rungs have landed and the queue is debt, look-alike rungs and landing, the handoff names the cheaper row.
+The relaying lead writes which row the next stretch is, and why, in one line.
 
 These rows are defaults, derived from one project's lead records (the pseudonymized
 originals are kept in pitmaster's private repository). Rule them row by row for your own project: write "(ruled by <name>,
@@ -23,3 +27,4 @@ originals are kept in pitmaster's private repository). Rule them row by row for 
 | L4 | **Arc opening or design**: boards, ADRs, a plan with the user live | **mid, xhigh**; **large, high** when the design is security design | mid, high | open-ended, but the judging is shared with the user |
 | L5 | **Prompt-writing session** (a bbq, a handoff, a kickoff) with no workers of its own | **mid, high** | — | it asks and writes; it dispatches nothing |
 | L6 | **The top tier as lead** | only when the user names it | — | the top tier is kept for disputes and final passes |
+| L7 | **Supervisor or monitor**: relays leads' notes to the user, sets merge order, catches crossed wires, merges what is handed over; judges no worker's verdict | **mid, high** | — | its work is relay and coordination; in one project's week it ran at large, high for no gain |

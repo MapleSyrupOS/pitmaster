@@ -95,11 +95,31 @@ Rules:
 4. **Set each worker's effort explicitly** where the platform allows it. Where a worker inherits the lead's effort
    (see the roster), say so in the plan.
 
+**Before each spawn, check it is not a tier too high.** One project's audits of two busy weeks (2026-11-01 and
+2026-11-03) found about one point in seven spent on a tier above the job. Each check below is one of those misses:
+
+- **A check against a known answer is mid, high.** A verify against golden values, a reference program, a red test
+  to replay, or a build from a ratified design note is spec'd work; keep xhigh for a failure with no known cause, a
+  design question, or an adversarial review of a large change.
+- **Test tooling is not a security job.** The large tier's classes cover code that ships, or decides what ships.
+  If the shipped result is the same with and without the change (test scaffolding, fixtures, replay harnesses),
+  build at mid, high and review it adversarially.
+- **A move a checker has proven is checked at the move's tier, not the code's.** Files byte-identical after a
+  rename or an include rewrite need a mid or small check; the large tier only for code the move adds.
+- **One internal check plus one outside review per change.** Not several outside reviewers beside a mid, xhigh
+  verify: with an outside blind review on a change outside the large-tier classes, the internal verify is mid,
+  high.
+- **The lead does not read logs.** Long transcripts, job logs and long verifier reports go to the small tier for a
+  digest; the lead reads the digest and the verdict line.
+- **A large job whose last sibling needed two fix rounds** goes one step up for its builder (a stronger builder or a
+  neighbour that builds well), not again to the tier that needed the rounds.
+
 ## Platform notes
 
 - **Claude Code:** spawn workers with subagent definitions that pin `model:` and `effort:` (a bare model override
   inherits the lead's effort). The lead's effort is set in the app or with `/model`. A session reads its own effort
-  name with `echo "$CLAUDE_EFFORT"`; use that for step A.4's stop rule.
+  name with `echo "$CLAUDE_EFFORT"`; use that for step A.4's stop rule. A session started with `start_session` gets at most its parent's
+  effort: before launching leads, check your own, and afterwards read each child's with `get_session`.
 - **Cowork / claude.ai:** no subagents, so part B plans work for other sessions or tools, naming each one's model
   and effort for the user to pick. Part A works as written.
 - **Codex:** set the model and effort per session in `config.toml` (`model`, `model_reasoning_effort`), with a

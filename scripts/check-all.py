@@ -38,6 +38,7 @@ CHECKS = [
     ("blind-copy self-test", [str(ROOT / "skills" / "tastetest" / "scripts" / "blind-copy.py"), "--self-test"]),
     ("seeded-fixture self-test", [str(ROOT / "skills" / "tastetest" / "scripts" / "seeded-fixture.py"), "--self-test"]),
     ("looseends-scan self-test", [str(ROOT / "skills" / "looseends" / "scripts" / "looseends-scan.py"), "--self-test"]),
+    ("catchmeup-gather self-test", [str(ROOT / "skills" / "catchmeup" / "scripts" / "catchmeup-gather.py"), "--self-test"]),
     ("neighbours self-test", [str(ROOT / "skills" / "townhall" / "scripts" / "neighbours.py"), "--self-test"]),
     ("neighbour-check self-test", [str(ROOT / "skills" / "neighbour-check" / "scripts" / "neighbour-check.py"), "--self-test"]),
     # talk-through carries the same pinned copy; check-pins keeps the two equal.

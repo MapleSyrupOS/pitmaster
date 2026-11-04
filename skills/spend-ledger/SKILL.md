@@ -39,6 +39,7 @@ prices: scripts/prices.tsv     # the dated list prices behind the proxy
 
 1. **Which job.** **Close** records one session, usually this one, when it ends or when the user asks ("log the
    spend"). **Report** reads the ledger over a window ("what did this week cost"). Asked for both, close first.
+   **Readings and calibrate** (step 7) measure K, the tokens a point of the meter buys, for `budget-select`.
 2. **Close: measure.** From the session's working folder, run `scripts/spend-ledger.py measure --lead "<model>,
    <effort>"`. It reads the session's most recent transcript (or `--session <id>`) and prints one ledger row:
    tokens by kind, the workers' share, the model mix, the list-price proxy and the meter.
@@ -74,13 +75,31 @@ prices: scripts/prices.tsv     # the dated list prices behind the proxy
    spent and landed nothing, with their notes; spend by lead model; and the largest three. Add at most one
    observation ("Opus-led sessions cost three times as much per landing this week"). It is not a ruling: changing
    a share or a tier goes through `budget-select` or `tier-select`, and the user.
-7. **Never:**
+7. **Readings and calibrate** (the usage tally; `docs/bbq/2026-11-04-usage-skills-port.md` in pitmaster).
+   - **Log a reading** each time a session reads the meter (`budget-select` reads it at each batch end):
+     `scripts/spend-ledger.py reading <percent> --meter <name>`. The session takes it itself with the platform's
+     usage tool, and asks the user only where no tool can read the meter. A separate pool (such as a top model's
+     own weekly limit) is its own meter: log it under its own name. Readings live in
+     `~/.pitmaster/usage-readings.tsv`, per machine and never in a repository.
+   - **Fit K** with `scripts/spend-ledger.py calibrate [--meter <name>] [--since <date>]`. It pairs consecutive
+     readings that rose (a drop is a reset), counts every Claude Code session's tokens on this machine between
+     them, and prints K per pair and a fit. It flags and leaves out a pair whose meter moved under 2 points, or
+     whose K is under half the median (the meter moved for spending this machine cannot see). For a per-model
+     meter, `--models <id text>` counts only those models. `--write <calibration log>` adds the pairs to the
+     log's *Fitted K* section, once each. Three kept pairs make a K `budget-select` trusts.
+8. **Never:**
    - put anything from a transcript but counts into the ledger (no prompt text, file contents or secrets). It
      holds numbers and links only.
    - call the list-price proxy a bill or the plan's meter. It puts models on one scale, nothing more.
-   - read another project's transcripts for anything but the overlap count, which uses token counts only.
+   - read another project's transcripts for anything but token counts (the overlap count and calibrate).
    - import another tool's usage data (ccusage and the like). The ledger holds only what this script measured or
      the user gave.
+
+## The script
+
+`scripts/spend-ledger.py` and `scripts/prices.tsv` are pinned copies of pitmaster-shed's `spend-ledger` tool
+(`scripts/spend-ledger.pin`); never edit them here. A change, a new reader or new prices, goes to the tool in the
+shed and is copied back byte for byte with a new pin. Standard library only, Python 3.8 or newer.
 
 ## Platform notes
 

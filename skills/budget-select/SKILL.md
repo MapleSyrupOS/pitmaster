@@ -31,6 +31,8 @@ hard_stop: 75 / 80 / 85 / 93   # stop starting work at: >48 h to reset / 24-48 h
 handoff_context: 500k          # hand off at about this much of the lead's own context
 calibration: docs/budget-calibration.md   # the project's own log, one row per session; made from calibration.md
                                            # beside this file on first use, so an update never overwrites it
+k: 0.79M                       # tokens per point until the project fits its own (starting-k.md)
+ledger_ratio: 1.5              # the meter moves about this many times what the ledger counts, until refit
 ```
 
 ## Meters
@@ -56,14 +58,19 @@ and covers the tail (the *Cover* line, step 3).
    - **The reserve** the user keeps for their own use before the reset.
    - **The reading:** the meter's weekly percentage and reset time, and any short window's percentage and reset,
      from the platform's usage tool. **With none, ask the user** (their plan's usage page shows it) and say the
-     reading was given, not measured.
+     reading was given, not measured. Log each reading you take with `spend-ledger`'s
+     `scripts/spend-ledger.py reading <percent> --meter <name>`, so the project can fit its own K (Calibration).
+   - **Alone on the meter?** On pickup, list the account's other running sessions where the platform can. If any,
+     this lead's share line is its ledger, and the meter is only the backstop and the hard stop. A handoff never
+     writes a share as a meter percentage ("stop at 78 %"): that charges this lead for everyone else's spend.
 2. **Work out the shares.** `room = min(ceiling, hard stop − reading) − reserve`, all on this meter. Split it by
    the ratio and round down to whole points. Example: a 35-point ceiling, no reserve, a hard stop more than 35
    points away and a 3:2 split give 21 and 14.
 3. **Set the stop lines.** Each lead stops **starting** new work at the first of these. Work in flight finishes,
    with no cap on the overrun; the overrun goes in the calibration row.
-   - **Its share:** the finished workers' tokens divided by K (worker tokens per point; see Calibration) reach the
-     share. Alone on the meter, or with no K yet, use the reading minus the start reading.
+   - **Its share:** the ledger reaches the share. The ledger is the finished workers' tokens plus the lead's own
+     context, divided by K (tokens per point; see Calibration), times `ledger_ratio`, since the meter moves more
+     than the ledger counts. Alone on the meter, use the reading minus the start reading instead.
    - **The combined backstop:** the meter reaches `start + the total of all shares on this meter`. It catches a
      wrong K.
    - **The hard stop**, by the time left to this meter's reset (the config's `hard_stop`):
@@ -75,12 +82,15 @@ and covers the tail (the *Cover* line, step 3).
      **Cover:** while another usable meter resets before this one,
      this meter's hard stop may rise to 90 %, if the user agrees once. The covered stretch ends more than 48 h
      before this meter's own reset, so the two rules never overlap.
-   - **Context:** hand off at `handoff_context` of the lead's own context.
+   - **Context:** hand off at `handoff_context` of the lead's own context. It usually fires first: a lead's context
+     filled at about 7 to 12 ledger points in one project's runs (starting-k.md). For a share much larger than
+     that, plan a relay lead for about every 10 to 12 points, named in the prompt, rather than one lead and an
+     unspent remainder.
 
    A short rate window does not hold dispatches while the weekly share has room; if it fills, wait for its reset,
    note the wait, and go on. **No pacing:** spend as fast as the work allows, and let the lines govern.
 4. **If the share is under 10 points, advise on tiers** in one line naming what a cheaper mix buys ("moving the
-   reviewers down one tier buys about N more workers"); with no calibration rows yet, say N is unmeasured. Advise
+   reviewers down one tier buys about N more workers"); on the starting K, say N is an estimate. Advise
    only: `tier-select` decides, and the user rules the lead.
 5. **Write the Budget block** into the prompt, in this shape and no longer. It is portable: the meter, the start
    reading and the hard stop are read again on pickup, never carried over.
@@ -91,25 +101,36 @@ and covers the tail (the *Cover* line, step 3).
    Room: HH points (the lower of the ceiling and the hard stop less the reading, less the reserve); split R:R gives NN and MM.
    Written when the <meter> meter read WW % (date, time); that reading is not yours. On pickup: take the reading
    (or ask the user for it), name your meter, note your start reading in the comrun's ledger, and cap the share at
-   your hard stop minus your reading. Read the meter before each batch of dispatches; note a reading only at batch
-   ends and when a stop line is within 5 points. Stop starting new work at the first of: your ledger's spend
-   reaching NN points (K = <tokens>/point, or the meter alone if no K yet); the meter reaching your start + the
-   shares on your meter; the hard stop (75 % beyond 48 h, 80 % at 24–48 h, 85 % at 12–24 h, 93 % under 12 h;
+   your hard stop minus your reading. If other sessions share the meter, your share line is your ledger, never a
+   meter percentage. Read the meter before each batch of dispatches; log a reading only at batch ends and when a
+   stop line is within 5 points. Stop starting new work at the first of: your ledger reaching NN points
+   ((finished workers' tokens + your context) ÷ K × <ratio>; K = <tokens>/point, <starting or fitted>); the meter
+   reaching your start + the shares on your meter; the hard stop (75 % beyond 48 h, 80 % at 24–48 h, 85 % at 12–24 h, 93 % under 12 h;
    90 % while another usable meter resets first, if agreed). In-flight work finishes. Hand off at ~<context> of
    your context. Before handoff, write your row in the calibration log.
    ```
 6. **Close: before its handoff the lead writes one row in the calibration log**: the date, session, meter, lead's
    model and effort, share, start and end readings, finished workers' tokens by tier (`spend-ledger` measures
    them, and its row goes in the spend ledger too), which line fired and when, the overrun, and the sessions that
-   overlapped. When work remains, the handoff ends with one factual line: the points left on this meter before its
+   overlapped. Where readings were logged, run `spend-ledger`'s `calibrate --write <calibration log>` too. When
+   work remains, the handoff ends with one factual line: the points left on this meter before its
    hard stop, and when the other meters reset.
 
 ## Calibration
 
-K is the finished workers' tokens per point, fitted from the calibration log's rows, which come from real comruns.
-**Until there are some, there is no K: every point estimate says it is unmeasured**, and the stop lines use the
-meter alone. A lead's own context and the user's chats move the meter too, so a fitted K **overstates** a lead's
-spend, the safe direction. A mix heavier in large models costs more per token; refit as rows come.
+K is tokens per point: how many tokens one point of the meter buys, counted the way a ledger counts them (every
+kind: fresh, cached, written and output). **Until the project has its own, K is the config's `k`: 0.79M, measured
+in October and November 2026 in one setup** (a lead with mostly mid and large workers; the story is in
+`starting-k.md` beside this file). Say "starting K" whenever you use it. The project fits its own from its
+readings: `spend-ledger`'s `scripts/spend-ledger.py calibrate` pairs consecutive meter readings with the tokens
+every session on the machine spent between them, and `--write` adds the pairs to the calibration log. After three
+pairs it trusts (`calibrate` flags the rest), use the fitted K and say so.
+
+**The ledger reads low.** The same setup's ledgers counted about 1.5 to 1.6 times less than the meter moved: the
+lead's re-reads, chats and other devices are not in them. So the share line multiplies the ledger by
+`ledger_ratio`, 1.5 with the starting K (provisional). With a fitted K the ratio is 1: a fit over every session's
+tokens already counts what a ledger leaves out. A mix heavier in large models costs more per token; refit
+as rows come.
 
 ## No meter: a lead that cannot read the usage meter (bigger comruns)
 
@@ -119,8 +140,8 @@ type). Its prompt then carries:
 - **An absolute share** in points (step 1's first bullet), and **the account** it is spent on, since the lead
   cannot work it out.
 - **"You are not alone."** Other leads and the user's chats move the same meter.
-- **The ledger as the only spend line** (step 3's share line). With no K yet, plan from the share and stop at the
-  first of the prompt's hard stop or the context line.
+- **The ledger as the only spend line** (step 3's share line, on the starting K unless the prompt gives a fitted
+  one), and stop at the first of it, the prompt's hard stop or the context line.
 - **Context as a stop line.** The lead's own context fills first on a large share (one large comrun saw
   about 10 of 35 points). At `handoff_context`: wait for in-flight workers, write the calibration row and hand off
   to a successor (bbq's Cloud type says how).
@@ -136,8 +157,10 @@ nothing. Unspent share stays unspent: no lead takes another's leftover. Nothing 
 
 ## Platform notes
 
-- **Claude Code:** the desktop app's usage tool (where offered) gives the weekly and five-hour readings and reset
-  times; `/context` gives the lead's context.
+- **Claude Code:** the desktop app's usage tool (`get_usage`, where offered) gives the weekly readings, any
+  per-model pool (such as a separate weekly pool for the top model, its own meter) and any five-hour window, with
+  reset times, and the lead's own context; `list_sessions` shows the other sessions for the pickup check. In a
+  terminal, `/context` gives the lead's context.
 - **Cowork / claude.ai:** no usage tool. Ask for the weekly percentage and reset from Settings → Usage, and write
   the Budget block anyway.
 - **Codex:** the reading is on the plan's usage page, or Codex's status view where it shows one. A ChatGPT plan's

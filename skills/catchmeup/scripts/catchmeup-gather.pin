@@ -1,0 +1,7 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.4.0
+ref-kind: tag
+ref: v0.4.0
+file: d355afc551c6db4f2bcd847042250110a18c4692bb08d13e34ee18e8eac4112f  catchmeup-gather.py  catchmeup-gather/catchmeup-gather.py

@@ -1,0 +1,8 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.4.0
+ref-kind: tag
+ref: v0.4.0
+file: 280ab677a4b6089f19bb89ea6cf8b8f4316855435cbaaec8ecad7cd1e40f66cd  spend-ledger.py  spend-ledger/spend-ledger.py
+file: d5cf3ba59787a8184939e7ab6d84a441d9bc6f631d12aa77e4bc56b44d4722a2  prices.tsv  spend-ledger/prices.tsv

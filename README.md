@@ -8,7 +8,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are sixteen [skills](#the-skills) so far, and more on the way, for agents like
+There are seventeen [skills](#the-skills) so far, and more on the way, for agents like
 [Claude Code, Codex and Antigravity](#platform-support). Pitmaster helps you better understand and organize your
 project without losing track of all the moving parts.
 
@@ -274,6 +274,7 @@ the way through instead of stopping to ask, which usually means merging once the
 | <a id="skill-dealers-choice"></a>**dealers-choice** | *"You pick what to work on: look at what needs doing, ask me a few quick questions, and pick the most useful job."*<br>The agent picks what to work on. After four quick questions it reads your status file, your debt list (known problems and owed work) and your open pull requests, says what it picked and why, and keeps going until it reaches a [stop line](#pitmasters-own-words). A topic after it ("dealer's choice docs") keeps the pick inside that topic. | "dealer's choice", "dealer's choice docs", "tresdealers-choice" |
 | <a id="skill-carte-blanche"></a>**carte-blanche** | *"Until this session ends, you don't need my OK to push branches, open pull requests or merge them once their checks pass. Stay inside the budget and the project's rules, and leave a veto line for every call you make."*<br>For one session, the agent chooses its own work, pushes branches, opens pull requests, merges them once the checks pass and spends a budget it estimates without asking, inside your project's rules. It writes down each decision it made for you as a veto line, so you can reverse it. Taste always comes back to you. | "carte blanche", "trescarteblanche pitmaster and …" |
 | <a id="skill-looseends"></a>**looseends** | *"What did we leave unfinished?"*<br>Finds what was left unfinished in this chat, across the project, or around one decision or topic: questions never answered, promises not kept, decisions waiting on you, work never merged. It checks that each is still open, groups them by who must act, and offers to tie them off. Its scan script also runs without an agent. | "looseends", "looseends project", "treslooseends", "any loose ends?", "looseendsreally" |
+| <a id="skill-catchmeup"></a>**catchmeup** | *"What changed since I last looked, and what's waiting on me?"*<br>Tells you what changed in a project since you last looked. It starts with where you left off: a reminder of the week before, and a check that it still holds. Then what was merged, by day, each line naming its commit or pull request; how the way of working changed; what is still in flight; and what is waiting on you, with its options and never decided for you. Last, it recommends one next move, with two runners-up, and leaves starting it to you. It starts from the date you name or from where it left you last time. "trescatchmeup" covers several projects; "catchmeupreally" also saves the catch-up and merges it once the checks pass. A scheduled morning brief can run it with no one there. | "catchmeup", "catchmeup since Friday", "what did I miss?" |
 | <a id="skill-tier-select"></a>**tier-select** | *"Out of our available models, which model should handle this part of the work?"*<br>Picks which model, and how much effort, the lead and each worker should use, by the kind of job, whichever company's models you use. | "which model should lead this?" |
 
 **Check and release**
@@ -297,7 +298,8 @@ ADR-type session to `makeadr`. `spend-ledger` measures afterwards what `budget-s
 `neighbour-check` reads the other models' limits before `tier-select` routes work to them. `dealers-choice` picks
 the work and asks whether the [comrun](#pitmasters-own-words) has `carte-blanche`. `project-prep` sets a project up and hands its first
 decision to `makeadr`. `looseends` finds what a [comrun](#pitmasters-own-words) left open and hands the agent's share to `goforit` or
-`dealers-choice`. `townhall` argues a decision out and hands it to `makeadr`.
+`dealers-choice`. `townhall` argues a decision out and hands it to `makeadr`. `catchmeup` tells you what changed since you last
+looked, recommends a next move for `dealers-choice`, and hands the older open items to `looseends`.
 
 ### The shed
 
@@ -400,7 +402,7 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
 `/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
-`/pitmaster:townhall` and `/pitmaster:neighbour-check`. Claude also loads them on its own when your request matches.
+`/pitmaster:catchmeup`, `/pitmaster:townhall` and `/pitmaster:neighbour-check`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal (the window where you type `codex` to start it), or ask Codex to run them for
 you:

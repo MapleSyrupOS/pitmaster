@@ -101,6 +101,9 @@ The script guesses each neighbour's kinds from its row (name, how to reach it, f
    - **down**, or **unknown** with no reading given: take the next neighbour; ask first when the work is large.
 6. **Re-check** with `--only <names>` before each batch that sends work to a neighbour, and at each batch's end. A
    Codex reading updates only when some Codex call runs, so the block prints its age.
+   To size a share of a neighbour's meter, one measured figure: on 2026-10-29 one night of 54 Codex jobs moved its
+   meter 38 → 83 %, about 8.5M rollout tokens a point. Like budget-select's starting K, it is one setup's number:
+   say so, and replace it with your own from two readings and the jobs between them.
 7. **Close.** The closing reading goes in through `spend-ledger`'s close; in a project that keeps no ledger, run
    step 1 again before the session ends. A lead that hands off writes the newest block into its handoff.
 8. **Never:**

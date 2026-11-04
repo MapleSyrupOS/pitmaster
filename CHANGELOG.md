@@ -7,7 +7,7 @@ young: expect changes between minor versions until 1.0.
 ## [Unreleased]
 
 ### Added
-- ACKNOWLEDGEMENTS.md: the people who shaped pitmaster, and what they did.
+- ACKNOWLEDGEMENTS.md: the people who shaped pitmaster, and what they did (cwlls and Humbedooh).
 
 ### Changed
 - README: the projectprep and bbq cards are now raised pixel buttons, each with a teal "What it does" strip, in
@@ -20,6 +20,59 @@ young: expect changes between minor versions until 1.0.
 - README: the two buttons are now plain pixel buttons, maple red ("projectprep") and amber ("bbq"), with real text under each in a
   two-column table, so they no longer look like a screen of the tool (the owner: "I want simpler buttons and text
   underneath the buttons").
+
+## [0.4.35] — 2026-11-04
+
+### Changed
+- spend-ledger's and catchmeup's pinned scripts now name the shed's release tag `v0.4.0` (published 2026-11-04) in
+  place of a commit; the copies are unchanged.
+
+## [0.4.34] — 2026-11-04
+
+### Changed
+- `spend-ledger`'s script (with `prices.tsv`) and `catchmeup`'s `catchmeup-gather.py` are now pitmaster-shed tools
+  (ADR-012): each skill carries a byte-for-byte pinned copy with a `.pin` file that `scripts/check-pins.py` checks,
+  pinned to the shed pull request's commit until the shed tags its release. One fix came with the move, made in the
+  shed and copied back: spend-ledger's `--project` now matches a Codex session's folder on Windows (its five Codex
+  self-test cases failed there). catchmeup-gather is unchanged.
+
+## [0.4.33] — 2026-11-04
+
+### Added
+- `spend-ledger` measures K, the tokens a point of the usage meter buys: `reading` logs a meter reading (the session
+  takes it itself with the usage tool) to `~/.pitmaster/usage-readings.tsv`, and `calibrate` pairs readings with
+  every Claude Code session's tokens on the machine between them, flags pairs it cannot trust, fits K and can
+  write the pairs into budget-select's calibration log. Seven new self-test checks.
+- `budget-select/starting-k.md`: where the starting K and the ledger ratio came from, and why they are only a start.
+
+### Changed
+- `budget-select` starts with K = 0.79M tokens per point and plans the meter at 1.5 times the ledger, both measured in
+  one large project's runs (October–November 2026), until the project fits its own; it checks on pickup whether
+  other sessions share the meter (then the ledger is the share line, never a meter percentage), and plans a relay
+  lead for about every 10 to 12 points, since a lead's context fills first.
+- `tier-select` checks each spawn against six misses from two tier audits (a known-answer check is mid, high; test
+  tooling is not a security job; one internal check plus one outside review; the lead never reads logs; and more),
+  gains a supervisor row (L7) and re-picks the lead's row at every relay; in Claude Code, `start_session` caps a
+  child's effort at its parent's.
+- `neighbour-check` gives one measured size for a Codex point (about 8.5M rollout tokens, 2026-10-29).
+- `spend-ledger`'s price table catches up with current list prices (Opus 5.5 $4/$20, Sonnet 5.5 $2/$10, Haiku 5.5
+  $0.10/$0.50, Fable 5.1 $10/$50, and their cache reads), with a row per current model ahead of the family rows.
+
+## [0.4.32] — 2026-11-04
+
+### Added
+- `catchmeup`: tells you what changed in a project since you last looked, from a date you name or the stamp it
+  left last time, in six parts: where you left off (a reminder of the week before, re-checked: what merged then is
+  still on main, and the project's own check passes if one is named), what landed (by day and run, each line naming
+  its commit or pull request), how the way of working changed, what is in flight, what waits on you (never decided
+  for you), and last one recommended next move with two runners-up, ranked the dealers-choice way and never
+  started. "trescatchmeup" covers several projects; "catchmeupreally" also lands the catch-up and merges it on
+  green; an unattended mode lets a scheduled brief run it. `scripts/catchmeup-gather.py` lists the window's
+  commits, pull requests, log entries and changed records, takes `--until` for the stretch before the window, and
+  keeps the stamp; check-all runs its self-test (ADR-028, with its amendment of 2026-11-04).
+
+### Changed
+- `looseends` and `dealers-choice` name `catchmeup` as a sibling.
 
 ## [0.4.31] — 2026-10-29
 

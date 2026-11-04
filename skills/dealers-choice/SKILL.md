@@ -13,6 +13,8 @@ Decided by pitmaster ADR-008.
 Sibling of `carte-blanche` (question 1 asks whether it is granted), `budget-select` (how much usage), `tier-select`
 (who leads and who does each job) and `bbq` (which can run on the picked topic). `looseends` hands it the bigger
 loose ends that are the agent's, and finds the ones waiting on the user's ruling, which step 4 leaves out.
+`catchmeup` ends with one next move ranked this skill's way, and only recommends it; the user's word to start it
+comes here.
 
 **The smallest comrun** skips every question the user's words answered, picks, works and writes the end report. A
 swarm (several workers at once) is for bigger comruns.

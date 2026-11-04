@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """spend-ledger.py: what a session actually spent, read from its own transcript, as one ledger row.
 
-Two jobs:
-  measure   read session transcripts on this machine and print one ledger row per session
-  report    read the ledger file and print spend beside what landed, over a window
+Four jobs:
+  measure    read session transcripts on this machine and print one ledger row per session
+  report     read the ledger file and print spend beside what landed, over a window
+  reading    log one reading of a usage meter (percent of its limit) to the readings file
+  calibrate  pair consecutive readings of a meter with the tokens every Claude Code session on this machine
+             spent between them, and fit K (tokens per point) for budget-select
 
 Platforms it reads (any other is written by hand; see SKILL.md):
   claude   Claude Code: ~/.claude/projects/<project>/<session>.jsonl, plus <session>/subagents/*.jsonl for
@@ -24,12 +27,18 @@ Usage:
                           [--session ID | --latest | --all] [--since WHEN] [--until WHEN]
                           [--meter START END] [--lead TEXT] [--landed TEXT] [--note TEXT] [--header]
   spend-ledger.py report  [--ledger FILE] [--since DATE] [--until DATE]
+  spend-ledger.py reading PERCENT [--meter NAME] [--at WHEN] [--readings FILE]
+  spend-ledger.py calibrate [--meter NAME] [--since WHEN] [--models TEXT] [--readings FILE] [--write LOG]
   spend-ledger.py --self-test
 
 WHEN is a date (YYYY-MM-DD, the day included whole) or an ISO time (2026-10-20T18:00:00Z, the instant
 included); a time without an offset is UTC. --meter takes two readings of one meter in points (percent of
 the limit), from the platform's usage tool or the user. The ledger holds numbers and links only, never
-prompt text or file contents. Python 3.8+, standard library only. Exit 1 on a failed self-test, 2 on a
+prompt text or file contents. The readings file ($PITMASTER_HOME/usage-readings.tsv, default
+~/.pitmaster/usage-readings.tsv) is per machine and never in a repository: one line per reading, its UTC time,
+the meter's name and the percent. A reading lower than the one before it is a reset, never a pair. A pair whose
+meter moved under 2 points (readings are often whole percents) or whose K is under half the median (the meter
+moved for spending this machine cannot see: a phone, the web) is flagged and left out of the fit. Python 3.8+, standard library only. Exit 1 on a failed self-test, 2 on a
 usage error.
 """
 import argparse
@@ -225,7 +234,7 @@ def read_claude(root, win, project=None):
 def read_codex(root, win, project=None):
     """Codex sessions with activity in the window. Each token_count's running total is turned into a
     step and charged to the model of the turn it fell in; steps before the window are the baseline."""
-    want = os.path.abspath(project) if project else None
+    want = os.path.normcase(os.path.abspath(project)) if project else None
     floor = win.earliest()
     out = []
     for path in glob.glob(os.path.join(root, "*", "*", "*", "*.jsonl")):
@@ -269,7 +278,10 @@ def read_codex(root, win, project=None):
                             label = window_label(prim.get("window_minutes"))
                     if win.has(ts) or win.before(ts):
                         prev = cur
-        if want and not (s.cwd == want or s.cwd.startswith(want + os.sep)):
+        # Both sides go through abspath and normcase, so a recorded "/w/alpha" and a --project of "/w/alpha"
+        # still match on Windows, where abspath adds a drive letter.
+        have = os.path.normcase(os.path.abspath(s.cwd)) if s.cwd else ""
+        if want and not (have == want or have.startswith(want.rstrip(os.sep) + os.sep)):
             continue
         if not s.start:
             continue
@@ -569,6 +581,154 @@ def measure(a, out=sys.stdout):
     return 0
 
 
+# ---------------------------------------------------------------- reading and calibrate
+
+MIN_MOVE = 2.0   # points; a smaller movement of a whole-percent meter is mostly rounding
+
+
+def readings_path(path=""):
+    if path:
+        return path
+    home = os.environ.get("PITMASTER_HOME") or os.path.expanduser("~/.pitmaster")
+    return os.path.join(home, "usage-readings.tsv")
+
+
+def utc_iso(t):
+    return t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def add_reading(path, percent, meter="weekly", at=""):
+    if not 0 <= percent <= 100:
+        raise ValueError(f"a reading is a percent from 0 to 100, not {percent:g}")
+    if "\t" in meter or not meter.strip():
+        raise ValueError("a meter's name is one or more words with no tab")
+    when = parse_time(at) if at else datetime.datetime.now(datetime.timezone.utc)
+    if when is None:
+        raise ValueError(f"not an ISO time: {at!r}")
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    line = f"{utc_iso(when)}\t{meter.strip()}\t{percent:g}\n"
+    with open(path, "a") as fh:
+        fh.write(line)
+    return line.rstrip("\n")
+
+
+def load_readings(path, meter="weekly", since=""):
+    """[(time, percent)] for one meter, oldest first; malformed lines are skipped."""
+    out = []
+    if not os.path.exists(path):
+        return out
+    floor = parse_time(since) if since and re.search(r"[T ]\d\d:", since) else None
+    with open(path) as fh:
+        for line in fh:
+            cols = line.rstrip("\n").split("\t")
+            if len(cols) != 3 or cols[1] != meter:
+                continue
+            t = parse_time(cols[0])
+            try:
+                pct = float(cols[2])
+            except ValueError:
+                continue
+            if t is None or (floor and t < floor) or (since and not floor and cols[0][:10] < since):
+                continue
+            out.append((t, pct))
+    return sorted(out)
+
+
+def pairs_of(readings):
+    """Consecutive readings that rose; a drop is a reset and starts afresh."""
+    return [(a, b) for a, b in zip(readings, readings[1:]) if b[1] > a[1]]
+
+
+def calibrate(readings, claude_root, models="", prices=()):
+    """One dict per pair, with K and a flag, and the fit over the unflagged pairs."""
+    rows = []
+    for (t0, p0), (t1, p1) in pairs_of(readings):
+        win = Window(utc_iso(t0), utc_iso(t1))
+        tokens, dollars = 0, 0.0
+        for s in read_claude(claude_root, win, None):
+            for (m, _), u in s.usage.items():
+                if models and models not in m:
+                    continue
+                tokens += sum(u[k] for k in KINDS)
+                dollars += cost(list(prices), m, u) or 0.0
+        move = p1 - p0
+        rows.append({"from": utc_iso(t0), "to": utc_iso(t1), "points": move, "tokens": tokens,
+                     "k": tokens / move, "dollars": dollars, "flag": "small move" if move < MIN_MOVE else ""})
+    ks = sorted(r["k"] for r in rows if not r["flag"])
+    if ks:
+        median = ks[len(ks) // 2] if len(ks) % 2 else (ks[len(ks) // 2 - 1] + ks[len(ks) // 2]) / 2
+        for r in rows:
+            if not r["flag"] and r["k"] < median / 2:
+                r["flag"] = "low: spending this machine cannot see"
+    kept = [r for r in rows if not r["flag"]]
+    fit = None
+    if kept:
+        fit = sum(r["tokens"] for r in kept) / sum(r["points"] for r in kept)
+    return rows, fit, len(kept)
+
+
+FIT_HEAD = "## Fitted K (spend-ledger.py calibrate)"
+FIT_COLS = "| from (UTC) | to (UTC) | meter | points | tokens | K (tokens/point) | list $ per point | flag |"
+
+
+def fit_line(r, meter):
+    per = r["dollars"] / r["points"] if r["points"] else 0
+    return (f"| {r['from']} | {r['to']} | {meter} | {r['points']:g} | {human(r['tokens'])} | "
+            f"{human(int(r['k']))} | ${per:.2f} | {r['flag'] or 'kept'} |")
+
+
+def write_fits(log, rows, meter):
+    """Append the pairs not already in the log under its Fitted K section; returns how many were added."""
+    text = open(log).read() if os.path.exists(log) else ""
+    have = set(re.findall(r"^\| (\S+) \| (\S+) \| ([^|]+?) \|", text, re.M))
+    new = [r for r in rows if (r["from"], r["to"], meter) not in have]
+    if not new:
+        return 0
+    add = ""
+    if FIT_HEAD not in text:
+        add += ("\n" if text and not text.endswith("\n\n") else "") + FIT_HEAD + "\n\n" + FIT_COLS + "\n" + \
+            "|" + "---|" * 8 + "\n"
+    add += "".join(fit_line(r, meter) + "\n" for r in new)
+    if FIT_HEAD in text:
+        start = text.index(FIT_HEAD)
+        nxt = text.find("\n## ", start + len(FIT_HEAD))
+        end = len(text) if nxt < 0 else nxt + 1
+        body = text[start:end].rstrip("\n") + "\n" + add
+        text = text[:start] + body + ("\n" + text[end:] if nxt >= 0 else "")
+    elif "\n## Field notes" in text:   # a new section goes before the log's notes
+        cut = text.index("\n## Field notes") + 1
+        text = text[:cut] + add.lstrip("\n") + "\n" + text[cut:]
+    else:
+        text += add
+    with open(log, "w") as fh:
+        fh.write(text)
+    return len(new)
+
+
+def run_calibrate(a, out=sys.stdout):
+    path = readings_path(a.readings)
+    readings = load_readings(path, a.meter, a.since)
+    if len(readings) < 2:
+        out.write(f"spend-ledger: fewer than two '{a.meter}' readings in {path}; log some with 'reading'\n")
+        return 1
+    rows, fit, kept = calibrate(readings, a.claude_root, a.models, load_prices(os.path.join(HERE, "prices.tsv")))
+    if not rows:
+        out.write("spend-ledger: no pair of readings rose (each drop is a reset); nothing to fit yet\n")
+        return 1
+    out.write(FIT_COLS + "\n")
+    for r in rows:
+        out.write(fit_line(r, a.meter) + "\n")
+    if fit is None:
+        out.write("fit: none (every pair is flagged)\n")
+    else:
+        trust = "trusted" if kept >= 3 else "not yet trusted: budget-select wants three"
+        out.write(f"fit: K = {human(int(fit))} tokens per point over {kept} kept pair(s), {trust}\n")
+    if a.write:
+        n = write_fits(a.write, rows, a.meter)
+        out.write(f"wrote {n} new pair(s) to {a.write}\n")
+    return 0
+
+
 # ---------------------------------------------------------------- self-test
 
 def self_test():
@@ -744,12 +904,66 @@ def self_test():
     arms += [
         ("window: a bad bound is rejected", _rejects("2026-10-20T25:99:00Z") and _rejects("yesterday")),
     ]
+    arms += _tally_arms()
     fails = 0
     for name, ok in arms:
         print(f"  {'ok  ' if ok else 'FAIL'} {name}")
         fails += not ok
     print(f"spend-ledger self-test: {'PASS' if not fails else 'FAIL'} {len(arms) - fails}/{len(arms)}")
     return 1 if fails else 0
+
+
+def _tally_arms():
+    """Readings and calibrate on fixtures. The red arms are noted beside them."""
+    def line(mid, model, ts, out, cached=0):
+        return json.dumps({"type": "assistant", "timestamp": ts, "cwd": "/w/t", "message": {
+            "id": mid, "model": model, "usage": {"input_tokens": 0, "cache_read_input_tokens": cached,
+                                                  "cache_creation_input_tokens": 0, "output_tokens": out}}})
+    with tempfile.TemporaryDirectory() as tmp:
+        root = os.path.join(tmp, "claude")
+        os.makedirs(os.path.join(root, "p1"))
+        os.makedirs(os.path.join(root, "p2"))
+        with open(os.path.join(root, "p1", "a.jsonl"), "w") as fh:   # project one
+            fh.write("\n".join([line("m1", "claude-opus-5-5", "2026-10-20T10:30:00Z", 3000000),
+                                line("m2", "claude-opus-5-5", "2026-10-20T12:30:00Z", 4000000)]) + "\n")
+        with open(os.path.join(root, "p2", "b.jsonl"), "w") as fh:   # another project, same meter
+            fh.write(line("m3", "claude-sonnet-5-5", "2026-10-20T11:00:00Z", 1000000, cached=1000000) + "\n")
+        _touch(root)
+        path = os.path.join(tmp, "home", "usage-readings.tsv")
+        add_reading(path, 10, "weekly", "2026-10-20T10:00:00Z")
+        add_reading(path, 15, "weekly", "2026-10-20T12:00:00Z")
+        add_reading(path, 16, "weekly", "2026-10-20T13:00:00Z")
+        add_reading(path, 3, "weekly", "2026-10-21T15:00:00Z")      # after a reset
+        add_reading(path, 0, "fable", "2026-10-20T10:00:00Z")      # another meter, never mixed in
+        rejected = False
+        try:
+            add_reading(path, 120)
+        except ValueError:
+            rejected = True
+        readings = load_readings(path, "weekly")
+        rows, fit, kept = calibrate(readings, root)
+        first = rows[0] if rows else {}
+        log = os.path.join(tmp, "calibration.md")
+        with open(log, "w") as fh:
+            fh.write("# log\n\n## Rows\n\n| a |\n|---|\n\n## Field notes\n\nnone\n")
+        n1 = write_fits(log, rows, "weekly")
+        n2 = write_fits(log, rows, "weekly")
+        text = open(log).read()
+    return [
+        ("reading: a percent over 100 is refused", rejected),
+        ("reading: only the named meter is read", len(readings) == 4),
+        # Pairing the 16 % reading with the 3 % one after the reset would give a negative K.
+        ("calibrate: a drop is a reset, never a pair", len(rows) == 2 and all(r["points"] > 0 for r in rows)),
+        # Counting only one project would give 3M; the meter moved for both.
+        ("calibrate: every project's tokens count", first.get("tokens") == 5000000),
+        ("calibrate: K is tokens per point of movement", first.get("k") == 1000000),
+        # A 1-point pair kept in the fit would drag K from 1.0M to 1.33M.
+        ("calibrate: a move under 2 points is flagged and left out", rows[1]["flag"] == "small move"
+         and kept == 1 and fit == 1000000),
+        ("calibrate --write: rows land in their own section, once", n1 == 2 and n2 == 0
+         and text.count("2026-10-20T10:00:00Z | 2026-10-20T12:00:00Z") == 1
+         and text.index(FIT_HEAD) < text.index("## Field notes")),
+    ]
 
 
 def _touch(root):
@@ -802,6 +1016,18 @@ def main():
     r.add_argument("--ledger", default="docs/spend-ledger.md")
     r.add_argument("--since", default="")
     r.add_argument("--until", default="")
+    g = sub.add_parser("reading", help="log one reading of a usage meter")
+    g.add_argument("percent", type=float, help="the meter's percent used, as the usage tool shows it")
+    g.add_argument("--meter", default="weekly", help="the meter's name, such as 'weekly' or 'fable' (default weekly)")
+    g.add_argument("--at", default="", help="when it was read, an ISO time (default now)")
+    g.add_argument("--readings", default="", help="the readings file (default ~/.pitmaster/usage-readings.tsv)")
+    c = sub.add_parser("calibrate", help="fit K, tokens per point, from pairs of readings")
+    c.add_argument("--meter", default="weekly")
+    c.add_argument("--since", default="", help="only readings from this date or ISO time")
+    c.add_argument("--models", default="", help="count only models whose id contains this, for a per-model meter")
+    c.add_argument("--readings", default="")
+    c.add_argument("--write", default="", help="append the pairs to this calibration log, under Fitted K")
+    c.add_argument("--claude-root", default=os.path.expanduser("~/.claude/projects"))
     a = ap.parse_args()
     if a.self_test:
         return self_test()
@@ -811,6 +1037,14 @@ def main():
         except ValueError as e:
             ap.error(str(e))
         return measure(a)
+    if a.cmd == "reading":
+        try:
+            print(add_reading(readings_path(a.readings), a.percent, a.meter, a.at))
+        except ValueError as e:
+            ap.error(str(e))
+        return 0
+    if a.cmd == "calibrate":
+        return run_calibrate(a)
     if a.cmd == "report":
         if not os.path.exists(a.ledger):
             ap.error(f"no ledger at {a.ledger}")

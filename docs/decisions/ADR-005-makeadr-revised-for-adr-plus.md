@@ -73,7 +73,7 @@ one line before writing, for example "This amends ADR-14 to clarify its scope; s
 instead.", and carries on without waiting. The test for amend is unchanged: a change with its own reasons or options
 gets a new ADR, and one that reverses the decision supersedes the old one.
 
-**Why.** A frequent user noticed makeadr amending ADRs on the same topic instead
-of making new ones, without saying it had chosen to. The amendments were sound, and the user suggested only that
+**Why.** [cwlls](https://github.com/cwlls), who runs makeadr often, noticed it amending ADRs on the same topic
+instead of making new ones, without saying it had chosen to. The amendments were sound, and cwlls suggested only that
 makeadr say which ADR it is clarifying. Asking a question before every amendment was considered and not chosen: it
 adds a step to every run.

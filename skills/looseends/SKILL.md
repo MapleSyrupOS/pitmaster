@@ -12,7 +12,8 @@ Decided by pitmaster ADR-019.
 
 Sibling of `goforit` (a settled plan that was never built), `dealers-choice` (takes the bigger work that is the
 agent's), `makeadr` (an unratified ADR, or one with asks left open) and `bbq` and `talk-through` (their records'
-Owed lists, calls open to veto and open questions are loose ends this skill reads).
+Owed lists, calls open to veto and open questions are loose ends this skill reads). `catchmeup` looks at what
+changed inside a window and sends the older items still waiting on the user here.
 
 ## Config
 
