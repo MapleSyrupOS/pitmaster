@@ -12,6 +12,8 @@
   7. pitmaster's own STATUS.md (status-check, with the sections pitmaster.md names)
   8. project-prep's rules catalogue: its shape, 30 words a rule, 35 rules in all, no repeat of a ground rule
      (scripts/check-rules.py, ADR-022)
+  9. the facts the living docs state, against the repository (stale-facts with docs/facts.txt, ADR-033), where a
+     facts file exists
 
 In the public repository (no publish.txt) the publish self-test and the STATUS check are skipped: the publisher and
 STATUS.md live only in the private one. The ADR checks run on the public copies there.
@@ -60,6 +62,13 @@ CHECKS = [
     ("rules self-test", ["scripts/check-rules.py", "--self-test"]),
     ("rules", ["scripts/check-rules.py"]),
 ]
+# A pinned copy of the shed's stale-facts (ADR-033 rule 8). Both run where a facts file exists: the public tree gets
+# the tool and its own facts file at the release that publishes them (rule 7).
+if (ROOT / "docs" / "facts.txt").is_file():
+    CHECKS += [
+        ("stale-facts self-test", ["scripts/stale-facts/stale-facts.py", "--self-test"]),
+        ("stale facts", ["scripts/stale-facts/stale-facts.py", "--root", str(ROOT)]),
+    ]
 
 
 def main() -> int:

@@ -49,7 +49,8 @@ It checks for personal details (home paths, emails, IP addresses, tokens), that 
 has its platform notes, that the Claude and Codex manifests agree, that every pinned copy matches its pin, and
 that pitmaster's published decisions pass its own ADR checks.
 
-**Shed tools carried by skills.** `makeadr` and `project-prep` carry pinned copies of tools from
+**Shed tools carried by skills.** Several skills (`makeadr`, `project-prep`, `looseends`, `talk-through`, `townhall`,
+`neighbour-check`, `catchmeup` and `spend-ledger`) carry pinned copies of tools from
 [`pitmaster-shed`](https://github.com/MapleSyrupOS/pitmaster-shed). A fix to one is made in the shed first; each
 copy is then updated byte for byte, and `scripts/check-pins.py` fails, naming the file, if a copy ever drifts from
 its pin.

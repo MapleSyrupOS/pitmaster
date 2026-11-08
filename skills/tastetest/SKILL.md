@@ -11,7 +11,7 @@ Decided by pitmaster ADR-016.
 "tastetestreally": ADR-023.
 
 Sibling of `tier-select` (step 4), `talk-through` (step 9), `neighbourhood` (step 1; not built yet) and `setfree` (which
-offers this audit on release day, before anything goes out; not shipped yet). Built by a
+offers this audit on release day, before anything goes out). Built by a
 Skill bbq; each rule names the question (Q-number) that set it, in a record kept in pitmaster's private repository.
 
 **The smallest use:** type `tastetest`. Steps 1 and 3 are only for bigger audits.

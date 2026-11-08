@@ -6,7 +6,7 @@ Two modes:
   manifest: the folder beside the pin holds MANIFEST.sha256; checks hash, existence, extra files.
 
 Usage:
-  python3 scripts/check-pins.py                  check every .pin file under <root>/skills/
+  python3 scripts/check-pins.py                  check every .pin file under <root>/skills/ and <root>/scripts/
   python3 scripts/check-pins.py --against DIR    compare files-mode copies against DIR/<source path>
   python3 scripts/check-pins.py --self-test      build fixtures and verify internal logic
   python3 scripts/check-pins.py --root DIR       override the skills root
@@ -36,13 +36,15 @@ def sha256_bytes(data: bytes) -> str:
 
 
 def find_pins(root: pathlib.Path) -> List[pathlib.Path]:
+    """Pins under skills/ (a skill's copy) and scripts/ (a copy check-all runs itself, ADR-033 rule 8)."""
     pins: List[pathlib.Path] = []
-    skills = root / "skills"
-    if not skills.is_dir():
-        return pins
-    for p in sorted(skills.rglob("*.pin")):
-        if p.is_file():
-            pins.append(p)
+    for folder in ("skills", "scripts"):
+        base = root / folder
+        if not base.is_dir():
+            continue
+        for p in sorted(base.rglob("*.pin")):
+            if p.is_file():
+                pins.append(p)
     return pins
 
 
@@ -430,6 +432,16 @@ def self_test() -> int:
         make_file(skills / "local.txt", b"world")
 
     check_case("changed-byte", build_changed_byte, 1, ["skills/local.txt -- changed"])
+
+    # --- a pin under scripts/ is checked too (ADR-033 rule 8) ---
+    def build_scripts_changed(root):
+        scripts = root / "scripts" / "tool"
+        sha = sha256_bytes(b"hello")
+        content = "source: example/test\nversion: 0.1.0\nref-kind: commit\nref: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\nfile: {}  tool.py  tool/tool.py\n".format(sha)
+        make_pin(scripts / "tool.pin", content)
+        make_file(scripts / "tool.py", b"world")
+
+    check_case("scripts-changed", build_scripts_changed, 1, ["scripts/tool/tool.py -- changed"])
 
     # --- missing-file ---
     def build_missing_file(root):

@@ -46,7 +46,7 @@ the rules ADR, ADR-022, which ships the group in project-prep's catalogue, `skil
 
 **Confirmed by:** the steps' tests; whether the rules serve the user as well as the skill did is the user's
 judgement once rules reach a project.
-**Revisit when:** the rules ADR (G4) rules that rules cannot reach a project in a way that keeps the Plain words
+**Revisit when:** the rules ADR rules that rules cannot reach a project in a way that keeps the Plain words
 group usable; then a smaller skill may be the better home.
 
 ## Alternatives

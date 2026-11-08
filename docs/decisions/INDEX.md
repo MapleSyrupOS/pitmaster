@@ -28,3 +28,4 @@ change the ADR and run the script again. An ADR's own header outranks this table
 | [ADR-026](ADR-026-bbq-gains-a-tool-type-and-both-skill-and-tool-types-offer-the-build-after-ratify.md) | bbq gains a Tool type, and both the Skill and Tool types offer the build after ratify | process | accepted | landed |
 | [ADR-028](ADR-028-catchmeup-tell-the-user-what-changed-since-they-last-looked.md) | catchmeup: tell the user what changed since they last looked | process | accepted | partial |
 | [ADR-029](ADR-029-neighbour-check-what-limits-each-neighbour-and-whether-it-is-busy.md) | neighbour-check: what limits each neighbour, and whether it is busy, read live | process | accepted | partial |
+| [ADR-033](ADR-033-stale-facts-a-shed-tool-checks-the-facts-living-docs-state-against-the-repo.md) | stale-facts: a shed tool checks the facts living docs state against the repo, and check-all fails on a stale one | process | accepted | partial |

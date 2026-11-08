@@ -135,7 +135,7 @@ project-prep needs `git`.
 
 | you need | what it's for | without it |
 |---|---|---|
-| `git` | keeps your project's history; any skill that makes branches or commits needs it | those skills can't save their work on a branch |
+| `git` | keeps your project's history; any skill that makes [branches or commits](#words) needs it | those skills can't save their work on a branch |
 | GitHub's `gh`, signed in once with `gh auth login` | lets the agent open pull requests on GitHub for you | the work stops at a saved branch, and you open the pull request yourself |
 | Python 3.8 or newer | runs the small optional scripts some skills carry | those skills do the same steps by hand |
 
@@ -180,7 +180,19 @@ codex plugin add pitmaster@pitmaster
 <summary>Cowork or claude.ai</summary>
 
 Download a skill's zip from the [latest release](https://github.com/MapleSyrupOS/pitmaster/releases) (pick the
-`claude` build) and upload it in Claude's skill settings, one zip per skill.
+`claude` build) and upload it in Claude's skill settings, one zip per skill. The skills hand work to each other
+(a bbq asks `budget-select` and `tier-select`, project-prep hands off to `makeadr`), so upload those too.
+
+</details>
+
+<details>
+<summary>Antigravity</summary>
+
+Run this in a terminal. Antigravity converts the Claude Code plugin and installs every skill:
+
+```
+agy plugin install https://github.com/MapleSyrupOS/pitmaster
+```
 
 </details>
 
@@ -196,6 +208,8 @@ to run it.
 Every other way, and how to update, is under [Install](#install) and [Update](#update).
 
 **Did it work?** Ask your agent "can you see Pitmaster's bbq skill?" It should say yes and describe it.
+(Uploaded single zips? Ask about a skill you uploaded.) If it says no, restart the agent and ask again; in Claude
+Code, `claude plugin list` shows whether pitmaster is installed, and in Antigravity, `agy plugin list`.
 
 **Which one first?** Ask yourself: *will you come back to it over many sessions?* Then prep it as a project
 first, and have a bbq to plan it. *One sitting, or one plan?* Just have a bbq.
@@ -256,7 +270,7 @@ the way through instead of stopping to ask, which usually means merging once the
 | skill | what it does | start it with |
 |---|---|---|
 | <a id="skill-project-prep"></a>**project-prep** (type `projectprep`) | *"Organize this project for me and my agents."*<br>Gets a new or existing project ready for agents; it writes no app code. By default it writes the agent rules file and a status file in which every claim names the file that backs it; on request, a log, a debt list, a decisions folder, a glossary and more. It works on a new branch and never overwrites a file, and ends by offering to put your first decision on record. | "projectprep", "project-prep", "prep this project", "project-prepreally" |
-| <a id="skill-bbq"></a>**bbq** | *"Before you build anything, read where the project stands and ask me a Big Batch of Questions so we agree on the plan."*<br>A Big Batch of Questions. It asks you questions in numbered rounds before a piece of work starts, then writes down what you settled; that record becomes the prompt for the work. It has ten types, one per kind of job; the **Skill** type takes a new skill from draft to shipped. | "bbq", "makeskill", "ask me 12 questions before we start" |
+| <a id="skill-bbq"></a>**bbq** | *"Before you build anything, read where the project stands and ask me a Big Batch of Questions so we agree on the plan."*<br>A Big Batch of Questions. It asks you questions in numbered rounds before a piece of work starts, then writes down what you settled; that record becomes the prompt for the work. It has eleven types, one per kind of job; the **Skill** type takes a new skill from draft to shipped. | "bbq", "makeskill", "ask me 12 questions before we start" |
 
 **Plan the work**
 
@@ -286,6 +300,8 @@ the way through instead of stopping to ask, which usually means merging once the
 
 **Watch the usage**
 
+> Reading your usage is reliable: those numbers come straight from your usage meter and your agents' own logs. Estimating it, such as how many points a job will take or what a session cost in points, is still a work in progress. Treat those figures as rough until your project has logged a few sessions.
+
 | skill | what it does | start it with |
 |---|---|---|
 | <a id="skill-budget-select"></a>**budget-select** | *"Help me decide what share of my weekly usage goes to this, so one job doesn't take more than I want."*<br>Gives a [comrun](#pitmasters-own-words) its share of your plan's usage limit, in points, sets its stop lines, and writes a short budget section for the comrun's prompt. | "how much budget should this get?" |
@@ -309,7 +325,7 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 [pre-commit](https://pre-commit.com) hook repository.
 
 <details>
-<summary>If you keep decision records (5 tools)</summary>
+<summary>If you keep decision records (6 tools)</summary>
 
 | tool | what it does |
 |---|---|
@@ -318,16 +334,18 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 | `adr-public` | Drafts the public copy of each ADR into a waiting folder and moves it up only when you approve it. It never publishes. |
 | `record-check` | Checks a meeting record's decisions tables: every decision marked agreed, proposed or open, and each saying where it came up. |
 | `status-check` | Checks a STATUS file's length and that every bullet cites a file that exists. |
+| `catchmeup-gather` | Lists what changed in a project since a date, or since the stamp of when you last caught up (commits, pull requests, log entries), and sets that stamp. |
 
 </details>
 
 <details>
-<summary>If you run several agents or models (3 tools)</summary>
+<summary>If you run several agents or models (4 tools)</summary>
 
 | tool | what it does |
 |---|---|
 | `neighbour-check` | Reads what limits each of your other models (its usage meter, its reset, how fast it is being used) and whether it is busy. |
 | `neighbours` | Reads your list of other models, checks it is sound, and says which of them answer right now. |
+| `spend-ledger` | Reads what a session spent from its own transcript as one ledger row, and reports spend beside what landed over a window. |
 | `looseends-scan` | Lists a project's loose ends (questions never answered, promises not kept, work never merged), each with the file and line it came from. |
 
 </details>
@@ -358,7 +376,8 @@ on macOS, Linux and Windows. Copy a tool's folder into your project, or use the 
 **How the skills use it.** Some skills carry their own copies of shed tools, so every install works offline with
 nothing extra to fetch: `makeadr` carries `adr-index`, `adr-check` and `adr-public`; `project-prep` carries
 `status-check`; `looseends` carries `looseends-scan`; `talk-through` and `townhall` carry `record-check`; `townhall`
-carries `neighbours`; and `neighbour-check` carries the tool of the same name.
+carries `neighbours`; `catchmeup` carries `catchmeup-gather`; and `neighbour-check` and `spend-ledger` each carry the
+tool of the same name.
 
 ## How far each word lets the agent go
 
@@ -417,10 +436,21 @@ codex plugin add pitmaster@pitmaster
 Download a skill's zip from the [latest release](https://github.com/MapleSyrupOS/pitmaster/releases) (pick the
 `claude` build) and upload it in Claude's skill settings. One zip per skill; each is a plain zip with a `.skill` name.
 
+**Antigravity**
+
+```
+agy plugin install https://github.com/MapleSyrupOS/pitmaster
+```
+
+Antigravity converts the Claude Code plugin and installs every skill (tried 2026-11-08). `agy plugin list` shows it.
+
 **Any other agent that reads skills**
 
-Copy a folder from `skills/` into your agent's skills folder, or use the `generic` zips from the release. Each
-skill's *Platform notes* section says what it does differently there.
+Copy a folder from `skills/` into your agent's skills folder, or use the `generic` zips from the release. Copy every
+folder, not just one: the skills hand work to each other, and a skill on its own can't reach its siblings. The
+folder is the one your agent's docs name for skills; for Codex, if you copy instead of using the plugin, it is
+`.agents/skills/` in a project or `~/.codex/skills/` for you. Each skill's *Platform notes* section says what it
+does differently there.
 
 ## Update
 
@@ -454,7 +484,7 @@ old one.
 | Cowork, claude.ai | zip upload | supported |
 | Codex | plugin | supported; smoke-tested 2026-10-16 |
 | OpenCode | copy a folder | smoke-tested 2026-10-16 |
-| Antigravity | copy a folder | smoke-tested 2026-10-16 |
+| Antigravity | plugin (`agy plugin install`) | smoke-tested 2026-10-16; plugin install tried 2026-11-08 |
 | Other Agent Skills tools | copy a folder | expected to work; untested |
 
 Every skill keeps its steps in plain words and puts anything platform-specific in one tagged *Platform notes*
@@ -478,6 +508,7 @@ section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where e
 | neighbour-check | used | not yet | not yet | not yet |
 | setfree | used | not yet | not yet | not yet |
 | townhall | used | not yet | not yet | not yet |
+| catchmeup | used | not yet | not yet | not yet |
 
 The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.

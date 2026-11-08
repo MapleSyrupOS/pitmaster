@@ -1,0 +1,17 @@
+# docs/facts.txt (public): the facts the published docs state, read by stale-facts (ADR-033), which check-all runs.
+# A fact says how to work a value out from the files; a `state` line names a doc that states it and the words
+# around it; a `mention` line needs every item of a list named. A `ruled` doc is a decision record: a stale value
+# there passes once a dated amendment in the same file states the true one. Dated records (bbq records, the log,
+# field reports) are never listed here: they describe the past. The tool's README has the full format.
+
+# The skills: every folder in skills/ that holds a SKILL.md.
+fact skills = dirs skills SKILL.md
+state skills README.md There are {number} [skills]
+state skills docs/starter-guide/words.md {number} skills become available
+mention skills .claude-plugin/plugin.json
+mention skills .codex-plugin/plugin.json
+
+# The repository the plugin installs from.
+fact repo = json .claude-plugin/plugin.json repository github\.com/(.+)$
+state repo README.md marketplace add {text}
+# (The ADRs' Access lines are checked in the private repository only: the public copies have no Access section.)

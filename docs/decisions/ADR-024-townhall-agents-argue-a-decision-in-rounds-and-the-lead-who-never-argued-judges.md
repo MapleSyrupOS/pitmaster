@@ -6,8 +6,8 @@ ratified-on: "2026-10-24"
 owner: the owner
 kind: process
 built: partial
-proof: "`skills/townhall/SKILL.md`, `skills/townhall/scripts/neighbours.pin`, `skills/townhall/scripts/record-check.pin`, `skills/talk-through/scripts/record-check.pin`, `evals/townhall-yes-01/prompt.md`, `evals/townhall-no-01/prompt.md`"
-owed: the live tool, after its own bbq; the first real runs, judged by the owner
+proof: "`skills/townhall/SKILL.md`, `skills/townhall/scripts/neighbours.pin`, `skills/townhall/scripts/record-check.pin`, `skills/talk-through/scripts/record-check.pin`, `evals/townhall-yes-01/prompt.md`, `evals/townhall-no-01/prompt.md`, https://github.com/MapleSyrupOS/pitmaster-shed/pull/5"
+owed: the live tool, after its own bbq (Q5); the first real runs, judged by the owner
 supersedes: nothing
 amends: ADR-014 §Access
 ---
@@ -36,10 +36,12 @@ Drivers:
 - Outside models cost money or plan usage and see the project's files, so they sit only by name from the allow list.
 - A run's record is shared memory, so it is checked the same way a talk's record is.
 
-
 ## The rules
 
-> **Amended 2026-10-24:** rule 8's record ends with the usage, in small print. See the amendment below.
+> **Amended 2026-10-24 by the user:** rule 8's record ends with the usage, in small print. See the amendment below.
+
+> **Amended 2026-11-05 by the user:** rules 4 and 5: debaters get an open question only, no option list and no
+> recommended pick, and positions are free unless roles are assigned in the setup round. See the amendment below.
 
 1. **Which meeting**: "townhall" or "town hall" seats neighbours from the allow list; with none
    listed or reachable it says so and asks whether a family meeting on this one account will do. "familymeeting"
@@ -49,14 +51,14 @@ Drivers:
    should-not-load cases, as is a company or civic town hall.
 3. **Reads first**: the files the opener names, any ADR or proposal on the topic, the status file, the
    newest log entry, and for a townhall the neighbours doc. A question an ADR already rules is not re-argued: the
-   run says so and asks whether to argue an amendment instead.
+   run says so and asks whether to argue an amendment instead (Defaulted).
 4. **The setup round**: one round with the defaults first; words in the opener answer it ahead. It sets
    the **kind** (a decision, a verdict, or attack and defend; nothing ticked), **who sits** (the doc's *Seats*
    line by default, wider or narrower but never past the allow list), **positions** (assigned, held, then a
    closing round), **rounds** (three), the **judge** (the lead unless named) and **watching**
- (full turns by default, short lines or record only).
-5. **Debaters**: one per option, no cap; above four, the cost estimate carries a one-line warning.
-   tier-select picks their models, different ones where the account has more than one. Each gets the
+   (full turns by default, short lines or record only).
+5. **Debaters**: one per option, no cap; above four, the cost estimate carries a one-line warning
+   (Defaulted). tier-select picks their models, different ones where the account has more than one. Each gets the
    question, the options, its position and the lead's cited evidence pack, never the lead's leaning.
 6. **Cost**: the setup round shows debaters × rounds × about 4k tokens a turn, plus the brief. A run that
    seats an outside neighbour, or passes `cost_line` (200k tokens by default), loads budget-select first.
@@ -70,7 +72,7 @@ Drivers:
 9. **The neighbours doc**: `~/.pitmaster/neighbours.md`, one doc for every project and
    every skill that takes the word "neighbourhood". A table (name, how to reach it, family, cost, streams, live), a
    *Seats* line the first townhall writes, and a *Live* section (`delivery`, `filibuster`). A project's
-   `pitmaster.md` may point elsewhere or narrow it with a `neighbours:` line, never widen it.
+   `pitmaster.md` may point elsewhere or narrow it with a `neighbours:` line, never widen it (Defaulted).
 10. **The scripts**: `neighbours` and `record-check` are standard-library Python with red-arm
     self-tests. Their source is `pitmaster-shed` (`neighbours/`, `record-check/`); townhall carries pinned copies of
     both, and talk-through a pinned copy of `record-check`, checked by `check-pins.py` (ADR-012). `neighbours` only
@@ -96,7 +98,7 @@ Each option is priced against the doctrine (function → ours → compatibility)
 
 ### Its own skill, with "townhall" and "familymeeting" as its words (chosen: open argument is a different shape from blind review, and the word says which seats)
 - Good: blind review (the neighbourhood) and open argument stay apart, so neither blurs into the other
-- Good: one skill, two words, the way "makeskill" opens bbq
+- Good: one skill, two words, the way "makeskill" opens bbq (Defaulted)
 - Bad: one more always-loaded description
 - Doctrine: function first; the name, the rounds and the guard are ours; the SKILL.md shape is the common one
 
@@ -118,7 +120,7 @@ Each option is priced against the doctrine (function → ours → compatibility)
 - Good: one shape, written once
 - Bad: no script runs on Cowork or claude.ai, so talk-through keeps a second, by-hand path; most of a record is
   prose a writer only passes through
-- The user first leaned to it, then took the checker
+- The user first leaned to it ("2 I THINK is probably the best option in the long run"), then took the checker
 
 ### The record checker in pitmaster-shed, pinned into both skills (chosen: one source, and a person can check a record with no agent)
 - Good: one source; check-pins catches a copy that drifts; follows ADR-012 rule 1 and looseends-scan's precedent
@@ -170,6 +172,7 @@ round; short lines as the default watching.
 - 2026-10-24: proposed.
 - 2026-10-24: ratified by the owner.
 - 2026-10-24: amended.
+- 2026-11-05: amended.
 
 ## Amendment — 2026-10-24, the user
 
@@ -180,3 +183,18 @@ with the total in one short line. Usage is for the record only, never part of th
 **Why.** The user wanted the usage kept, mostly for documentation, without it crowding the report.
 
 **Touches:** §The rules, rule 8.
+
+## Amendment — 2026-11-05, the user
+
+**What changed.** Every question the lead puts to a debater is open: "What should the noun be, and why?", never
+"Keep A, or switch to B or C?". No list to pick from and no option marked recommended or default; each debater builds
+its own answer in its own words. The options the user named stay with the judge (the evidence pack may still cite
+files that mention them), so a brief carries the question, the debater's role if one was assigned, and the evidence
+pack. Positions are free by default: they are assigned only when the user assigns roles in the setup round, and
+attack and defend assigns its two; then one debater per role, and the question is still asked open. Each round's
+instruction, the guard and the closing round ask the same way. The setup round's questions to the user are unchanged.
+
+**Why.** Agents given a menu tend to take its recommended pick; an open question makes each one think the answer
+through.
+
+**Touches:** §The rules, rules 4 and 5.

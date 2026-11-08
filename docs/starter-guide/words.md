@@ -1,9 +1,8 @@
 # Getting started with Pitmaster — the starter guide (words only)
 
-**Status:** draft words, 2026-10-23, reworded in the owner's words by the bbq in
-`docs/bbq/2026-10-23-readme-starter-guide.md` (Q94–Q137). The look is the owner's to design: layout, art, colours,
+**Status:** draft words, 2026-10-23, reworded in the owner's words. The look is the owner's to design: layout, art, colours,
 type and format (poster, zine, cards, a web page) are all open. Each panel has four parts: a headline, what you type,
-what happens, and a tip (Q94). A line marked *(from the README)* was filled in from the README's wording rather than
+what happens, and a tip. A line marked *(from the README)* was filled in from the README's wording rather than
 asked on its own; change it freely.
 
 ---
@@ -95,7 +94,7 @@ picking until it reaches the budget you set. *(from the README)*
 | carteblanche | any work, for the whole session | anything public, pushing to main, deleting work |
 | trescarteblanche | every project you name | the same |
 
-*(No tip: the table says it, Q137.)*
+*(No tip: the table says it.)*
 
 ---
 
@@ -151,7 +150,7 @@ tastetest, then works through your release checklist and stops for your word bef
 
 ## Panel 13 — Cheat sheet (back cover)
 
-The README's "What to say" table, word for word, so the two always match (Q131):
+The quoted lines from the README's skill tables ("what you'd say"), word for word, so the two always match:
 
 | say | it means |
 |---|---|
@@ -178,7 +177,7 @@ The README's "What to say" table, word for word, so the two always match (Q131):
 ## For the designer (open, the owner's call)
 
 - Format: one poster, a folded zine, a card per skill, or a web page?
-- If it becomes a web page, panel 7 (the ladder) could be interactive: click a word and see what it adds (Q136).
+- If it becomes a web page, panel 7 (the ladder) could be interactive: click a word and see what it adds.
 - A running character or mascot, or none?
 - One panel per skill, or grouped as panels 5, 7 and 8 are here?
 - Does the cheat sheet double as something to print?

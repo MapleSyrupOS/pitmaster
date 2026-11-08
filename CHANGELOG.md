@@ -21,6 +21,43 @@ young: expect changes between minor versions until 1.0.
   two-column table, so they no longer look like a screen of the tool (the owner: "I want simpler buttons and text
   underneath the buttons").
 
+## [0.4.41] — 2026-11-08
+
+### Changed
+- makeadr's pinned `adr-public` and the repository's `stale-facts` move from a commit to the shed's new tag,
+  `v0.5.0` (https://github.com/MapleSyrupOS/pitmaster-shed), so every pin names a public release.
+- The public tree gains `stale-facts` and its own facts file, and check-all runs it there (ADR-033 rule 7).
+- Public ADR copies: ADR-033 (stale-facts) is new; ADR-024 (townhall) gains its 2026-11-05 amendment; ADR-018 drops
+  a leftover gate code.
+
+## [0.4.40] — 2026-11-08
+
+### Fixed
+- Newcomer polish, from a blind audit by Codex and Gemini (Antigravity) of the public tree: the README gives
+  Antigravity a one-line install (`agy plugin install https://github.com/MapleSyrupOS/pitmaster`, tried 2026-11-08),
+  says to copy every skill folder (not one) on other agents and to upload the siblings' zips in Cowork, adds what to
+  do when "Did it work?" says no, counts bbq's eleven types, adds catchmeup to the platform table, and lists the
+  shed's `catchmeup-gather` and `spend-ledger` with the skills that carry them. CONTRIBUTING and NOTICE name every
+  carried shed copy. The starter guide drops a dead private citation and its bare question codes.
+- tastetest and spend-ledger no longer call setfree "not shipped yet"; spend-ledger no longer cites a private
+  record; makeadr's `adr-public` pin no longer names a private pull request.
+
+## [0.4.38] — 2026-11-05
+
+### Changed
+- townhall (ADR-024, amendment of 2026-11-05): debaters get an open question only ("What should the noun be, and
+  why?"), never a list of options to pick from or one marked recommended, so each builds its own answer; positions
+  are free unless the user assigns roles in the setup round (the owner: "they have a tendency to select the
+  "recommended" option").
+
+## [0.4.37] — 2026-11-05
+
+### Fixed
+- makeadr's pinned `adr-public` (pinned to a commit of the shed's next release until that release is tagged) now cuts every record code a record uses (C, F, G, R and
+  S as well as Q, A and D; never M, so a chip name like M1 stays) and marks one left in prose; and a parenthesis of
+  only codes on a wrapped line of its own takes its line break with it, so its full stop no longer sits alone on the
+  next line. Both had been fixed by hand in each public draft since 2026-10-24.
+
 ## [0.4.35] — 2026-11-04
 
 ### Changed

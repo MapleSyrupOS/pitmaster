@@ -1,0 +1,8 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.5.0
+ref-kind: tag
+ref: v0.5.0
+file: 87621f29973cbef01e1e3e50c38adaf98110a32d1cb6224fe18f9ea8d33aea53  stale-facts.py  stale-facts/stale-facts.py
+file: 6d85ce7152f198817c571ffadaa01851f3d3a113a02e2530ee2a25c6c31e52dd  README.md  stale-facts/README.md

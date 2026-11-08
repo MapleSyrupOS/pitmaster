@@ -29,7 +29,7 @@ name: the user                          # who the skill speaks to; "name: Alex" 
 record_dir: docs/townhall               # where a run's record goes: <record_dir>/<date>-<topic>.md (Q26)
 neighbours: ~/.pitmaster/neighbours.md  # the allow list (Q7, Q24); a project may name a path or narrow it to names
 rounds: 3                               # rounds before the closing round (Q13)
-positions: assigned, concede at the end # or: assigned, held | free (Q9, Q11)
+positions: free                         # with roles assigned: assigned, concede at the end | assigned, held (Q9, Q11)
 watch: full                             # full | short | record (Q37)
 cost_line: 200k                         # tokens; an estimate above it loads budget-select (Q17)
 debater_warning: 4                      # more debaters than this shows a warning; it never blocks (Q20)
@@ -55,15 +55,22 @@ skill (Q38, Q40). Its shape is in `references/neighbours-doc.md`.
      rules point by point). Nothing is ticked: the user picks, because a townhall is called on purpose.
    - **Who sits** (Q6, Q34): for a townhall, the default is the line-up from the first run, read from the
      neighbours doc's *Seats* line (on the very first run, ask and write the pick there). The user may go wider or
-     narrower, never past the allow list. One debater per option (Q20); above `debater_warning`, warn and go on.
-   - **Positions** (Q9, Q11), **rounds** (Q13), **judge** (Q8: the lead, unless the user names another), and
-     **watching** (Q37).
+     narrower, never past the allow list. With roles assigned, one debater per role (Q20); above
+     `debater_warning`, warn and go on.
+   - **Positions** (Q9, Q11): free, each debater building its own answer, unless the user assigns roles here (who
+     argues what; attack and defend assigns its two). Then **rounds** (Q13), **judge** (Q8: the lead, unless the
+     user names another), and **watching** (Q37).
    - **Cost** (Q17): a rough estimate (debaters × rounds × about 4k tokens a turn, plus the brief). A townhall that
      seats an outside neighbour, or any run over `cost_line`, loads budget-select for a stop line first.
    - **Models** (Q18): tier-select picks the debaters; where the account has more than one model, give the
      debaters different ones, because different models agree with each other less.
-4. **The brief** (Q21). Each debater gets the question, the options, its position and an evidence pack: the files
-   the lead read in step 2, cited. Debaters may read more. Never the lead's own leaning.
+4. **The brief** (Q21). Each debater gets the question, its role if the setup round assigned one, and an evidence
+   pack: the files the lead read in step 2, cited. Debaters may read more. Never the lead's own leaning.
+   **Ask debaters open questions only** (amended 2026-11-05): "What should the noun be, and why?", never "Keep A, or
+   switch to B or C?". No list to pick from, no option marked recommended or default: each debater builds its own
+   answer in its own words, because agents given a menu tend to take its recommended pick. The options the opener
+   names stay with the judge; the evidence pack may still cite files that mention them. Each round's instruction,
+   the guard and the closing round ask the same way.
 5. **The rounds** (Q13): opening case, reply, rebuttal. Each speaker sees every earlier turn. Show each turn as
    `watch` says. When the user types during a run (Q16), read it before the next speaker and settle with the user:
    the debaters answer it, or the round resets with new settings.

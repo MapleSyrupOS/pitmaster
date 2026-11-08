@@ -12,7 +12,7 @@ Decided by pitmaster ADR-009.
 Sibling of `budget-select` (its calibration row takes this skill's token figures), `tier-select` (the report shows
 each lead model's cost per landing), `carte-blanche` and `dealers-choice` (their end summary's "points spent"
 comes from step 5), `swarm-bottleneck` (which may read the ledger when spend is the constraint), `setfree` (which
-adds a row at the close of release day; not shipped yet) and `neighbour-check` (step 5 leaves it the closing
+adds a row at the close of release day) and `neighbour-check` (step 5 leaves it the closing
 reading, so the user's other accounts see how this one ended).
 
 **A usage meter is shared** by every session on the plan, including chats this machine never sees (claude.ai, the
@@ -75,7 +75,7 @@ prices: scripts/prices.tsv     # the dated list prices behind the proxy
    spent and landed nothing, with their notes; spend by lead model; and the largest three. Add at most one
    observation ("Opus-led sessions cost three times as much per landing this week"). It is not a ruling: changing
    a share or a tier goes through `budget-select` or `tier-select`, and the user.
-7. **Readings and calibrate** (the usage tally; `docs/bbq/2026-11-04-usage-skills-port.md` in pitmaster).
+7. **Readings and calibrate** (the usage tally).
    - **Log a reading** each time a session reads the meter (`budget-select` reads it at each batch end):
      `scripts/spend-ledger.py reading <percent> --meter <name>`. The session takes it itself with the platform's
      usage tool, and asks the user only where no tool can read the meter. A separate pool (such as a top model's
