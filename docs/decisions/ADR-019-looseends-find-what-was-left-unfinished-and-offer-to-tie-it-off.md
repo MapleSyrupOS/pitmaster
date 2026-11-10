@@ -26,6 +26,9 @@ and on the user's yes ties off the small ones and hands the rest on. It runs onl
 > **Amended 2026-10-23 by ADR-023, ratified by the user:** looseendsreally ties off the agent's own loose ends
 > without asking; treslooseends checks the projects named (rule 6).
 
+> **Amended 2026-11-10 by ADR-038, ratified by the user:** a fourth scope in rule 1, decisions ("looseends
+> decisions" or "adrorphans"), past decisions no ADR covers.
+
 1. **Scope:** the word after the opener sets it: `chat` or `session`, `project`, or anything else as a topic. A
    plain "looseends", or a plainer ask ("what's left hanging?", "what did we leave open?", "what's still open?"),
    loads it and asks one question first: "Check for loose ends? This chat, the project, or a topic?" Words with
@@ -72,3 +75,4 @@ and on the user's yes ties off the small ones and hands the rest on. It runs onl
 - 2026-10-23: proposed.
 - 2026-10-23: ratified by the owner.
 - 2026-10-23: amended.
+- 2026-11-10: amended.

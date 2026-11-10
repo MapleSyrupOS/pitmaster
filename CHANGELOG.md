@@ -4,12 +4,41 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
-## [Unreleased]
+## [0.4.47] — 2026-11-10
+
+### Changed
+- looseends: a decisions scope, "looseends decisions" or "adrorphans", finds past decisions no ADR covers (ADR-038).
+  A shipped markers file points the scan at bbq answers, agreed rows, Defaulted rows and the status log's rulings;
+  each find is held to makeadr's *Is it ADR-sized?* test (a checked copy), about ten are shown a run, strongest
+  first, and makeadr is offered once for the ones the user picks. `docs/looseends/adrorphans.md` keeps the stamp,
+  the skipped finds and the ones still waiting. Plain "looseends project" does not run it. `looseends-yes-11` and
+  `looseends-no-06` are new (plugin 0.4.47).
+
+## [0.4.46] — 2026-11-10
+
+Not published on its own: it went out with 0.4.47.
 
 ### Added
+- **napkin** (ADR-037, ratified 2026-11-10), created by [cwlls](https://github.com/cwlls): the eighteenth skill, in the plan
+  family. It reads one or more "napkins", rough design specs in any markdown (named paths, else every `*.md` in
+  `napkins/`), sorts what they say into settled claims cited to their lines, the two or three key calls and the gaps,
+  and hands off to `bbq` seeded with them: settled claims go into the record as cited rules with no question asked,
+  the first round confirms the key calls, and the other rounds ask only the gaps. It runs `project-prep` first only
+  when the project is not set up (neither `AGENTS.md` nor `STATUS.md`), skipping that skill's closing offer. It
+  never edits a napkin, writes code or drafts ADRs; the bbq's ADR candidates (ADR-036) still apply to napkin-cited
+  rules. "napkin" and "napkins" both load it. `templates/napkin.md` holds optional headings. Fifteen trigger cases;
+  `bbq`, `project-prep` and `goforit` gain a pointer line (plugin 0.4.46).
 - ACKNOWLEDGEMENTS.md: the people who shaped pitmaster, and what they did (cwlls and Humbedooh).
 
 ### Changed
+- bbq, goforit, carte-blanche, makeadr, looseends: a run flags ADR-sized decisions as it makes them (ADR-036, from a
+  question by [cwlls](https://github.com/cwlls)). makeadr owns one test, *Is it ADR-sized?*; bbq, goforit and
+  carte-blanche carry a copy that `scripts/check-adr-sized.py` keeps equal, so makeadr is not loaded on every run.
+  Every bbq but the ADR type names its candidates beside Owed ("Owed: 2 · ADR candidates: 1 (Q4)") and keeps
+  them in its record; makeadr is offered once, at the close, only when a candidate is left, and the user picks.
+  looseends reads the list; `makeadr-no-06` is new (plugin 0.4.45).
+- budget-select: an absolute allocation ("35 points, absolute") now says outright that the ceiling, split and reserve
+  questions are not asked, and step 2 and the Budget block follow; `budget-select-yes-08` is new (plugin 0.4.42).
 - README: the projectprep and bbq cards are now raised pixel buttons, each with a teal "What it does" strip, in
   place of windows with a type-here box (the owner: "The buttons for bbq and project prep seem weird and not intuitive
   to click").

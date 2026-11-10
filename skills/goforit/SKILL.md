@@ -10,9 +10,11 @@ description: Carry a plan straight on into the build once its planning skill end
 Decided by pitmaster ADR-017.
 The grant ladder: ADR-023, revisited by ADR-025.
 
-Sibling of `bbq`, `makeadr` and `talk-through` (the planning skills it follows and acts on), `tier-select` (picks
-who builds) and `carte-blanche` (the rung above "goforitreally", which allows everything goforitreally does).
-`looseends` hands it a settled plan that was never built. Built by a Skill bbq whose question record is kept in
+Sibling of `bbq`, `makeadr` and `talk-through` (the planning skills it follows and acts on; makeadr owns the *Is it
+ADR-sized?* test step 9 carries a checked copy of), `tier-select` (picks who builds) and `carte-blanche` (the rung
+above "goforitreally", which allows everything goforitreally does).
+`looseends` hands it a settled plan that was never built. `napkin` offers it when the napkins leave nothing open.
+Built by a Skill bbq whose question record is kept in
 pitmaster's private repository.
 
 **The smallest comrun** is steps 1 to 6, stopping for **ratify** and for **merge**.
@@ -75,6 +77,22 @@ warn_at: 5 points, 1 PR, 2 workers   # both words warn above any of these (step 
    it, say "This looks big: about N points, M PRs, K workers" and offer **go**, **trim** (say what to drop) or
    **back out** (goforitreally drops to plain goforit, stopping at each gate; plain goforit writes a fresh session's
    prompt and stops).
+9. **ADR candidates (both words, ADR-036).** Hold each call made or parked while building to this test, makeadr's;
+   one that passes goes on the *ADR candidates* list in the PR body and the end summary, with the call and the
+   signs it showed:
+
+   <!-- adr-sized:begin (a checked copy of makeadr's test, ADR-036: change it there first) -->
+   **Is it ADR-sized?** An answer or a call is ADR-sized when it will still bind a later session **and** at least one
+   of these holds: (1) it chose between two or more options that each had merit; (2) it fixes something other work
+   will build on (a file format, a folder layout, a dependency, where data lives, a name others will call); (3) it
+   sets a standing rule ("from now on", "always", "never"); (4) it overrules the recommendation; (5) it touches,
+   narrows or reverses an existing ADR. Not ADR-sized: a mechanism with one plain answer; a choice that only shapes
+   this run (its order, its budget, who leads).
+   <!-- adr-sized:end -->
+
+   At the close, only when a candidate is left, offer `makeadr` once: the user picks which become ADRs, and each
+   skipped one is marked "not an ADR, by the user" and never offered again. Never write or draft one on your own,
+   and never offer makeadr mid-build.
 
 **Never:** ratify, or count any word but "ratify" as ratifying; answer a taste question for the user; skip a
 planning skill's questions; merge without "goforitreally" or a plain yes to merge (a project rule that allows

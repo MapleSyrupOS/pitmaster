@@ -1,0 +1,22 @@
+# decisions-markers.txt: where past decisions sit in a pitmaster-style project, for looseends' decisions scope
+# ("looseends decisions" or "adrorphans"; ADR-038). Run it with the scan, without git:
+#   python3 scripts/looseends-scan.py --markers references/decisions-markers.txt --no-git
+# It replaces the default markers for that run. Each row is a likely spot, not a decision: the agent judges every
+# find with the "Is it ADR-sized?" test and drops the ones an ADR already covers. A project can write its own file
+# in this format and name it in the looseends_decisions_markers config line.
+# Not read: ADRs (they are the cover, not finds), prompts for the next agent (*-NEXT.md, which restate rulings),
+# looseends' own records and ledger, and records' "ADR candidates" lists (looseends reads those already, ADR-036).
+# type   kind      files                     pattern
+skip     -         skills/**                 -
+skip     -         drafts/**                 -
+skip     -         templates/**              -
+skip     -         examples/**               -
+skip     -         **/TEMPLATE.md            -
+skip     -         docs/decisions/**         -
+skip     -         **/*-NEXT.md              -
+skip     -         docs/looseends/**         -
+line     ruling    docs/bbq/*.md             ^\s*(?:[-*]\s+)?\*\*Q[0-9]+[a-z]?\b
+line     ruling    **/*.md                   ^\|.*\|\s*agreed\s*\|
+line     ruling    **/*.md                   ^\|\s*D[0-9]+\s*\|
+line     ruling    **/*.md                   ^\|.*\|\s*veto:
+line     ruling    **/STATUS-log.md          \b(owner|user)( [a-z]+){0,2} (ruled|picked|chose|decided|agreed)\b|\b(ruled|picked|chosen|decided|agreed) by the (owner|user)\b|\b(owner|user)'s (ruling|call|pick|choice)\b|\b(owner|user)( [a-z]+){0,2}: "|\bruled\b[^.]{0,40}"

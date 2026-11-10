@@ -11,7 +11,7 @@ Decided by pitmaster ADR-010.
 "project-prepreally": ADR-023.
 
 Siblings: `makeadr` and `bbq` (offered at the end, step 8) and `talk-through` (suggests this skill when a talk was
-about starting a project). Starter files are in `templates/`; the STATUS check is `scripts/status-check.py`. The
+about starting a project) and `napkin` (runs this skill first when the project is not set up yet, and skips step 8). Starter files are in `templates/`; the STATUS check is `scripts/status-check.py`. The
 opt-in rules catalogue is in `rules/`, one file per group, decided by pitmaster ADR-022.
 
 ## Config
@@ -78,7 +78,8 @@ status_ceiling: 300     # the most lines STATUS.md may have; written into the ne
    request and merge it once its checks are green (ADR-023 rule 11); never past a safety stop.
 7. **Say what happened** in a short list: each file created, each file skipped and why, the pieces left out, the
    rule groups switched on, and the check's result.
-8. **"Let's put our first decision on record."** Setting a project up is itself a decision. Offer, in this order:
+8. **"Let's put our first decision on record."** Setting a project up is itself a decision. When `napkin` ran this
+   skill, skip this step: its bbq is the next piece of work. Otherwise offer, in this order:
    - **Record it with `makeadr`** *(Recommended)*: the first ADR says how this project is set up and why. `makeadr`
      asks which format to use, ADR+ first, and writes it into `docs/decisions/README.md`, making the folder if
      needed.

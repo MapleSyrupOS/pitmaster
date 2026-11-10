@@ -6,7 +6,8 @@
   3. the skill spec and platform notes (scripts/build-variants.py --check)
   4. manifest parity between Claude and Codex (scripts/sync-manifests.py --check)
   5. every pinned copy under skills/ equals the release its .pin names (scripts/check-pins.py; makeadr's adr-plus
-     copy among them), and adr-plus's own self-test passes
+     copy among them), and adr-plus's own self-test passes; every copy of makeadr's "Is it ADR-sized?" test equals
+     the master (scripts/check-adr-sized.py, ADR-036)
   6. pitmaster's own ADRs: every YAML header passes the schema, the index is current, every proof resolves and the
      triggers hold from ADR-003 on
   7. pitmaster's own STATUS.md (status-check, with the sections pitmaster.md names)
@@ -49,6 +50,9 @@ CHECKS = [
     ("manifest parity", ["scripts/sync-manifests.py", "--check"]),
     ("pins self-test", ["scripts/check-pins.py", "--self-test"]),
     ("pins", ["scripts/check-pins.py"]),
+    # makeadr's "Is it ADR-sized?" test and its checked copies in bbq, goforit and carte-blanche (ADR-036).
+    ("adr-sized self-test", ["scripts/check-adr-sized.py", "--self-test"]),
+    ("adr-sized copies", ["scripts/check-adr-sized.py"]),
     ("adr-plus self-test", [str(ADR_PLUS / "tools" / "adr-yaml.py"), "--self-test"]),
     ("ADR headers", [str(ADR_PLUS / "tools" / "adr-yaml.py"), "--check"]),
     ("ADR index", [str(ADR / "adr-index.py"), "--check"]),

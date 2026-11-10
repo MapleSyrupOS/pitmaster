@@ -29,3 +29,7 @@ change the ADR and run the script again. An ADR's own header outranks this table
 | [ADR-028](ADR-028-catchmeup-tell-the-user-what-changed-since-they-last-looked.md) | catchmeup: tell the user what changed since they last looked | process | accepted | partial |
 | [ADR-029](ADR-029-neighbour-check-what-limits-each-neighbour-and-whether-it-is-busy.md) | neighbour-check: what limits each neighbour, and whether it is busy, read live | process | accepted | partial |
 | [ADR-033](ADR-033-stale-facts-a-shed-tool-checks-the-facts-living-docs-state-against-the-repo.md) | stale-facts: a shed tool checks the facts living docs state against the repo, and check-all fails on a stale one | process | accepted | partial |
+| [ADR-035](ADR-035-diskscan-reads-only-the-folders-its-owner-allowed.md) | diskscan reads only the folders its owner allowed, and reports the rest as one unread total | process | accepted | not started |
+| [ADR-036](ADR-036-bbq-goforit-and-carte-blanche-flag-adr-sized-decisions-and-offer-makeadr-once-at-the-close.md) | bbq, goforit and carte blanche flag ADR-sized decisions, and makeadr is offered once, at the close | process | accepted | landed |
+| [ADR-037](ADR-037-napkin-a-bbq-sparked-by-the-back-of-a-napkin.md) | napkin: a bbq sparked by the back of a napkin | process | accepted | partial |
+| [ADR-038](ADR-038-looseends-gains-a-decisions-scope-adrorphans-that-finds-past-decisions-no-adr-covers.md) | looseends gains a decisions scope, "adrorphans", that finds past decisions no ADR covers | process | accepted | partial |

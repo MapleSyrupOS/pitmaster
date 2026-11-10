@@ -47,7 +47,9 @@ prompt. If the answers show real options to weigh, offer the full route (steps 1
 1. **Find the folder, the format, any earlier ruling and the number**: step 2, parts 2, 3 and 5.
 2. **Ask only what the ADR cannot stand without:** the decision itself, in a sentence; why (the reason or the
    problem it answers); and where the work is queued, or that it is not. Ask for what the user's lines lack, all in
-   one round. A name or wording the user has not given is taste: ask, never choose it.
+   one round. A name or wording the user has not given is taste: ask, never choose it. A candidate the user picked
+   from a run (see *Is it ADR-sized?* below) already has its decision and reason cited: write them from the cited
+   answer or call, and ask only what it lacks.
 3. **Write the short ADR** from the template: the title as a sentence, then Decision, Context (the user's reason,
    with any premise cited), Consequences (a line or two) and History. Status is `PROPOSED — drafted <date> from the
    user's words; awaiting ratification`. Built is `NOT STARTED — ` and where the work is queued. Leave out
@@ -58,6 +60,28 @@ prompt. If the answers show real options to weigh, offer the full route (steps 1
 the converter with its fixtures and manifest). `adr-plus.pin` records which release. Never edit the copy: to move
 to a newer release, replace the copy, its manifest and the pin in one commit. In a project that has pitmaster's
 `scripts/check-all.py`, `scripts/check-pins.py` fails, naming the file, when the copy drifts.
+
+## Is it ADR-sized?
+
+The one test for whether a decision earns an ADR (ADR-036). This is the master: `bbq`, `goforit` and
+`carte-blanche` carry the paragraph between the markers word for word, so a run can apply it without loading this
+skill. In a project that has pitmaster's `scripts/check-all.py`, `scripts/check-adr-sized.py` fails, naming the
+file, when a copy drifts. Change the wording here first, then the copies.
+
+<!-- adr-sized:begin (a checked copy of makeadr's test, ADR-036: change it there first) -->
+**Is it ADR-sized?** An answer or a call is ADR-sized when it will still bind a later session **and** at least one
+of these holds: (1) it chose between two or more options that each had merit; (2) it fixes something other work
+will build on (a file format, a folder layout, a dependency, where data lives, a name others will call); (3) it
+sets a standing rule ("from now on", "always", "never"); (4) it overrules the recommendation; (5) it touches,
+narrows or reverses an existing ADR. Not ADR-sized: a mechanism with one plain answer; a choice that only shapes
+this run (its order, its budget, who leads).
+<!-- adr-sized:end -->
+
+**Candidates from a run.** Those skills list what passes as *ADR candidates* and offer this skill once, at the
+close, only when a candidate is left; the user picks which become ADRs. Each picked one takes the light route,
+written from its cited answer or call. One that touches an existing ADR goes through step 1's mode choice (amend, a
+new ADR with an `Amends:` line, or supersede), with its one-line notice when amend is chosen. A skipped candidate is
+marked "not an ADR, by the user" where it is listed, and is never offered again.
 
 ## Steps
 

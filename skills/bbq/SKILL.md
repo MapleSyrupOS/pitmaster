@@ -12,10 +12,12 @@ tagged with the question that set it, and the record the bbq ends with is the pr
 session runs it or a fresh one does.
 
 Siblings: `budget-select` (how much of the week the comrun may spend), `tier-select` (which model and effort lead it,
-and which tier does each job) and `makeadr` (turns an ADR-type bbq into a decision record). `project-prep` offers a
-bbq as it finishes, and a `talk-through` plan that needs its questions settled starts one. `goforit`, typed at the end of the opener, takes the bbq's closing offers and carries
-the record on into the work. `looseends` reads a record's Owed and Defaulted lists as loose ends. A bbq never
-re-asks a question a sibling already settled.
+and which tier does each job) and `makeadr` (turns an ADR-type bbq into a decision record, and owns the *Is it
+ADR-sized?* test this skill carries a checked copy of, ADR-036). `project-prep` offers a bbq as it finishes, and a
+`talk-through` plan that needs its questions settled starts one. `napkin` starts a bbq from the user's rough design
+specs, seeded with the rules they settle and only the gaps to ask. `goforit`, typed at the end of the opener, takes
+the bbq's closing offers and carries the record on into the work. `looseends` reads a record's Owed, Defaulted and
+ADR candidates lists as loose ends. A bbq never re-asks a question a sibling already settled.
 
 ## Config
 
@@ -66,8 +68,10 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
      on it" never starts one.
 2. **Ground before you grill.** Before the first round of real questions, read the status file, the newest log
    entry, the open queue it points at and the type's reading, so no question asks what the files already answer.
-   Then load siblings, each only if the comrun needs it, in this order: `budget-select` if the comrun spends a share of
-   the usage limit, then `tier-select` for who leads and who works.
+   In any bbq but the ADR type, also read the decisions index's one-line rows (number, title, status) and nothing
+   more, until an answer touches an ADR (ADR-036). Then load siblings, each only if the comrun needs it, in this
+   order: `budget-select` if the comrun spends a share of the usage limit, then `tier-select` for who leads and who
+   works.
 3. **The rounds.** Up to four questions a round, numbered across rounds (Q1…QN) so answers can be cited. Put
    the recommended option first, marked *(Recommended)*, and give each option its benefit in one line. Ask the
    structural questions first (scope, who may land work, who executes), the mechanical ones last, and let earlier
@@ -75,14 +79,28 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
    - **The Owed list.** A question is *owed* when an answer opens it (adds a constraint, names something not yet
      settled, or asks for a comparison), when the type has something to cover that no question has settled, or
      when a premise check fails. Add each to the record's *Owed* list as it appears, and **end every round with
-     one line: "Owed: N" and what they are**, so the user sees more questions coming.
+     one line: "Owed: N" and what they are**, so the user sees more questions coming. In any bbq but the ADR
+     type, the same line names the ADR candidates so far: "Owed: 2 (budget, landing) · ADR candidates: 1 (Q4)".
+   - **ADR candidates** (every bbq but the ADR type, ADR-036). Hold each answer to this test, makeadr's, as it
+     comes in, and add each that passes to the record's *ADR candidates* list with its question and the signs
+     it showed:
+
+     <!-- adr-sized:begin (a checked copy of makeadr's test, ADR-036: change it there first) -->
+     **Is it ADR-sized?** An answer or a call is ADR-sized when it will still bind a later session **and** at least one
+     of these holds: (1) it chose between two or more options that each had merit; (2) it fixes something other work
+     will build on (a file format, a folder layout, a dependency, where data lives, a name others will call); (3) it
+     sets a standing rule ("from now on", "always", "never"); (4) it overrules the recommendation; (5) it touches,
+     narrows or reverses an existing ADR. Not ADR-sized: a mechanism with one plain answer; a choice that only shapes
+     this run (its order, its budget, who leads).
+     <!-- adr-sized:end -->
+
    - **When the count is reached** with questions still owed, ask once: ask them now (say how many), or default
      them into the record's *Defaulted* list, each with a `veto:` line. `goforit` is a third option on step 1's
      terms: every owed question citable (ADR-017). If the questions run out first, stop. Never pad a round.
    - **Under carte blanche** for this session, ask no rounds: answer every question yourself into the *Defaulted*
      list with a `veto:` line each, keep the Owed list, and end with a summary the user can approve or change. A
      taste answer (a name, a look, a direction) is a proposal, flagged as taste (ADR-007, amendment of
-     2026-10-20).
+     2026-10-20). ADR candidates are listed, never drafted (ADR-036).
 4. **Read answers literally.** An answer that is itself a question or a request ("can you reach the server?") is
    answered with evidence before the next round, and the original question is asked again if that changes it.
    Reachability, tools and state are measured, never assumed.
@@ -92,10 +110,16 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
    - each rule with the question that set it ("**Q7 Landing.** Merge on green.");
    - the *Owed* list (empty at the end, or each item moved to Defaulted);
    - the *Defaulted* list: anything the lead settled without asking, each with a `veto:` note;
+   - the *ADR candidates* list (not in an ADR bbq): each with the question that raised it and the signs it showed,
+     or "ADR candidates: none";
    - any recommendation the user overruled, marked "overruled";
    - a kickoff paragraph (step 7).
 
    A Skill bbq also writes the skill folder.
+
+   **Then, only when an ADR candidate is left, offer `makeadr` once** (ADR-036): the user picks which candidates
+   become ADRs, each written from its cited answer by makeadr's light route; mark each skipped one "not an ADR, by
+   the user", and never offer it again. With none, offer nothing. Never offer makeadr mid-round.
 6. **Route the comrun** by the config's `ending`: `run-here`, `prompt` and `ask` always do that. At `auto`, the
    default:
    - a typed bbq that names its own session (Overnight, Arc, Host, Cloud) always writes a prompt for a fresh

@@ -13,7 +13,8 @@ The grant ladder and "trescarteblanche": ADR-023, revisited by ADR-025.
 Sibling of `budget-select` (sets the budget), `dealers-choice` (picks the work, and asks first whether this grant
 is given) and `tier-select` (picks any workers' models). `goforit` and "goforitreally" sit below it on the ladder
 (goforit, goforitreally, carteblanche, trescarteblanche, each allowing everything the one before allows), and a `bbq`
-stew run under it is answered by a subagent.
+stew run under it is answered by a subagent. `makeadr` owns the *Is it ADR-sized?* test step 4 carries a checked
+copy of (ADR-036).
 
 **The smallest comrun** is one agent in one session: the words, a budget, the work, a line per landing, an end
 summary. Parts marked "bigger comruns" are for workers, a bbq or a hand-off.
@@ -84,6 +85,19 @@ or pattern (`pkill`, `killall`). Remove only files you made. Push fast-forward o
      on the main branch until the user picks.
    - **Other taste calls are parked.** A name or a direction is filed as a question with its options, and that
      strand waits.
+   - **ADR-sized calls are listed, never drafted (ADR-036).** Hold each call the comrun makes or parks to this
+     test, makeadr's; one that passes goes on the end summary's *ADR candidates* list, with the call and the signs
+     it showed:
+
+     <!-- adr-sized:begin (a checked copy of makeadr's test, ADR-036: change it there first) -->
+     **Is it ADR-sized?** An answer or a call is ADR-sized when it will still bind a later session **and** at least one
+     of these holds: (1) it chose between two or more options that each had merit; (2) it fixes something other work
+     will build on (a file format, a folder layout, a dependency, where data lives, a name others will call); (3) it
+     sets a standing rule ("from now on", "always", "never"); (4) it overrules the recommendation; (5) it touches,
+     narrows or reverses an existing ADR. Not ADR-sized: a mechanism with one plain answer; a choice that only shapes
+     this run (its order, its budget, who leads).
+     <!-- adr-sized:end -->
+
    - **A bbq under the grant answers itself (bigger comruns).** When a bbq (or makeadr's rounds) runs in this
      session, answer every question yourself, each in the record's Defaulted list with a `veto:` line, laid out
      in the end summary for the user to approve or change. Taste answers are proposals, flagged as taste. A
@@ -106,7 +120,9 @@ or pattern (`pkill`, `killall`). Remove only files you made. Push fast-forward o
      open strands and any running workers to a fresh lead, which carries on.
 8. **The end summary.** It names the work a comrun ("Finished the comrun: …"). What landed, each with its link; the *Defaulted* list, one line per call the user might
    reverse, each with a `veto:` line; parked strands and their questions; the taste options, with their frames
-   and branches; and the points spent. Any landing reverts on the user's word alone.
+   and branches; the *ADR candidates* list; and the points spent. Any landing reverts on the user's word alone.
+   Then, only when an ADR candidate is left, offer `makeadr` once: the user picks which become ADRs, and each
+   skipped one is marked "not an ADR, by the user" and never offered again.
 
 ## trescarteblanche: the projects named
 

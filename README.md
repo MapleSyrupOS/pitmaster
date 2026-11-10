@@ -8,7 +8,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are seventeen [skills](#the-skills) so far, and more on the way, for agents like
+There are eighteen [skills](#the-skills) so far, and more on the way, for agents like
 [Claude Code, Codex and Antigravity](#platform-support). Pitmaster helps you better understand and organize your
 project without losing track of all the moving parts.
 
@@ -276,6 +276,7 @@ the way through instead of stopping to ask, which usually means merging once the
 
 | skill | what it does | start it with |
 |---|---|---|
+| <a id="skill-napkin"></a>**napkin** | *"Here is a rough spec I wrote. Read it, treat what it settles as decided, and ask me only what it leaves open."*<br>Starts a bbq from your rough design specs ("the back of a napkin", any markdown file). It reads them, turns everything they already settle into rules that cite their lines, and asks only what they leave open, plus a check of the two or three biggest calls they make. It runs `project-prep` first if the project is not set up yet. It never edits your napkins or starts the build. | "napkin", "napkins", "start from my napkin" |
 | <a id="skill-talk-through"></a>**talk-through** | *"Let's have a chat about this and you can distill the important parts of the conversation for me."*<br>Talks a subject through as an open conversation and quietly tracks decisions, open questions, action items and corrections. When you say so, it writes one record that marks each decision agreed, proposed or open, and says where it came up. | "talk-through", "chitchat", "let's talk it through", "talk-throughreally" |
 | <a id="skill-makeadr"></a>**makeadr** | *"Record this decision in a dated decision file, so later sessions know what we decided and why."*<br>Writes a decision down as an architecture decision record (ADR), from a question session or, for a short one, from a few lines. It brings three templates, and scripts that build the list of decisions and check that each claim about what was built points at something that exists. | "makeadr", "let's make an ADR for…" |
 | <a id="skill-townhall"></a>**townhall** | Puts a decision, or a verdict on finished work, to several agents who argue it out in rounds, each holding a side, while the lead never argues: it judges and recommends, then writes one record of who argued what. "townhall" seats the other models you list as your neighbours (other companies' models, local models, other accounts); "familymeeting" seats helpers from the lead's own model family. It acts on nothing itself: a decision goes on to `makeadr`. | "townhall: SQLite or Postgres?", "familymeeting" |
@@ -421,7 +422,7 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
 `/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
-`/pitmaster:catchmeup`, `/pitmaster:townhall` and `/pitmaster:neighbour-check`. Claude also loads them on its own when your request matches.
+`/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:neighbour-check` and `/pitmaster:napkin`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal (the window where you type `codex` to start it), or ask Codex to run them for
 you:
@@ -509,6 +510,7 @@ section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where e
 | setfree | used | not yet | not yet | not yet |
 | townhall | used | not yet | not yet | not yet |
 | catchmeup | used | not yet | not yet | not yet |
+| napkin | used | not yet | not yet | not yet |
 
 The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.

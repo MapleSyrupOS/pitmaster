@@ -50,8 +50,11 @@ and covers the tail (the *Cover* line, step 3).
    stop: no questions, no Budget block, no calibration row.
 1. **For a session that dispatches workers, settle four things every time.** Never default them, except as the
    first bullet says.
-   - **An absolute allocation** ("you get 15 points") is the share: skip the ceiling, split and reserve, take the
-     reading as usual, and cap the share at the hard stop minus the reading.
+   - **An absolute allocation** ("you get 15 points", "35 points, absolute") is the share. **Do not ask the
+     ceiling, split or reserve questions**: the user's number already settles them, and the reserve is theirs to
+     have kept when they chose it. Take the reading as usual, and cap the share at the hard stop minus the
+     reading. Ask a ceiling, split or reserve question only when the user gives no absolute number (or says so:
+     "of the week", "split 3:2").
    - **The ceiling** for this session, or this set of sessions, in points.
    - **Leads in parallel on this meter** until its reset, and **the split ratio**, which the user names; never
      infer one from priority or model mix. A lead on another meter is not in the split.
@@ -63,7 +66,8 @@ and covers the tail (the *Cover* line, step 3).
    - **Alone on the meter?** On pickup, list the account's other running sessions where the platform can. If any,
      this lead's share line is its ledger, and the meter is only the backstop and the hard stop. A handoff never
      writes a share as a meter percentage ("stop at 78 %"): that charges this lead for everyone else's spend.
-2. **Work out the shares.** `room = min(ceiling, hard stop − reading) − reserve`, all on this meter. Split it by
+2. **Work out the shares.** (With an absolute allocation there is nothing to work out: the share is the number
+   given, capped as step 1 says; go to step 3.) `room = min(ceiling, hard stop − reading) − reserve`, all on this meter. Split it by
    the ratio and round down to whole points. Example: a 35-point ceiling, no reserve, a hard stop more than 35
    points away and a 3:2 split give 21 and 14.
 3. **Set the stop lines.** Each lead stops **starting** new work at the first of these. Work in flight finishes,
@@ -98,6 +102,8 @@ and covers the tail (the *Cover* line, step 3).
    ```
    ## Budget
    Share: NN points (1 point = <unit>) of a CC-point ceiling split R:R with <other lead>; reserve VV kept for the user.
+   (For an absolute allocation write "Share: NN points (1 point = <unit>), given absolute by the user." and omit
+   the Room line.)
    Room: HH points (the lower of the ceiling and the hard stop less the reading, less the reserve); split R:R gives NN and MM.
    Written when the <meter> meter read WW % (date, time); that reading is not yours. On pickup: take the reading
    (or ask the user for it), name your meter, note your start reading in the comrun's ledger, and cap the share at
