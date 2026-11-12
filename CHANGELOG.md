@@ -4,6 +4,22 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.48] — 2026-11-12
+
+### Added
+- guided-townhall (ADR-039, ratified 2026-11-12): a townhall that takes turns with the user. One debater speaks, then the user, who may pass, leave a note kept verbatim as a numbered
+  section 0 every later turn answers, ask one seat a question, change the seats or steer the run; seats speak in
+  order, never in parallel. Optional rails: the judge's citation check, a stand-in for a seat that fails after a
+  preflight against quotas and gates, the pack inline for a seat that cannot open files, a word cap, and a blind
+  plan-review before the record. `scripts/turns.py` keeps the run and builds each speaker's prompt, with a
+  `--self-test`. Setup record: `docs/bbq/2026-11-12-skill-guided-townhall.md`. Trigger cases
+  `guided-townhall-yes-01`…`05`, `guided-townhall-no-01`…`04` and `townhall-no-06` are new.
+
+### Changed
+- townhall: points to guided-townhall in its description, Sibling line and step 9 (plugin 0.4.48).
+- ADR-039's public copy goes out with this release (approved at the 0.4.48 release review); ADR-034's stays held
+  until diskcheck ships.
+
 ## [0.4.47] — 2026-11-10
 
 ### Changed

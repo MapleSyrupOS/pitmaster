@@ -33,3 +33,4 @@ change the ADR and run the script again. An ADR's own header outranks this table
 | [ADR-036](ADR-036-bbq-goforit-and-carte-blanche-flag-adr-sized-decisions-and-offer-makeadr-once-at-the-close.md) | bbq, goforit and carte blanche flag ADR-sized decisions, and makeadr is offered once, at the close | process | accepted | landed |
 | [ADR-037](ADR-037-napkin-a-bbq-sparked-by-the-back-of-a-napkin.md) | napkin: a bbq sparked by the back of a napkin | process | accepted | partial |
 | [ADR-038](ADR-038-looseends-gains-a-decisions-scope-adrorphans-that-finds-past-decisions-no-adr-covers.md) | looseends gains a decisions scope, "adrorphans", that finds past decisions no ADR covers | process | accepted | partial |
+| [ADR-039](ADR-039-guided-townhall-a-townhall-that-takes-turns-with-the-user.md) | guided-townhall: a townhall that takes turns with the user | process | accepted | partial |

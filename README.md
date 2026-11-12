@@ -8,7 +8,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are eighteen [skills](#the-skills) so far, and more on the way, for agents like
+There are nineteen [skills](#the-skills) so far, and more on the way, for agents like
 [Claude Code, Codex and Antigravity](#platform-support). Pitmaster helps you better understand and organize your
 project without losing track of all the moving parts.
 
@@ -280,6 +280,7 @@ the way through instead of stopping to ask, which usually means merging once the
 | <a id="skill-talk-through"></a>**talk-through** | *"Let's have a chat about this and you can distill the important parts of the conversation for me."*<br>Talks a subject through as an open conversation and quietly tracks decisions, open questions, action items and corrections. When you say so, it writes one record that marks each decision agreed, proposed or open, and says where it came up. | "talk-through", "chitchat", "let's talk it through", "talk-throughreally" |
 | <a id="skill-makeadr"></a>**makeadr** | *"Record this decision in a dated decision file, so later sessions know what we decided and why."*<br>Writes a decision down as an architecture decision record (ADR), from a question session or, for a short one, from a few lines. It brings three templates, and scripts that build the list of decisions and check that each claim about what was built points at something that exists. | "makeadr", "let's make an ADR for…" |
 | <a id="skill-townhall"></a>**townhall** | Puts a decision, or a verdict on finished work, to several agents who argue it out in rounds, each holding a side, while the lead never argues: it judges and recommends, then writes one record of who argued what. "townhall" seats the other models you list as your neighbours (other companies' models, local models, other accounts); "familymeeting" seats helpers from the lead's own model family. It acts on nothing itself: a decision goes on to `makeadr`. | "townhall: SQLite or Postgres?", "familymeeting" |
+| <a id="skill-guided-townhall"></a>**guided-townhall** | *"Have the agents argue it out, but give me a turn after each speaker so I can steer."*<br>A townhall that takes turns with you: one debater speaks, then you, then the next, who sees everything said so far. On your turn you pass, leave a note every later speaker must answer, ask one debater a question, change who sits, or end it early. The lead still judges and writes the record. | "guided-townhall: SQLite or Postgres?" |
 
 **Run it**
 
@@ -422,7 +423,8 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
 `/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
-`/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:neighbour-check` and `/pitmaster:napkin`. Claude also loads them on its own when your request matches.
+`/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:guided-townhall`, `/pitmaster:neighbour-check` and
+`/pitmaster:napkin`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal (the window where you type `codex` to start it), or ask Codex to run them for
 you:
@@ -511,6 +513,7 @@ section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where e
 | townhall | used | not yet | not yet | not yet |
 | catchmeup | used | not yet | not yet | not yet |
 | napkin | used | not yet | not yet | not yet |
+| guided-townhall | not yet | not yet | not yet | not yet |
 
 The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.

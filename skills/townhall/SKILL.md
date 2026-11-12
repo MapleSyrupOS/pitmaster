@@ -2,7 +2,7 @@
 name: townhall
 metadata:
   family: plan
-description: Put a decision or a verdict to several agents who argue it out in rounds under set rules, while the lead, who never argues, judges and recommends; then write one record of who argued what and offer makeadr. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), or "familymeeting" or "family meeting". "townhall live" hands the run to the live tool, where the user can cut in. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
+description: Put a decision or a verdict to several agents who argue it out in rounds under set rules, while the lead, who never argues, judges and recommends; then write one record of who argued what and offer makeadr. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), or "familymeeting" or "family meeting". "townhall live" hands the run to the live tool, where the user can cut in; a townhall that waits for the user after each speaker is guided-townhall. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
 ---
 
 # townhall: agents argue it out, the lead judges
@@ -13,7 +13,8 @@ Each rule below names the question of its bbq that set it (Q3…Q40).
 Sibling of `makeadr` (a decision a townhall argued, its record already holding the options considered),
 `talk-through` (an open decision from a talk can be put to a townhall; both skills' records pass the same checker),
 `budget-select` (the stop line for a run that seats outside neighbours or passes its cost line), `tier-select`
-(the debaters' models) and `neighbour-check` (which reads this skill's neighbours doc for what limits each
+(the debaters' models), `guided-townhall` (the same meeting taking turns with the user: it follows steps 2 to 4 and
+8 here and replaces the rounds) and `neighbour-check` (which reads this skill's neighbours doc for what limits each
 neighbour and whether it is busy, before any are seated).
 
 **The smallest use:** "familymeeting: should X or Y?", one setup round, three rounds of argument, a recommendation
@@ -88,7 +89,8 @@ skill (Q38, Q40). Its shape is in `references/neighbours-doc.md`.
    makeadr.
 9. **townhall live** (Q5, Q33–Q36, Q38, Q40). Hand the settings to the live tool, which runs the loop in a
    terminal: speakers on servers that stream arrive word by word, and the user types to cut in; a speaker may
-   finish its sentence (`filibuster`), then must answer. Not built yet: until it is, say so and offer a plain run.
+   finish its sentence (`filibuster`), then must answer. Not built yet: until it is, say so and offer a plain run,
+   or guided-townhall, which pauses for the user after every speaker.
 
 ## Never
 
