@@ -2,7 +2,7 @@
 name: guided-townhall
 metadata:
   family: plan
-description: A townhall that takes turns with the user. One debater speaks, then the user, then the next debater, who sees every earlier turn, the user's included; the user may pass, leave a note every later turn must answer, ask one seat a question, change the seats, or steer the run. The lead judges and never argues, and the run ends in a townhall record. Use when the user types "guided-townhall", "guided townhall" or "guidedtownhall", or asks for a townhall "where I get a turn after each speaker" or "that waits for me between speakers". A plain "townhall" or "familymeeting" loads townhall instead, and "townhall live" is the streaming tool, where the user cuts in mid-sentence.
+description: A townhall that takes turns with the user. One debater speaks, then the user, then the next debater, who sees every earlier turn, the user's included; the user may pass, leave a note every later turn must answer, ask one seat a question, change the seats, or steer the run. The lead judges and never argues, and the run ends in a townhall record. Use when the user types "guided-townhall", "guided townhall" or "guidedtownhall", or asks for a townhall "where I get a turn after each speaker" or "that waits for me between speakers". A plain "townhall" or "familymeeting" loads townhall instead, "townhall live", a streaming tool where the user cuts in mid-sentence, is planned, not built.
 ---
 
 # guided-townhall: a townhall that takes turns with you
@@ -102,8 +102,8 @@ Everything in townhall's *Never* list, and:
 
 - **Claude Code:** the setup round is one `AskUserQuestion`. The user's turn is an ordinary reply, not a question
   box: show the turn and its check, then end the reply and wait. Debaters are as in townhall (`Agent` subagents
-  kept going with `SendMessage`; `outside` for Codex, OpenCode and Antigravity; `lanes` or `scripts/turns.py send`
-  for a local model's server). A hook that refuses an `Agent` spawn by model or class is the gate step 1 means:
+  kept going with `SendMessage`; each outside neighbour through whatever the neighbours doc names for it, such as a
+  command-line tool or an MCP server of your own, or `scripts/turns.py send` for a local model's server). A hook that refuses an `Agent` spawn by model or class is the gate step 1 means:
   read its rules for each seat's model and the class the brief will name, before round 1. Antigravity run headless needs
   `--add-dir` for each folder it should read, or it quietly refuses the reads. `scripts/turns.py` is
   standard-library Python with a `--self-test`.

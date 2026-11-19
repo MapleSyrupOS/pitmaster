@@ -8,7 +8,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are nineteen [skills](#the-skills) so far, and more on the way, for agents like
+There are twenty-one [skills](#the-skills) so far, and more on the way, for agents like
 [Claude Code, Codex and Antigravity](#platform-support). Pitmaster helps you better understand and organize your
 project without losing track of all the moving parts.
 
@@ -289,6 +289,8 @@ the way through instead of stopping to ask, which usually means merging once the
 | <a id="skill-goforit"></a>**goforit** | *"This plan is settled. Build it now, and stop only for my approval and my merge."*<br>Once a plan is settled, carries it on into the build, in this chat or with a worker, and stops only for your approval ("ratify") and your merge. bbq also offers "goforit" itself, mid-questions, when every remaining answer can be cited. | "bbq … goforit", "goforitreally" |
 | <a id="skill-dealers-choice"></a>**dealers-choice** | *"You pick what to work on: look at what needs doing, ask me a few quick questions, and pick the most useful job."*<br>The agent picks what to work on. After four quick questions it reads your status file, your debt list (known problems and owed work) and your open pull requests, says what it picked and why, and keeps going until it reaches a [stop line](#pitmasters-own-words). A topic after it ("dealer's choice docs") keeps the pick inside that topic. | "dealer's choice", "dealer's choice docs", "tresdealers-choice" |
 | <a id="skill-carte-blanche"></a>**carte-blanche** | *"Until this session ends, you don't need my OK to push branches, open pull requests or merge them once their checks pass. Stay inside the budget and the project's rules, and leave a veto line for every call you make."*<br>For one session, the agent chooses its own work, pushes branches, opens pull requests, merges them once the checks pass and spends a budget it estimates without asking, inside your project's rules. It writes down each decision it made for you as a veto line, so you can reverse it. Taste always comes back to you. | "carte blanche", "trescarteblanche pitmaster and …" |
+| <a id="skill-call-escalator"></a>**call-escalator** | *"We've tried this twice and it still fails. Get a fresh agent to look at it."*<br>Hands one stuck problem to a fresh agent with a written brief that keeps what was seen apart from what is only guessed. "call-escalator" asks a stronger model; "secondopinion" asks the same model, told none of the guesses. The fresh agent only reads, or tests in one safe place you name, and never merges anything. Your agent checks its answer before acting on it. | "call-escalator", "secondopinion", "escalate this", "fresh eyes on this" |
+| <a id="skill-open-items"></a>**open-items** | *"What's waiting on me?"*<br>Keeps one page per project of everything a long or unattended run needs from you: questions with options, approvals, merges and things to look at. The run posts there and keeps working instead of stopping to ask, and your pick reaches the agent that asked. Where no live page can be made, it uses a file you tick. | "open-items", "asks page", "what's waiting on me?" |
 | <a id="skill-looseends"></a>**looseends** | *"What did we leave unfinished?"*<br>Finds what was left unfinished in this chat, across the project, or around one decision or topic: questions never answered, promises not kept, decisions waiting on you, work never merged. It checks that each is still open, groups them by who must act, and offers to tie them off. Its scan script also runs without an agent. | "looseends", "looseends project", "treslooseends", "any loose ends?", "looseendsreally" |
 | <a id="skill-catchmeup"></a>**catchmeup** | *"What changed since I last looked, and what's waiting on me?"*<br>Tells you what changed in a project since you last looked. It starts with where you left off: a reminder of the week before, and a check that it still holds. Then what was merged, by day, each line naming its commit or pull request; how the way of working changed; what is still in flight; and what is waiting on you, with its options and never decided for you. Last, it recommends one next move, with two runners-up, and leaves starting it to you. It starts from the date you name or from where it left you last time. "trescatchmeup" covers several projects; "catchmeupreally" also saves the catch-up and merges it once the checks pass. A scheduled morning brief can run it with no one there. | "catchmeup", "catchmeup since Friday", "what did I miss?" |
 | <a id="skill-tier-select"></a>**tier-select** | *"Out of our available models, which model should handle this part of the work?"*<br>Picks which model, and how much effort, the lead and each worker should use, by the kind of job, whichever company's models you use. | "which model should lead this?" |
@@ -423,8 +425,8 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:budget-select`, `/pitmaster:tier-select`, `/pitmaster:spend-ledger`, `/pitmaster:dealers-choice`,
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
 `/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
-`/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:guided-townhall`, `/pitmaster:neighbour-check` and
-`/pitmaster:napkin`. Claude also loads them on its own when your request matches.
+`/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:guided-townhall`, `/pitmaster:neighbour-check`,
+`/pitmaster:napkin`, `/pitmaster:call-escalator` and `/pitmaster:open-items`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal (the window where you type `codex` to start it), or ask Codex to run them for
 you:
@@ -514,6 +516,8 @@ section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where e
 | catchmeup | used | not yet | not yet | not yet |
 | napkin | used | not yet | not yet | not yet |
 | guided-townhall | not yet | not yet | not yet | not yet |
+| call-escalator | not yet | not yet | not yet | not yet |
+| open-items | not yet | not yet | not yet | not yet |
 
 The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.
@@ -613,6 +617,10 @@ and merge are Git's words, which GitHub uses too. Pull request, checks, issue an
 - **Taste:** however much an agent does on its own, taste stays with you: names, looks and where the project is
   going.
 - **The shed:** small tools you can run with no agent at all.
+- **Neighbours:** the other models a skill may call (other companies' models, local models, your other
+  accounts), listed by you in one file, `~/.pitmaster/neighbours.md`. Only names on that list are ever used. Pitmaster
+  ships no bridge to them: each row says how you already reach that model. [The neighbours doc](skills/townhall/references/neighbours-doc.md)
+  shows the shape.
 
 ## More
 

@@ -4,6 +4,68 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.53] — 2026-11-18
+
+### Changed
+- townhall, guided-townhall and neighbour-check no longer name private bridges to other models. The neighbours
+  doc's example uses generic names, and says Pitmaster ships no bridge: each row names the way you already reach
+  that model. neighbour-check says its lanes and guard probes are for setups that have them.
+- "townhall live" is marked as planned in both townhall descriptions, since it is not built yet.
+- The README's Words section explains neighbours and where their list lives (`~/.pitmaster/neighbours.md`).
+
+## [0.4.52] — 2026-11-18
+
+### Added
+- open-items (ADR-044, ratified 2026-11-18), the twenty-first skill: one page per project of everything waiting on
+  the user (questions with options, approvals, merges, ratifies, things to look at). An unattended or long run
+  posts there and keeps working instead of stopping on a question box; the coordinator, or the lead, passes each
+  pick back to the seat that asked, and records quote it as a pick with its time. Where no live page can be made,
+  `scripts/open-items.py` keeps the items in a file the user ticks. Moved from `drafts/` at the owner's word.
+
+## [0.4.51] — 2026-11-18
+
+### Added
+- open-items, drafted (`drafts/open-items/`, from the skill bbq `docs/bbq/2026-11-18-skill-open-items.md`): one living
+  page per project of everything waiting on the user, so an unattended or long run posts there and keeps working
+  instead of stopping on a question box. A file fallback script with its self-test in check-all, ten trigger evals,
+  and pointer lines in carte-blanche, catchmeup and looseends. Its ADR is next, through makeadr.
+
+## [0.4.50] — 2026-11-13
+
+### Added
+- "Listen to the coordinator" (ADR-042, ratified 2026-11-13): a tick in carte-blanche's "Anything extra to
+  grant?" question, for a comrun that has a coordinator above several leads. A lead whose grant has it takes two
+  things from the coordinator without the user repeating them in the lead's own session: changes to its pacing
+  (a raise must carry the user's quoted words, under an optional ceiling) and an order to hand a stuck problem to
+  a reader with call-escalator (read-only). Nothing else can be passed down. bbq asks the question for a comrun
+  with a coordinator, budget-select's Budget block gains a line on who may raise a stop line, and call-escalator
+  takes the coordinator's order as a second route. The glossary gains "coordinator"; "supervisor" means the same
+  role. Three trigger cases check that the two words in passing load nothing.
+
+### Changed
+- carte-blanche step 6: a widening relayed by message is still refused, except by a lead whose grant says
+  "Listen to the coordinator".
+
+## [0.4.49] — 2026-11-13
+
+### Added
+- call-escalator (ADR-041, ratified 2026-11-13): hand one stuck problem to a fresh reader. A session counts its
+  failed attempts aloud and offers the skill at two; "call-escalator" asks a stronger model or a higher effort,
+  and "secondopinion" asks the same model and effort, blind. The brief keeps what was seen apart from what is
+  suspected; the reader is read-only unless the brief grants one safe place to test, and never lands work; its
+  verdict names its kind, and a design verdict goes to the user. Record:
+  `docs/bbq/2026-11-12-skill-call-escalator.md`. Trigger cases `call-escalator-yes-01`…`07`,
+  `call-escalator-no-01`…`04` and `tier-select-no-05` are new.
+- Two opt-in rules (ADR-041, amending ADR-022; 32 rules, catalogue date 2026-11-13). `run`: "Count failed attempts
+  at one problem aloud; at two, stop and offer call-escalator. Machine faults never count." `check`: "After adding
+  diagnostics, re-run the last test that passed before the next real try."
+
+### Changed
+- carte-blanche's "Anything extra to grant?" question offers *Hand-overs* as its own tick (ADR-041, amending
+  ADR-007): only with it does call-escalator hand over without asking.
+- tier-select reads the dated notes call-escalator leaves in a roster when a model could not be reached, and both
+  it and carte-blanche name call-escalator in their Sibling lines.
+
 ## [0.4.48] — 2026-11-12
 
 ### Added

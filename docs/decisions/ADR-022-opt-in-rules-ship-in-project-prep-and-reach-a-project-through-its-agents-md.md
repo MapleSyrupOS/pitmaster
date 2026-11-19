@@ -37,6 +37,9 @@ Drivers:
 
 ## The rules
 
+> **Amended 2026-11-13 by ADR-041, ratified by the user:** rule 4's thirty rules (as amended 2026-10-23) become
+> thirty-two: one joins `run`, one joins `check`.
+
 1. **What reaches a project**: the chosen groups' lines, in a marked Rules section of the project's
    `AGENTS.md`. Codex reads that file on its own; Claude Code reads it through the `CLAUDE.md` pointer. A plugin hook
    that adds the lines at session start stays open as a later option, as an extra, never instead of the section.
@@ -136,6 +139,7 @@ Each option is priced against the doctrine (function → ours → compatibility)
 - 2026-10-23: proposed.
 - 2026-10-23: ratified by the owner.
 - 2026-10-23: amended.
+- 2026-11-13: amended.
 
 ## Amendment — 2026-10-23: the held-back rules and their lists
 

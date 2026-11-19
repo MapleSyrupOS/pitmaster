@@ -60,6 +60,10 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
    - **Who leads (model and effort)**, whenever the comrun needs a lead session (an Overnight, an Arc, a Host comrun,
      any comrun with workers). Never assume the biggest model; `tier-select` recommends. The answer goes into the
      record and the kickoff line.
+   - **Listen to the coordinator?** Whenever the comrun has a coordinator (a session above several leads;
+     "supervisor" means the same), ask once whether its leads take pacing and hand-overs from it, and any ceiling
+     (ADR-042; `carte-blanche` holds the rules). The record keeps the answer as the user gave it, with the
+     question and when, and each lead's brief quotes it.
    - **Will the user be reachable?** In a Cloud bbq, and whenever the user says they are away (ADR-006).
    - **Batch?** When the user says "batch" or names several items of one kind to build at once, the bbq runs in
      Batch mode (ADR-015). When the user says "multitask", ask "Batch bbq?" first.

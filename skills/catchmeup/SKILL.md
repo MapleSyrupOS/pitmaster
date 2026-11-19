@@ -15,7 +15,8 @@ amendment's.
 Sibling of `looseends` (catchmeup looks at what changed inside a window; looseends looks for what was left
 unfinished at any age, so the older items still waiting on the user are counted here and handed to
 `looseends project`) and of `dealers-choice` (whose ranking picks the next move here; catchmeup only recommends it,
-and never starts it).
+and never starts it). Where the project keeps an `open-items` page, its open count and link go under what waits
+on the user.
 
 ## Config
 

@@ -26,6 +26,14 @@ names the rule it overrides.
 
 ## The rules
 
+> **Amended 2026-11-13 by ADR-042, ratified by the user:** rule 5's second question offers "Listen to the
+> coordinator", and rule 7's written block gains that tick's line. Rule 7's widening rule gains one exception: a
+> lead whose grant says "Listen to the coordinator" takes a raise to its pacing relayed by the coordinator, in
+> the user's quoted words.
+
+> **Amended 2026-11-13 by ADR-041, ratified by the user:** rule 2's list gains "handing a stuck problem to a
+> reader without asking", and rule 5's second question offers it as its own tick.
+
 > **Amended 2026-10-23 by ADR-023, ratified by the user:** the grant ladder. carte blanche merges its own PRs on
 > green (rule 2), stays in this project while trescarteblanche adds the projects named (rule 4), and estimates its
 > own budget, asking only above 10 points (rule 5).
@@ -87,3 +95,5 @@ Tools that load no plugin reach the skill through a pointer line in their global
 - 2026-10-23: amended.
 - 2026-10-23: ratified by the owner.
 - 2026-10-24: amended.
+- 2026-11-13: amended.
+- 2026-11-13: amended.

@@ -27,4 +27,4 @@ originals are kept in pitmaster's private repository). Rule them row by row for 
 | L4 | **Arc opening or design**: boards, ADRs, a plan with the user live | **mid, xhigh**; **large, high** when the design is security design | mid, high | open-ended, but the judging is shared with the user |
 | L5 | **Prompt-writing session** (a bbq, a handoff, a kickoff) with no workers of its own | **mid, high** | — | it asks and writes; it dispatches nothing |
 | L6 | **The top tier as lead** | only when the user names it | — | the top tier is kept for disputes and final passes |
-| L7 | **Supervisor or monitor**: relays leads' notes to the user, sets merge order, catches crossed wires, merges what is handed over; judges no worker's verdict | **mid, high** | — | its work is relay and coordination; in one project's week it ran at large, high for no gain |
+| L7 | **Coordinator (also supervisor or monitor)**: relays leads' notes to the user, sets merge order, catches crossed wires, merges what is handed over; judges no worker's verdict | **mid, high** | — | its work is relay and coordination; in one project's week it ran at large, high for no gain |

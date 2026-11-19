@@ -65,6 +65,10 @@ The script guesses each neighbour's kinds from its row (name, how to reach it, f
 | **lanes** | "lanes" | no meter: held lanes, a busy queue, the switch | the project's lane queue status and HOLD files | the lane's state, holds, queue | the project has no queue: no verdict |
 | **guard** | a `guard` line | a box that refuses work while in use | the `guard` command over ssh, read-only | its `VERDICT:` line, or its exit code | no answer: unreachable |
 
+**lanes** and **guard** are for setups that have them. A lane queue is a project's own job queue for local models,
+and a guard is a check command you write for a machine; neither ships with Pitmaster, and with neither set up their
+probes find nothing and say so.
+
 ## Steps
 
 0. **Will this session send work to a neighbour, or did the user ask?** If neither, say nothing; the steps end

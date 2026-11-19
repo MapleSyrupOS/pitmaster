@@ -2,7 +2,7 @@
 name: townhall
 metadata:
   family: plan
-description: Put a decision or a verdict to several agents who argue it out in rounds under set rules, while the lead, who never argues, judges and recommends; then write one record of who argued what and offer makeadr. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), or "familymeeting" or "family meeting". "townhall live" hands the run to the live tool, where the user can cut in; a townhall that waits for the user after each speaker is guided-townhall. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
+description: Put a decision or a verdict to several agents who argue it out in rounds under set rules, while the lead, who never argues, judges and recommends; then write one record of who argued what and offer makeadr. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), or "familymeeting" or "family meeting". "townhall live" is planned, not built; a townhall that waits for the user after each speaker is guided-townhall. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
 ---
 
 # townhall: agents argue it out, the lead judges
@@ -106,12 +106,13 @@ skill (Q38, Q40). Its shape is in `references/neighbours-doc.md`.
 
 - **Claude Code:** the setup round is one `AskUserQuestion` with up to four questions, everything needed to answer
   in their own wording. Debaters are `Agent` subagents with the model tier-select picks, each kept going across
-  rounds with `SendMessage`. Outside neighbours are reached with the tools the neighbours doc names (the `outside`
-  server for Codex and OpenCode, `lanes` for the local models). `scripts/neighbours.py` prints the allow list and
+  rounds with `SendMessage`. Outside neighbours are reached with the tools the neighbours doc names (for example a
+  command-line tool such as `codex exec`, a local model's server, or an MCP server of your own; none ships with
+  Pitmaster). `scripts/neighbours.py` prints the allow list and
   who answers right now (`--only` narrows it to the setup round's pick, `--json` for reading back);
   `scripts/record-check.py <record>` checks the record's decisions tables. Both are standard-library Python with a
   `--self-test`. Usage for the small print: a subagent's tokens come back with its result; an Ollama or LM Studio
-  reply carries its token counts; lanes and `outside` replies may not, so say so.
+  reply carries its token counts; other bridges may not, so say so.
 - **Cowork / claude.ai:** no subagents, so no family meeting: a townhall runs only with neighbours the tool can
   reach, otherwise it offers talk-through (Q32). No scripts run: read the neighbours doc by hand and skip the
   record check.

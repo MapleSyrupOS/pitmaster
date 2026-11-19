@@ -23,7 +23,8 @@ Sibling of `budget-select` (how much the comrun may spend; it advises on tiers a
 (which asks the user who leads, with this skill's recommendation). `tastetest` asks it for its auditor's model,
 and `goforit` for who builds. `townhall` asks it for its debaters, mixing models where the account has
 more than one. `neighbour-check` runs before it: this skill routes no work to a neighbour that check reports
-closed or busy.
+closed or busy. `call-escalator` asks it for the reader of a stuck problem, and adds a dated line to its
+roster when the model it named could not be reached (ADR-041).
 
 **The smallest use** is a worker's tier: the roster steps, then the table in part B. Part A is only for a comrun that
 starts a lead.
@@ -46,7 +47,10 @@ local_models: none  # "none", or where your local-model notes live (local models
    vendors, each with its own quota), and the user may ask for a mix.
 2. **Check its *Last checked* date.** **Over about three months old, say so** in one line before using it, and
    offer to re-check it against the vendor's model list.
-3. **No roster for this platform?** Ask the user which models they can use, cheapest first, and how effort is set
+3. **Read the roster's dated notes.** A line beside a model saying it was wanted and could not be reached (a gate
+   refused it, a quota was spent), left by `call-escalator`, counts: say so before naming that model again, and
+   name the model that ran in its place as the fallback.
+4. **No roster for this platform?** Ask the user which models they can use, cheapest first, and how effort is set
    there. Write `docs/tier-rosters/<vendor>.md` in the project from `rosters/TEMPLATE.md` (beside this file) with
    today's date, and use it; a roster written beside the skill would be lost at the next update.
 

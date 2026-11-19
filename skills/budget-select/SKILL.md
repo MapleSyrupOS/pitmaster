@@ -115,6 +115,10 @@ and covers the tail (the *Cover* line, step 3).
    90 % while another usable meter resets first, if agreed). In-flight work finishes. Hand off at ~<context> of
    your context. Before handoff, write your row in the calibration log.
    ```
+
+   Where the comrun has a coordinator, add one line to the block (ADR-042): "A stop line rises only on the user's
+   words: said in this session, or quoted by the coordinator if your grant says *Listen to the coordinator*
+   (ceiling: <figure, or none>)."
 6. **Close: before its handoff the lead writes one row in the calibration log**: the date, session, meter, lead's
    model and effort, share, start and end readings, finished workers' tokens by tier (`spend-ledger` measures
    them, and its row goes in the spend ledger too), which line fired and when, the overrun, and the sessions that

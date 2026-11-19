@@ -8,4 +8,5 @@ project-prep writes when the group is switched on.
 - Say so out loud the moment the work grows past what was asked.
 - When a worker refuses or fails a brief, check the brief before blaming the worker.
 - Start long jobs detached, and judge them by their log, never by what the launcher returned.
+- Count failed attempts at one problem aloud; at two, stop and offer call-escalator. Machine faults never count.
 - Give every scheduled task one home account, written in `docs/rules/task-homes.md`; check that list before making or moving one.

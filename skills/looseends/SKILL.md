@@ -15,7 +15,8 @@ Sibling of `goforit` (a settled plan that was never built), `dealers-choice` (ta
 agent's), `makeadr` (an unratified ADR, one with asks left open, an ADR candidate left open, or a past decision
 no ADR covers) and `bbq` and `talk-through` (their records' Owed lists, ADR candidates, calls open to veto and
 open questions are loose ends this skill reads). `catchmeup` looks at what changed inside a window and sends the
-older items still waiting on the user here.
+older items still waiting on the user here. Where the project keeps an `open-items` page, the items that wait on the
+user may be posted there.
 
 ## Config
 
