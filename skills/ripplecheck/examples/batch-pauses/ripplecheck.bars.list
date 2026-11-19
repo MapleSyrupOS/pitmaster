@@ -1,0 +1,11 @@
+# The same illustration in ADR-293's bar format: glob | row | run|owed|always | command or -.
+# The rows themselves are listed apart, in rows.txt, the way a manifest would list them.
+*                       | FASTGATE  | always | echo fast-gate
+engine/**               | UNIT      | run    | echo unit {files}
+engine/cfg/**           | CFGCENSUS | run    | echo cfg-census
+tools/engine/census.*   | CFGCENSUS | run    | echo cfg-census
+engine/cfg/budget.*     | CORPUS    | owed   | tools/engine/run-row.sh CORPUS
+engine/alloc/**         | CORPUS    | owed   | tools/engine/run-row.sh CORPUS
+**/*.py                 | CORPUS    | run    | echo corpus --only {files}
+sweep-only WEEKLY
+strict engine/ tools/engine/

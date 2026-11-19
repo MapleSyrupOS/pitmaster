@@ -18,6 +18,8 @@ copy of (ADR-036). `call-escalator` hands a stuck problem to a fresh reader; und
 asking only when the grant names hand-overs (ADR-041), or when a coordinator the lead listens to orders it
 (ADR-042). In an unattended comrun, `open-items` keeps the questions for the user on one page; the coordinator
 posts them and passes the answers down on its tick.
+`ripplecheck` says which of the project's checks a branch feeds; run it before merging on green in a
+project that keeps a map, and name its OWED rows in the PR.
 
 **The smallest comrun** is one agent in one session: the words, a budget, the work, a line per landing, an end
 summary. Parts marked "bigger comruns" are for workers, a bbq or a hand-off.

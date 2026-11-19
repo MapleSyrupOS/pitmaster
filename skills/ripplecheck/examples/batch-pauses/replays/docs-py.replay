@@ -1,0 +1,3 @@
+# A docs .py swept into the corpus the CORPUS row reads.
+expect CORPUS
+A	docs/examples/walkthrough.py

@@ -1,0 +1,5 @@
+# The CFG budget and census change: a budget file fed CORPUS, which nobody ran.
+expect CORPUS
+expect CFGCENSUS
+M	engine/cfg/budget.txt
+M	tools/engine/census.py

@@ -1,0 +1,23 @@
+# ripplecheck.list: which checks ("rows") each changed file feeds. Read by ripplecheck.
+# One rule a line. Fields split on spaces. " -- " starts a command, run from the repository root.
+#
+#   row    <ROW> cheap|slow|sweep-only [-- <command>]   every row the project runs, and how its full run starts
+#   feed   <glob> <ROW> [-- <targeted command>]          a changed file matching <glob> feeds <ROW>
+#   always <ROW> [-- <command>]                          the fixed fast gate: fires on every diff
+#   strict <prefix> [<prefix> ...]                       an unmapped changed file under these is red
+#
+# Globs: * and ? stay inside one folder, ** crosses folders, a trailing / means "everything below".
+# Every matching rule fires, not just the first. A slow row with no targeted command is printed OWED.
+
+row  LINT   cheap  -- make lint
+row  UNIT   cheap  -- make test
+row  E2E    slow   -- make e2e
+row  NIGHT  sweep-only
+
+always LINT
+
+feed src/**        UNIT
+feed src/api/**    E2E   -- make e2e-api
+feed web/**        E2E
+
+strict src/

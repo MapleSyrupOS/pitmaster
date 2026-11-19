@@ -8,7 +8,7 @@
 **A plugin of skills, rules and tools that you and your AI agent can use to start new projects or manage existing
 ones.**
 
-There are twenty-one [skills](#the-skills) so far, and more on the way, for agents like
+There are twenty-two [skills](#the-skills) so far, and more on the way, for agents like
 [Claude Code, Codex and Antigravity](#platform-support). Pitmaster helps you better understand and organize your
 project without losing track of all the moving parts.
 
@@ -301,6 +301,7 @@ the way through instead of stopping to ask, which usually means merging once the
 |---|---|---|
 | <a id="skill-tastetest"></a>**tastetest** | *"Audit from an agent that knows nothing about the project."*<br>A blind readiness check before anything goes public. An auditor that knows nothing about your project is shown only what an outsider would see, tries it, and reports READY or NOT READY with ranked findings. It has profiles for a repository going public and for an app going to the App Store. "tastetestreally" also fixes what it finds and audits again until READY. | "tastetest", "is this ready to go public?", "tastetestreally" |
 | <a id="skill-setfree"></a>**setfree** | *"Get the release ready, show me exactly what goes out, and wait for my word before anything is published."*<br>Release day. It shows each decision record waiting to be made public, so you approve or hold each one, and offers a blind tastetest. Then it works through your release checklist and stops for your word before every public step: publishing, tagging a version, making a repository public. | "setfree", "release day", "cut a release" |
+| <a id="skill-ripplecheck"></a>**ripplecheck** | *"Which checks does this branch feed?"*<br>Before a branch lands, reads a map your project keeps of which files feed which checks, lists every check the branch touches and why, runs the quick ones, and names the slow ones as owed, with the command that runs them, so nothing lands having fed a check nobody ran. | "ripplecheck", "knock-on", "what do I owe before merging?" |
 
 **Watch the usage**
 
@@ -426,7 +427,7 @@ The skills are then `/pitmaster:bbq`, `/pitmaster:makeadr`, `/pitmaster:swarm-bo
 `/pitmaster:carte-blanche`, `/pitmaster:project-prep`, `/pitmaster:talk-through`,
 `/pitmaster:tastetest`, `/pitmaster:goforit`, `/pitmaster:looseends`, `/pitmaster:setfree`,
 `/pitmaster:catchmeup`, `/pitmaster:townhall`, `/pitmaster:guided-townhall`, `/pitmaster:neighbour-check`,
-`/pitmaster:napkin`, `/pitmaster:call-escalator` and `/pitmaster:open-items`. Claude also loads them on its own when your request matches.
+`/pitmaster:napkin`, `/pitmaster:call-escalator`, `/pitmaster:open-items` and `/pitmaster:ripplecheck`. Claude also loads them on its own when your request matches.
 
 **Codex**: run these in a terminal (the window where you type `codex` to start it), or ask Codex to run them for
 you:
@@ -518,6 +519,7 @@ section ([ADR-001](docs/decisions/ADR-001-platform-agnostic-skills.md)). Where e
 | guided-townhall | not yet | not yet | not yet | not yet |
 | call-escalator | not yet | not yet | not yet | not yet |
 | open-items | not yet | not yet | not yet | not yet |
+| ripplecheck | not yet | not yet | not yet | not yet |
 
 The smoke tests ran on 2026-10-16.
 *Smoke-tested* means a quick check that the basics work.

@@ -1,0 +1,6 @@
+# the project's rows, one a line
+FASTGATE
+UNIT
+CFGCENSUS
+CORPUS
+WEEKLY

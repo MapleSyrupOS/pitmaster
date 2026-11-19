@@ -28,6 +28,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ADR = ROOT / "skills" / "makeadr" / "scripts"
 ADR_PLUS = ROOT / "skills" / "makeadr" / "adr-plus"
+# drafts/ is not published, so a draft's self-test runs only in the private repository.
 PRIVATE_ONLY = {"publish self-test", "STATUS"}
 PUBLIC = not (ROOT / "publish.txt").exists()
 CHECKS = [
@@ -44,6 +45,7 @@ CHECKS = [
     ("catchmeup-gather self-test", [str(ROOT / "skills" / "catchmeup" / "scripts" / "catchmeup-gather.py"), "--self-test"]),
     ("neighbours self-test", [str(ROOT / "skills" / "townhall" / "scripts" / "neighbours.py"), "--self-test"]),
     ("open-items self-test", [str(ROOT / "skills" / "open-items" / "scripts" / "open-items.py"), "--self-test"]),
+    ("ripplecheck self-test", [str(ROOT / "skills" / "ripplecheck" / "scripts" / "ripplecheck.py"), "--self-test"]),
     ("neighbour-check self-test", [str(ROOT / "skills" / "neighbour-check" / "scripts" / "neighbour-check.py"), "--self-test"]),
     # talk-through carries the same pinned copy; check-pins keeps the two equal.
     ("record-check self-test", [str(ROOT / "skills" / "townhall" / "scripts" / "record-check.py"), "--self-test"]),

@@ -4,6 +4,29 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.55] — 2026-11-18
+
+### Added
+- ripplecheck (ADR-045, ratified 2026-11-18), the twenty-second skill, moved from `drafts/`: before a branch lands,
+  it reads the project's map of which paths feed which checks, lists every check the branch feeds and why, runs
+  the cheap ones and names the slow ones OWED with their command. Its engine is pinned to pitmaster-shed `v0.7.0`.
+
+### Changed
+- diskcheck's draft carries diskscan 0.7.0 from pitmaster-shed `v0.7.0`, the shed's new tag.
+
+## [0.4.54] — 2026-11-18
+
+### Added
+- ripplecheck, drafted (ADR-045, ratified 2026-11-18; `drafts/ripplecheck/`, loaded by "ripplecheck", "knock-on"
+  or "butterfly-effect"): before a branch lands, read the project's map of which paths feed which checks
+  (default `tools/ripplecheck.list`), print every check the diff feeds with the file and map line that fired it,
+  run the cheap ones and name the slow ones OWED with their command. `always` lines for the fixed fast gate,
+  strict prefixes where an unmapped file is red, a coverage check, and replay files that turn a past miss into a
+  test; it reads its own keyword lines and the reference project's ADR-293 bar lines. Its engine is a
+  pitmaster-shed tool, and the draft carries a pinned copy (pitmaster-shed-backroom PR 15, until the next shed
+  tag); its self-test (red arms included) runs in check-all. Ten trigger evals, and pointer lines in goforit and
+  carte-blanche. First drafted under the working name rows-for-diff (`docs/proposals/rows-for-diff.md`).
+
 ## [0.4.53] — 2026-11-18
 
 ### Changed

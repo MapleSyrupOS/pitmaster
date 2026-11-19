@@ -14,6 +14,8 @@ Sibling of `bbq`, `makeadr` and `talk-through` (the planning skills it follows a
 ADR-sized?* test step 9 carries a checked copy of), `tier-select` (picks who builds) and `carte-blanche` (the rung
 above "goforitreally", which allows everything goforitreally does).
 `looseends` hands it a settled plan that was never built. `napkin` offers it when the napkins leave nothing open.
+`ripplecheck` says which of the project's checks a branch feeds; in a project that keeps a map, run it
+before asking to merge (or, under goforitreally, before merging) and name its OWED rows in the PR.
 Built by a Skill bbq whose question record is kept in
 pitmaster's private repository.
 

@@ -1,0 +1,18 @@
+# An illustration, not the reference project's real map: the shape of its three 2026-11-18 batch pauses,
+# each from a change that fed the slow CORPUS row (about two hours) that nobody ran.
+row  FASTGATE   cheap  -- echo fast-gate
+row  UNIT       cheap  -- echo unit
+row  CFGCENSUS  cheap  -- echo cfg-census
+row  CORPUS     slow   -- tools/engine/run-row.sh CORPUS
+row  WEEKLY     sweep-only
+
+always FASTGATE
+
+feed engine/**               UNIT
+feed engine/cfg/**           CFGCENSUS
+feed tools/engine/census.*   CFGCENSUS
+feed engine/cfg/budget.*     CORPUS
+feed engine/alloc/**         CORPUS
+feed **/*.py                 CORPUS
+
+strict engine/ tools/engine/
