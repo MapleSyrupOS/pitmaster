@@ -75,7 +75,8 @@ strict <prefix> [<prefix> ...]
 
 Every matching line fires, not the first. A feed with a targeted command runs that instead of the row's whole run,
 so a slow row can have a cheap slice for the paths that feed it. Globs: `*` and `?` stay in one folder, `**`
-crosses folders, a trailing `/` means everything below. `#` starts a comment only at the start of a line.
+crosses folders, a trailing `/` means everything below. `#` starts a comment only at the start of a line. A `strict` prefix is a folder; one ending
+in `*` (`tools/gen*`) covers every path that starts with the text before the `*`.
 
 The script also reads a second format, one rule a line with bars, `glob | row | run|owed|always | command`
 (`-` for no command); the two can be mixed in one map. In it each rule says whether it runs or is owed, and

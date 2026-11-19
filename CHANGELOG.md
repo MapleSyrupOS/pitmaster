@@ -4,6 +4,13 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.56] — 2026-11-19
+
+### Changed
+- ripplecheck's engine moves to pitmaster-shed `v0.7.1`, with fixes from its first real run in a project. A
+  `strict` prefix ending in `*` covers every path starting with the text before it. The self-test carries no
+  dated comment. The script passes mypy, plain and `--strict`.
+
 ## [0.4.55] — 2026-11-18
 
 ### Added
