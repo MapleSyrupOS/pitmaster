@@ -2,7 +2,7 @@
 name: goforit
 metadata:
   family: run
-description: Carry a plan straight on into the build once its planning skill ends. Typed at the end of a message that starts bbq, makeadr or talk-through (or on its own after one has finished), it takes that skill's closing offers, has the build done here or by a worker, and stops at "ratify" and at "merge"; "goforitreally" also builds what the plan pulls in and merges on green, so the only stop is the user's "ratify"; it is the rung below carte blanche. Use when the user types "goforit" or "goforitreally". A plain "go for it", "yes, do it" or "ok" in answer to a question does not load this skill.
+description: Carry a plan straight on into the build once its planning skill ends, stopping at "ratify" and at "merge". Use when the user types "goforit" or "goforitreally" (also merges on green), at the end of a message that starts bbq, makeadr or talk-through, or on its own after one has finished. A plain "go for it", "yes, do it" or "ok" in answer to a question does not load this skill.
 ---
 
 # goforit: once the plan is set, light the pit

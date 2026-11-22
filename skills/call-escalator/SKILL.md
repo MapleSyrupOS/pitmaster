@@ -2,7 +2,7 @@
 name: call-escalator
 metadata:
   family: run
-description: Hand one stuck problem to a fresh reader, with a brief that keeps what was seen apart from what is only suspected, then check the reader's verdict before acting on it. "call-escalator" hands it to a stronger model or a higher effort; "secondopinion" hands it blind to the same model and effort. Use when the user types "call-escalator", "secondopinion" or "second-opinion", or says "escalate this", "get a stronger model on this", "hand this to a bigger model", "fresh eyes on this" or "we're stuck, escalate". Also offer it once when two attempts at the same problem have failed, before a third is spent; machine faults never count. "Second opinion" as two plain words in passing, "escalate to my manager" and an escalator in a building do not load it. The reader is read-only unless the brief grants one safe place to test, and never lands work.
+description: Hand one stuck problem to a fresh reader, with a brief that keeps what was seen apart from what is only suspected, then check the verdict before acting on it. "call-escalator" asks a stronger model or a higher effort; "secondopinion" asks the same model, blind. Use when the user types "call-escalator", "secondopinion" or "second-opinion", or says "escalate this", "get a stronger model on this", "hand this to a bigger model", "fresh eyes on this" or "we're stuck, escalate". Also offer it once when two attempts at the same problem have failed; machine faults never count. "Second opinion" in passing, "escalate to my manager" and an escalator in a building do not load it.
 ---
 
 # call-escalator: hand a stuck problem to a fresh reader

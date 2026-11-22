@@ -2,7 +2,7 @@
 name: tier-select
 metadata:
   family: run
-description: Decide the model and effort for a session's lead (the session that dispatches, judges and lands) and for each worker it spawns, by the shape of the job, on any vendor. It picks a neutral tier (small, mid, large, top) and an effort, then turns them into real models with a dated roster per vendor (Claude, OpenAI, Google, or one it writes with you). Use when a bbq or a prompt-writing session must say who leads a comrun (also com-run, com run, commission run or commissioned run), before writing an overnight prompt, swarm kickoff or handoff, before spawning subagents or workers, and when the user asks "which model for this", "who should lead", "can the small model do this" or "plan the workers".
+description: Decide the model and effort for a session's lead (the session that dispatches, judges and lands) and for each worker it spawns, by the shape of the job, on any vendor. Use when a bbq or a prompt-writing session must say who leads a comrun (also com-run, com run, commission run or commissioned run), before writing an overnight prompt, swarm kickoff or handoff, before spawning subagents or workers, and when the user asks "which model for this", "who should lead", "can the small model do this" or "plan the workers".
 ---
 
 # tier-select: who leads, and which tier does each job

@@ -2,7 +2,7 @@
 name: spend-ledger
 metadata:
   family: usage
-description: Record what a session actually spent (tokens read from its own transcript, the usage meter's movement, a list-price proxy) beside what it landed (merged, opened and committed counted apart), as one row in the project's spend ledger, and report spend per landing over a window. The after-the-fact twin of budget-select. Use when the user types "spend-ledger", says "log the spend", "record what this session cost", "what did this comrun cost" (a comrun is also written com-run, com run, commission run or commissioned run), "what did we get for the points", "cost per PR", "where did the week's usage go" or "which sessions spent and landed nothing", and at the close of a session in a project that keeps a ledger. Reads Claude Code and Codex transcripts with its script; on any other platform it asks the user for the meter reading and writes the row by hand.
+description: Record what a session actually spent (tokens, the usage meter's movement) beside what it landed, as one row in the project's spend ledger, and report spend per landing over a window. Use when the user types "spend-ledger", says "log the spend", "record what this session cost", "what did this comrun cost" (a comrun is also written com-run, com run, commission run or commissioned run), "what did we get for the points", "cost per PR", "where did the week's usage go" or "which sessions spent and landed nothing", and at the close of a session in a project that keeps a ledger.
 ---
 
 # spend-ledger: what a session spent, beside what it landed

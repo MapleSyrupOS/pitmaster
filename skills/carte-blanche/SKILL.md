@@ -2,7 +2,7 @@
 name: carte-blanche
 metadata:
   family: run
-description: Grant this session standing authority for one comrun. The agent picks and orders its own work, pushes its own branches, opens PRs and spends a set budget without asking, until the session ends. Use when the user says "carte blanche", "carte-blanche", "carteblanche" or "trescarteblanche"; those words grant it. Other phrases that hand over the whole session, such as "you have free rein", "full authority for this session" or "do it all without asking me", load this skill too, even when the message names work you have yet to find. Load it first, before looking around or reading any file: it sets the grant's budget and limits. It then asks "Do you give me carte blanche?" before anything is granted. "Your call" on one choice is not a grant. Never covers taste (naming, looks, direction), ratifying ADRs or editing charters. It merges its own PRs on green; pushing to main, deleting work and outward-facing acts need a named grant. Pairs with dealers-choice, which picks the work.
+description: Grant this session standing authority for one comrun: the agent picks its own work, pushes its own branches, opens PRs and spends a set budget without asking, until the session ends. Use when the user says "carte blanche", "carte-blanche", "carteblanche" or "trescarteblanche", or hands over the whole session ("you have free rein", "full authority for this session", "do it all without asking me"), even when the message names work you have yet to find. Load it first, before looking around or reading any file: it sets the grant's budget and limits. "Your call" on one choice is not a grant.
 ---
 
 # carte-blanche: standing authority for one session, inside the project's rules

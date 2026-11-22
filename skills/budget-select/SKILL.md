@@ -2,7 +2,7 @@
 name: budget-select
 metadata:
   family: usage
-description: Choose the usage budget for a session that will run workers or a long job (a comrun, also com-run, com run, commission run or commissioned run), in points of the plan's usage limit (by default 1 % of the weekly limit), set its stop lines, and write the Budget block its prompt carries. Use at the start of a session that will dispatch workers, before writing an overnight prompt, swarm kickoff or handoff, and when the user asks "how much budget", "what share should this get", "split the week between these", "which account", or "what should we spend the rest of the week on". Works with any platform's usage meter; where none can be read, it asks the user for the reading.
+description: Choose the usage budget for a session that will run workers or a long job (a comrun, also com-run, com run, commission run or commissioned run), in points of the plan's usage limit, set its stop lines, and write the Budget block its prompt carries. Use at the start of a session that will dispatch workers, before writing an overnight prompt, swarm kickoff or handoff, and when the user asks "how much budget", "what share should this get", "split the week between these", "which account" or "what should we spend the rest of the week on".
 ---
 
 # budget-select: a share, its stop lines, and a measurement afterwards

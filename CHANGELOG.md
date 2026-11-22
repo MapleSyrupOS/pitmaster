@@ -4,6 +4,15 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.57] — 2026-11-21
+
+### Changed
+- Every skill's description is shorter: 12,740 characters across the 22 skills, down from 17,675 (measured as the
+  text after `description:` in each `skills/*/SKILL.md`). A session loads every installed skill's description
+  on every request, so this is what the plugin costs a session that never uses it. Each description keeps the
+  words that load its skill and the lines that say what does not load it; what the skill does once loaded is
+  left to the skill's own steps.
+
 ## [0.4.56] — 2026-11-19
 
 ### Changed

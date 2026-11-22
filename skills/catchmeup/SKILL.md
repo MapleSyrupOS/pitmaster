@@ -2,7 +2,7 @@
 name: catchmeup
 metadata:
   family: records
-description: Tell the user what changed in a project since they last looked - where they left off (re-checked), what landed (by day and by run, each line citing its commit or PR), how the way of working changed, what is in flight, what waits on them, and last one recommended next move - from a date they name or the stamp it left last time. Use when the user types "catchmeup" or "catchmeup since" a date, "trescatchmeup" followed by the projects to cover, or "catchmeupreally" (also lands the catch-up and moves the stamp without asking), or says "catch me up". Plainer asks such as "what did I miss?", "what's changed since I last looked?" or "bring me up to speed" also load it, and it first asks "Catch you up since <date>?". A scheduled morning brief can run it unattended.
+description: Tell the user what changed in a project since they last looked: where they left off, what landed, what is in flight, what waits on them, and one recommended next move. Use when the user types "catchmeup", "catchmeup since" a date, "trescatchmeup" followed by the projects to cover, or "catchmeupreally" (lands the catch-up without asking), or says "catch me up", "what did I miss?", "what's changed since I last looked?" or "bring me up to speed". Catching a branch up with main does not load it.
 ---
 
 # catchmeup: what changed since you last looked

@@ -2,7 +2,7 @@
 name: looseends
 metadata:
   family: check
-description: Find what was left unfinished in this chat, across the whole project, or around one ADR or topic - questions never answered, promises not kept, things waiting on the user's ruling, work never landed - check each is still open, list them by who acts, and offer to tie them off. Use when the user types "looseends", "looseends chat", "looseends session", "looseends project", "looseends decisions" or "adrorphans" (past decisions no ADR covers), or "looseends" followed by an ADR or a topic, or "treslooseends" followed by the projects to check (every project named, each by name), or "looseendsreally" (ties off its own share without asking), or asks "any loose ends?", "tie up the loose ends" or "what loose ends are left". Plainer asks such as "what's left hanging?", "what did we leave open?" or "what's still open?" also load it, and it first asks "Check for loose ends? This chat, the project, or a topic?"
+description: Find what was left unfinished in this chat, across the whole project, or around one ADR or topic (questions never answered, promises not kept, things waiting on the user, work never landed), check each is still open, list them by who acts, and offer to tie them off. Use when the user types "looseends", alone or followed by "chat", "session", "project", "decisions", an ADR or a topic; "adrorphans" (past decisions no ADR covers); "treslooseends" followed by the projects to check; or "looseendsreally" (ties off its own share without asking); or asks "any loose ends?", "tie up the loose ends", "what's left hanging?", "what did we leave open?" or "what's still open?".
 ---
 
 # looseends: find what was left unfinished, and offer to tie it off

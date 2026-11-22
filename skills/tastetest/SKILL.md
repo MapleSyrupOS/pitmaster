@@ -2,7 +2,7 @@
 name: tastetest
 metadata:
   family: check
-description: Audit whether something is ready for the public, the way an end user would meet it. A blind auditor (one that knows nothing about the project) gets only what an outsider would see, tries it, and hands back a READY or NOT READY verdict with findings ranked blocks / should fix / nice. Profiles cover a repository going public and an app going to the App Store, whose dated checklist is compared with Apple's live guidelines each run. "tastetest readonly" only reads. Use when the user types "tastetest" or "tastetestreally" (which also fixes the findings and re-audits until READY), or asks "is this ready to go public?", "public readiness audit", "is it App Store ready?" or "audit this before launch". A code review, a security review, "is it done?" or a leak check on its own does not load this skill.
+description: Audit whether something is ready for the public, the way an end user would meet it: a blind auditor gets only what an outsider would see and hands back READY or NOT READY with ranked findings. Covers a repository going public and an app going to the App Store. Use when the user types "tastetest", "tastetest readonly" (only reads) or "tastetestreally" (also fixes the findings and re-audits until READY), or asks "is this ready to go public?", "public readiness audit", "is it App Store ready?" or "audit this before launch". A code review, a security review, "is it done?" or a leak check on its own does not load this skill.
 ---
 
 # tastetest: a blind readiness check before anything goes public

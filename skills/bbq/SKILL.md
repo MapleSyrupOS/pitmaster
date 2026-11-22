@@ -2,7 +2,7 @@
 name: bbq
 metadata:
   family: plan
-description: A Big Batch of Questions. Grill the user in numbered rounds to settle a plan before any work starts, such as a comrun, an overnight queue, a decision or a new skill, then write the record that becomes the prompt. Use when the user types "bbq", "makeskill" or "maketool", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt", or "interview me about a skill I want". "makeskill" opens bbq straight in the Skill type, which writes a new skill folder from the answers; "maketool" opens the Tool type. Other types are ADR, Overnight, Arc, Debt, Morning, Host, Week, PR and Cloud. Any type can run as a Batch ("batch skill bbq", "batch adr bbq"): many items at once, a builder per item. "multitask" also loads it, and it asks "Batch bbq?" first. Any type can run as a stew ("stew bbq", "stew skill bbq"; also "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew", the two words side by side): asked in blocks, each re-planning the next.
+description: A Big Batch of Questions: grill the user in numbered rounds to settle a plan before any work starts, then write the record that becomes the prompt. Use when the user types "bbq", "makeskill" (a bbq for a new skill), "maketool" (for a new tool) or "multitask", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt" or "interview me about a skill I want". A bbq can name its type ("adr bbq", "cloud bbq", "tool bbq"), run as a batch for many items at once ("batch skill bbq"), or run as a stew, asked in blocks ("stew bbq", "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew").
 ---
 
 # bbq: a Big Batch of Questions, then the comrun or its prompt

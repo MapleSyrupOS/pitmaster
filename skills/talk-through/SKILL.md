@@ -2,7 +2,7 @@
 name: talk-through
 metadata:
   family: plan
-description: Talk a subject through as an open conversation, in voice or text, while quietly tracking decisions, open questions, action items and corrections; then, on the user's word, write it all up as one record with each decision marked agreed, proposed or open and cited to where it came up. Use when the user types "talk-through", "talkitout", "talkitthrough", "chatabout", "chitchat" or "talk-it-through" (any of them with "really" run on, such as "talk-throughreally", also merges the record's PR on green), or says "let's talk it through" or "let's just talk it through". Also offer it once when several decisions have piled up in a conversation that did not start with it.
+description: Talk a subject through as an open conversation, in voice or text, while quietly tracking decisions, open questions and action items; then, on the user's word, write it all up as one record. Use when the user types "talk-through", "talkitout", "talkitthrough", "chatabout", "chitchat" or "talk-it-through" (any of them with "really" run on, such as "talk-throughreally", also merges the record's PR on green), or says "let's talk it through" or "let's just talk it through". Also offer it once when several decisions have piled up in a conversation that did not start with it.
 ---
 
 # talk-through: talk a subject through, then write it up as one record

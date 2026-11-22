@@ -2,7 +2,7 @@
 name: guided-townhall
 metadata:
   family: plan
-description: A townhall that takes turns with the user. One debater speaks, then the user, then the next debater, who sees every earlier turn, the user's included; the user may pass, leave a note every later turn must answer, ask one seat a question, change the seats, or steer the run. The lead judges and never argues, and the run ends in a townhall record. Use when the user types "guided-townhall", "guided townhall" or "guidedtownhall", or asks for a townhall "where I get a turn after each speaker" or "that waits for me between speakers". A plain "townhall" or "familymeeting" loads townhall instead, "townhall live", a streaming tool where the user cuts in mid-sentence, is planned, not built.
+description: A townhall that takes turns with the user: one debater speaks, then the user, then the next debater, while the lead judges and never argues. Use when the user types "guided-townhall", "guided townhall" or "guidedtownhall", or asks for a townhall "where I get a turn after each speaker" or "that waits for me between speakers". A plain "townhall" or "familymeeting" loads townhall instead.
 ---
 
 # guided-townhall: a townhall that takes turns with you

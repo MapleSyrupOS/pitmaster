@@ -2,7 +2,7 @@
 name: setfree
 metadata:
   family: run
-description: Run release day. It shows every public copy of an ADR waiting for review (drafted by makeadr's adr-public), so the user approves or holds each, offers a blind tastetest of what will go out, then works through the project's own release checklist (version, changelog, publish, tag, links), doing the local steps and stopping at every public act for the user's word. Use when the user types "setfree", "adr-public", "adr-pub", "adrpublic" or "adrpub", or says "release day", "get ready for release", "cut a release" or "review the public copies". "Is this ready to go public?" is tastetest's; making or ratifying an ADR is makeadr's; bumping a version on its own loads neither.
+description: Run release day: review each public copy of an ADR waiting for approval, offer a blind tastetest, then work through the project's own release checklist, stopping at every public act for the user's word. Use when the user types "setfree", "adr-public", "adr-pub", "adrpublic" or "adrpub", or says "release day", "get ready for release", "cut a release" or "review the public copies". "Is this ready to go public?" is tastetest's; making or ratifying an ADR is makeadr's; bumping a version on its own loads neither.
 ---
 
 # setfree: release day, with every public copy checked on its way out

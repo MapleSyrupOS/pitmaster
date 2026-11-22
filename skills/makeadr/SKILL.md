@@ -2,7 +2,7 @@
 name: makeadr
 metadata:
   family: plan
-description: Make, ratify, amend or supersede an architecture decision record (ADR), in the ADR+ format. A small decision takes the light route (the user states it in a few lines and gets a short ADR); a bigger one takes a live question session. Use when the user types "makeadr" or "bbq adr", or says "let's make an ADR", "make an ADR for…", "write an ADR about…", "new ADR", "record this decision", "turn this into an ADR", "ratify ADR-N", "amend ADR-N" or "add an amendment to ADR-N" (a change to a ruled ADR, kept as a dated section), or "supersede ADR-N". A full new ADR starts by asking how many questions it should get (4, 12, 20, 50 or other) and ends by asking whether to also write a prompt for the next agent. Ships stdlib-only scripts that build the ADR index and check that each Built line's proof resolves. Any change to what an accepted ADR says goes through this skill, as an amendment or a new ADR, never as an edit of its ruled text; fixing a typo is a plain edit and is not this skill.
+description: Make, ratify, amend or supersede an architecture decision record (ADR), in the ADR+ format. Use when the user types "makeadr" or "bbq adr", or says "let's make an ADR", "make an ADR for…", "write an ADR about…", "new ADR", "record this decision", "turn this into an ADR", "ratify ADR-N", "amend ADR-N", "add an amendment to ADR-N" or "supersede ADR-N". Any change to what an accepted ADR says goes through this skill, as an amendment or a new ADR, never as an edit of its ruled text; fixing a typo is a plain edit and does not load it.
 ---
 
 # makeadr: make, ratify, amend or supersede an ADR, in the ADR+ format

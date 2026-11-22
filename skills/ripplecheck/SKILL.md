@@ -2,7 +2,7 @@
 name: ripplecheck
 metadata:
   family: check
-description: Before a branch lands, say which of the project's checks the branch's changes feed, from a map file the project keeps, with the file and the map line that made each fire; run the cheap ones, and name the slow ones OWED with the command that runs them, so no change lands having fed a check nobody ran. Also starts a project's map, and adds a replay of a past change that slipped through so the map cannot miss it again. Use when the user types "ripplecheck", "knock-on", "knockon" or "butterfly-effect", or asks "which checks does this branch feed?", "what do I owe before merging?" or "why did the batch go red when nobody touched that?", and before a merge under goforit, goforitreally or carte-blanche in a project that keeps a map. Not for running a whole test suite, setting up CI, or knock-on effects outside code.
+description: Before a branch lands, say which of the project's checks its changes feed, from a map file the project keeps; run the cheap ones and name the slow ones OWED with the command that runs them. Also starts a project's map. Use when the user types "ripplecheck", "knock-on", "knockon" or "butterfly-effect", or asks "which checks does this branch feed?", "what do I owe before merging?" or "why did the batch go red when nobody touched that?", and before a merge under goforit, goforitreally or carte-blanche in a project that keeps a map. Not for running a whole test suite, setting up CI, or knock-on effects outside code.
 ---
 
 # ripplecheck: which checks this branch feeds

@@ -2,7 +2,7 @@
 name: swarm-bottleneck
 metadata:
   family: usage
-description: Name the one constraint that is limiting a multi-agent comrun, also written com-run, com run, commission run or commissioned run (a swarm, an overnight queue, a lead with workers), right now, with the evidence and one to three moves that relieve it. Use when the user or a lead session asks "what's the bottleneck", "where are we stuck", "how's the swarm doing", "what are we waiting on", or when deciding what to start next while several jobs share the same limits, reviewers or machines. "Why is this slow" loads it only in a multi-agent comrun; one slow command, script, query or web page is an ordinary speed question. Read-only; it measures and reports, and starts nothing.
+description: Name the one constraint that is limiting a multi-agent comrun, also written com-run, com run, commission run or commissioned run (a swarm, an overnight queue, a lead with workers), right now, with the evidence and one to three moves that relieve it. Read-only. Use when the user or a lead session asks "what's the bottleneck", "where are we stuck", "how's the swarm doing" or "what are we waiting on", or when deciding what to start next while several jobs share the same limits, reviewers or machines. "Why is this slow" loads it only in a multi-agent comrun; one slow command, script, query or web page does not.
 ---
 
 # swarm-bottleneck: measure, then name one constraint

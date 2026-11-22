@@ -2,7 +2,7 @@
 name: townhall
 metadata:
   family: plan
-description: Put a decision or a verdict to several agents who argue it out in rounds under set rules, while the lead, who never argues, judges and recommends; then write one record of who argued what and offer makeadr. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), or "familymeeting" or "family meeting". "townhall live" is planned, not built; a townhall that waits for the user after each speaker is guided-townhall. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
+description: Put a decision or a verdict to several agents who argue it out in rounds while the lead, who never argues, judges and recommends; then write one record. A townhall seats the neighbours on the user's allow list (other model families, local models, other accounts); a family meeting seats subagents of the lead's own model family. Use when the user types "townhall" or "town hall" as an opener ("townhall: SQLite or Postgres?"), "townhall live", "familymeeting" or "family meeting". A townhall that waits for the user after each speaker is guided-townhall. A company or civic town hall meeting, "let's talk it through", "debate this with me" or "play devil's advocate" does not load it.
 ---
 
 # townhall: agents argue it out, the lead judges

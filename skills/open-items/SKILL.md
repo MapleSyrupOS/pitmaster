@@ -2,7 +2,7 @@
 name: open-items
 metadata:
   family: run
-description: Keep one living page per project of everything waiting on the user (questions with options, approvals, merges, ratifies, things to look at), so an unattended or long run posts there and keeps working instead of stopping on a question box. The coordinator posts items and passes each answer back to the seat that asked; with no coordinator, the lead does. A pick counts as the user's word and is recorded as a pick, with its time. Use when the user types "open-items", "openitems" or "open items", or says "asks page", "what's waiting on me?" or "put it on the page", and whenever an unattended or long run needs the user. Not for a to-do list in code, GitHub's open issues, or opening a file.
+description: Keep one living page per project of everything waiting on the user (questions, approvals, merges, ratifies, things to look at), so an unattended or long run posts there and keeps working instead of stopping on a question box. Use when the user types "open-items", "openitems" or "open items", or says "asks page", "what's waiting on me?" or "put it on the page", and whenever an unattended or long run needs the user. Not for a to-do list in code, GitHub's open issues, or opening a file.
 ---
 
 # open-items: one page of everything waiting on you

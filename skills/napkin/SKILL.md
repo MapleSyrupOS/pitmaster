@@ -2,7 +2,7 @@
 name: napkin
 metadata:
   family: plan
-description: Jump-start pitmaster from one or more napkins, which are rough design specs written as markdown files ("the back of a napkin"). It reads the napkins, turns everything they already settle into cited rules, and runs a short, targeted bbq that asks only what they leave open, plus a confirmation of the few biggest calls they make. Use when the user types "napkin", "napkins" or "napkin bbq", or says "start from my napkin", "here's the back of a napkin", "jump-start from these specs" or "jump-start pitmaster from these napkins". Not for "napkin math", "grab a napkin", a rough estimate, or an ordinary design-doc review.
+description: Jump-start pitmaster from one or more napkins: rough design specs written as markdown files ("the back of a napkin"). It turns what they already settle into cited rules, then runs a short bbq that asks only what they leave open. Use when the user types "napkin", "napkins" or "napkin bbq", or says "start from my napkin", "here's the back of a napkin", "jump-start from these specs" or "jump-start pitmaster from these napkins". Not for "napkin math", "grab a napkin", a rough estimate, or an ordinary design-doc review.
 ---
 
 # napkin: a bbq sparked by the back of a napkin
