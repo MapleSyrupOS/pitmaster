@@ -2,7 +2,7 @@
 name: bbq
 metadata:
   family: plan
-description: A Big Batch of Questions: grill the user in numbered rounds to settle a plan before any work starts, then write the record that becomes the prompt. Use when the user types "bbq", "makeskill" (a bbq for a new skill), "maketool" (for a new tool) or "multitask", or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt" or "interview me about a skill I want". A bbq can name its type ("adr bbq", "cloud bbq", "tool bbq"), run as a batch for many items at once ("batch skill bbq"), or run as a stew, asked in blocks ("stew bbq", "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew").
+description: A Big Batch of Questions: grill the user in numbered rounds to settle a plan before any work starts, then write the record that becomes the prompt. Use when the user types "bbq", "makeskill" (a bbq for a new skill), "maketool" (for a new tool) or "multitask", or a count before it ("12q bbq"), or asks to "ask me N questions", "grill me before we start", "question me before you delegate", "hone this prompt" or "interview me about a skill I want". A bbq can name its type ("adr bbq", "cloud bbq", "tool bbq"), run as a batch for many items at once ("batch skill bbq"), or run as a stew, asked in blocks ("stew bbq", "stewbbq", "stew-bbq", "bbq stew", "bbqstew", "bbq-stew").
 ---
 
 # bbq: a Big Batch of Questions, then the comrun or its prompt
@@ -49,8 +49,8 @@ A plain bbq is steps 1 to 7. A bigger bbq also reads a file from `references/`:
 - `references/stew.md`: a stew bbq ("stew bbq", "stew skill bbq"), or one turned into a stew mid-way.
 
 1. **The first round: the count, the type, the lead.** One round of questions, before any reading.
-   - **The count.** Use the number the user named ("ask me 20 questions"), else the config's `count`, else ask
-     once: 8, 12, 20 or other. This round's questions are Q1… and count toward the number, so recommend a count
+   - **The count.** Use the number the user named ("ask me 20 questions", or "12q": "12q bbq", "a 16q skill bbq"
+     and "bbq, 20q" all name the count), else the config's `count`, else ask once: 8, 12, 20 or other. This round's questions are Q1… and count toward the number, so recommend a count
      that leaves room (12 or more for the Skill type, which has ten things to cover). Where every question can
      already be answered with a citation (a record's question, an ADR, the user's words here), offer `goforit`
      too, saying what it rests on: no rounds, each question takes its cited answer (ADR-017). If any cannot be

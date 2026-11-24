@@ -4,6 +4,41 @@ All notable changes to pitmaster are recorded here. The format follows Keep a Ch
 (https://keepachangelog.com/en/1.1.0/), and versions follow Semantic Versioning (https://semver.org/). pitmaster is
 young: expect changes between minor versions until 1.0.
 
+## [0.4.61] — 2026-11-24
+
+### Changed
+- project-prep asks two more questions at the start: whether to make a new folder for the project (inside the open
+  folder) or use the open one, and which decision-record format to use (ADR+, MADR, Nygard or "Decide later"),
+  always, even when the decisions piece is left out. The format is written into the decisions folder's README.
+  makeadr reads that answer first and asks the format only when none was recorded (ADR-010 and ADR-005,
+  amendments of 2026-11-23).
+- The README's project-prep and bbq rows use a plain-words layout (when to use it, a quoted line, something to
+  type, a short explanation, and more behind an arrow); a line under them marks the rows still being rewritten.
+- Public decision records: ADR-047 (keyed-merge) is new; ADR-005 and ADR-010 carry their 2026-11-23 amendments.
+
+## [0.4.60] — 2026-11-24
+
+### Changed
+- bbq reads a count written before it ("12q bbq", "a 16q skill bbq", "bbq, 20q") as the number of questions, the
+  way the README and starter guide already teach it; its description says so, and a new trigger case
+  (`bbq-yes-24`) checks it.
+
+## [0.4.59] — 2026-11-23
+
+### Added
+- ripplecheck carries a pinned copy of `keyed-merge`, a new pitmaster-shed tool (ADR-047, shed-backroom #18) that
+  merges the checked-in tables many branches add to (a census, an allowlist, a ledger, a case list) by key instead
+  of by line, as a git merge driver or a command. Before a branch lands, ripplecheck runs its `preview` in a project
+  that keeps a `.keyed-merge`: a row both sides changed two ways is red, and a table both sides changed is named, so
+  the checks that read it are run. project-prep offers once to set it up in a project with such tables.
+
+## [0.4.58] — 2026-11-23
+
+### Fixed
+- makeadr's `adr-public` drops every continuation line of a cut label line (Owner, Consulted, Status, Built): a
+  wrapped `**Consulted:**` line used to leave its second and third lines in the public copy, and `check` passed
+  it. `check` now flags a stray fragment under the opening line. Re-pinned to shed-backroom #17.
+
 ## [0.4.57] — 2026-11-21
 
 ### Changed

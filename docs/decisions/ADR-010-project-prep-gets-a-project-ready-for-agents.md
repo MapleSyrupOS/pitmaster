@@ -30,6 +30,8 @@ that name also loads it.
 1. **Questions first.** One round of four: the project, who owns it, an optional doctrine, and which pieces.
 > **Amended 2026-10-23 by ADR-022 (its rule 5):** the round gains a fifth question, a checklist of the opt-in rule
 > groups.
+> **Amended 2026-11-23 (see *Amendment — 2026-11-23*):** a sixth question, which folder (a new one or the open
+> one), and a seventh, the decision format, always asked.
 2. **Built-in templates**, in `skills/project-prep/templates/`, named `.tmpl` so no tool loads them as live agent
    rules. An optional `reference:` config line copies another repository's folder layout; the text still comes
    from the templates and the answers.
@@ -41,6 +43,8 @@ that name also loads it.
 5. **Git.** Offer `git init` where there is none; commit on a new branch and offer a pull request; commit to
    main or push only when asked.
 6. **No decision format chosen.** The decisions folder gets a README only; `makeadr` asks the format later.
+> **Amended 2026-11-23 (see *Amendment — 2026-11-23*):** project-prep asks the format and records it in the
+> decisions README; `makeadr` asks only when no format was recorded.
 7. **The ending.** Offer `makeadr` to record how the project was set up, then `bbq` for the first piece of work.
 8. **The STATUS shape and its check.** Now, Next, Known debt, Log and how the file is kept, with an archive file
    beside the log and debt files. Every bullet under Now, Next and Known debt cites a file that exists;
@@ -75,6 +79,7 @@ that name also loads it.
 - 2026-10-22: amended.
 - 2026-10-23: amended.
 - 2026-10-23: ratified by the owner.
+- 2026-11-23: amended.
 
 ## Amendment — 2026-10-22, the user
 
@@ -90,3 +95,23 @@ trigger; the user accepted both.
 
 **Touches.** §The rules, rule 1, and the skill's triggers. The ruled text stands; this section governs where they
 differ.
+
+## Amendment — 2026-11-23
+
+**What changed.** Two questions join the setup round. **Which folder:** make a new folder for the project, named
+after it, inside the open folder (or another place the user types), or use the folder that is open. The open
+folder is recommended when it is empty or already a git repository; a new folder when it holds other things.
+**The decision format:** ADR+ (recommended), MADR, Nygard or "Decide later", always asked, even when the decisions
+piece is left out. A chosen format becomes the "Template:" line of the decisions folder's `README.md`, which is
+written for it even when the decisions piece was not chosen. "Decide later" writes "Template: not chosen yet" where
+the decisions piece was chosen, and nothing where it was not. `makeadr` reads that line first and asks only when no
+format is named (ADR-005, amendment of 2026-11-23). This reverses rule 6 and the alternative "project-prep asks the
+decision format itself": project-prep now asks, and `makeadr` asks only after "Decide later" or in a project
+project-prep never set up.
+
+**Why.** The user noticed agents making a folder for a new project without the skill asking, and wanted that to be
+a real choice. They also expected setup to settle the decision format, and ruled that project-prep should always
+ask it and `makeadr` should use that answer first, asking only when project-prep never recorded one.
+
+**Touches.** §The rules, rules 1 and 6, and §Alternatives (project-prep asks the decision format itself). The ruled
+text stands; this section governs where they differ.

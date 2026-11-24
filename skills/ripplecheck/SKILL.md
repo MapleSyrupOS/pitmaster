@@ -15,7 +15,9 @@ Sibling of `goforit` and `carte-blanche` (both run it before a merge, in a proje
 `open-items` (an unattended run posts its OWED rows there when it cannot name them itself). `bbq`'s PR type may
 ask for the project's map when the run will land code.
 
-The skill runs `scripts/ripplecheck.py`, a pinned copy of the pitmaster-shed tool (standard-library Python 3).
+The skill runs `scripts/ripplecheck.py`, a pinned copy of the pitmaster-shed tool (standard-library Python 3). It
+also carries `scripts/keyed-merge.py`, the shed tool that merges shared tables by key (ADR-047), for step 2's
+shared-table check; `project-prep` offers to set it up.
 The script does the work; this page says
 when to run it and what to do with what it prints.
 
@@ -45,6 +47,10 @@ replays: tools/ripplecheck-replays    # past diffs that must name the row they m
 2. **Run it:** `python3 scripts/ripplecheck.py --map <map> --base <base> --replay <replays>`, from the
    project root. It prints every row the diff feeds (`FED`, with file and map line), runs the cheap commands
    (`ok` or `RED`), and prints the slow rows as `OWED` with their commands.
+   **Shared tables:** if the project keeps a `.keyed-merge`, also run
+   `python3 scripts/keyed-merge.py preview <base> HEAD` from the project root. A `CONFLICT` line is red, like a
+   failed run: the two sides changed one row two ways, so fix it in the branch. A table it calls clean but changed on
+   both sides is a prediction: say so in the report, so the checks that read it are run.
 3. **Read the exit.**
    - **0, green:** say so in one line and carry on.
    - **1, red:** stop the landing. Show the `RED` lines as they are. A failed run is fixed in the branch. A broken

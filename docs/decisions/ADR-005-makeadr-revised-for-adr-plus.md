@@ -65,6 +65,7 @@ ADR after it is ruled, and shares its question rules with bbq instead of repeati
 - 2026-10-18: ratified by the owner.
 - 2026-10-22: amended.
 - 2026-10-29: amended.
+- 2026-11-23: amended.
 
 ## Amendment — 2026-10-29
 
@@ -77,3 +78,17 @@ gets a new ADR, and one that reverses the decision supersedes the old one.
 instead of making new ones, without saying it had chosen to. The amendments were sound, and cwlls suggested only that
 makeadr say which ADR it is clarifying. Asking a question before every amendment was considered and not chosen: it
 adds a step to every run.
+
+## Amendment — 2026-11-23
+
+**What changed.** In a decisions folder with no ADRs yet, makeadr first reads the folder's `README.md`. A
+"Template:" line naming ADR+, MADR or Nygard, as `project-prep` now writes it during setup, is the format, used
+without asking; makeadr copies that format's file to `TEMPLATE.md` if it is missing. makeadr asks the format
+question (ADR+ first) only when no format is named: the README says "Template: not chosen yet" (the user chose
+"Decide later" in setup), or the project was never set up by `project-prep`.
+
+**Why.** project-prep now asks the format every time (ADR-010, amendment of 2026-11-23), and the user ruled that
+makeadr should use that answer first and ask only when there is none, so the question is never asked twice.
+
+**Touches.** §The rules, rule 1 (ADR+ first: where the format question is asked). The ruled text stands; this
+section adds to it.

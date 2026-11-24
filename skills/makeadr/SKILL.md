@@ -110,8 +110,11 @@ marked "not an ADR, by the user" where it is listed, and is never offered again.
         "Template: ours" (ADR+'s old name) also means ADR+. "Considered Options" or "Decision Drivers" means MADR. A
         `## Status` section and little else means Nygard. Match the file names and numbering too (`ADR-001-slug.md`
         or `0001-slug.md`).
-      - **The folder has none:** ask once, in this order, and record the answer in the folder's `README.md`
-        ("Template: ADR+", with the date, and a settings table with an `Owner` row):
+      - **The folder has none, but its `README.md` names a format** ("Template: ADR+", "Template: MADR" or
+        "Template: Nygard", as `project-prep` writes it in setup): use that format without asking. If the folder
+        has no `TEMPLATE.md`, copy the chosen file from `templates/` beside this skill to it.
+      - **The folder has none and no format is named:** ask once, in this order, and record the answer in the
+        folder's `README.md` ("Template: ADR+", with the date, and a settings table with an `Owner` row):
         1. **ADR+** *(Recommended)*: a YAML header, then the decision first, then Context, Alternatives and
            Consequences, with `built` and `proof` fields agents can check and an append-only History. Worked
            out over 200+ ADRs in a real OS project.
@@ -119,7 +122,8 @@ marked "not an ADR, by the user" where it is listed, and is never offered again.
         3. **Nygard**: the lightest (Context, Decision, Consequences).
 
         Copy the chosen file from `templates/` beside this skill to `<decisions_dir>/TEMPLATE.md`. A decisions
-        `README.md` that says "Template: not chosen yet", as `project-prep` writes it, counts as a folder with none.
+        `README.md` that says "Template: not chosen yet", as `project-prep` writes it after "Decide later", counts
+        as no format named; so does a project `project-prep` never set up.
    3. **Has the user ruled already?** Search the decisions folder, its index, the queue files and earlier
       question records. A question already ruled is cited, never asked again, and it counts toward neither the
       number nor the rounds.

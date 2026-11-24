@@ -2,6 +2,6 @@
 # then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
 source: MapleSyrupOS/pitmaster-shed
 version: 0.5.0
-ref-kind: tag
-ref: v0.5.0
-file: 42d46524627fb1ed53c699370ff317358ff213a6e4f3bbd6998546c0562d1d6f  adr-public.py  adr-public/adr-public.py
+ref-kind: commit
+ref: 2c8442032adf2df2d08cf70bb1f2b7b5dafe063a
+file: 9126e03d59c0a1405f89aaa42936a6d80df9d5e07756238abbcd3d91002c0b2c  adr-public.py  adr-public/adr-public.py

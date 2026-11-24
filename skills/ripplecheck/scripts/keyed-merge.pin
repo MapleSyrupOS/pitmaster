@@ -1,0 +1,7 @@
+# A pinned copy of a pitmaster-shed tool. Never edit the copy: change the tool in the shed,
+# then copy it here byte for byte and update this pin. scripts/check-pins.py reads this file.
+source: MapleSyrupOS/pitmaster-shed
+version: 0.8.0
+ref-kind: commit
+ref: d0ff7f079043782194d8e7ff36023a4faa5198d0
+file: 41e663108a4a94702df74221c0ed67fa74a78a4a05d652335a56e88555eb5d3e  keyed-merge.py  keyed-merge/keyed-merge.py
